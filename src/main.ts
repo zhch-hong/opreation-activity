@@ -1,6 +1,11 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import store from './store';
+import store, { key } from './store';
 
-createApp(App).use(store).use(router).mount('#app');
+import { installListener } from '@/window-listener';
+
+// 在webview中要添加全局方法供uniwebview调用，这些仅在客户端环境被使用
+installListener();
+
+createApp(App).use(store, key).use(router).mount('#app');
