@@ -1,7 +1,7 @@
 import { ref, watch } from 'vue';
-import { itemConfig } from '../network';
+import { fetchClientConfig } from '@/network';
 
-const itemConfigList = itemConfig();
+const itemConfigList = fetchClientConfig();
 const notifyStack = ref<Record<string, unknown>[]>([]);
 const stackCutdown = ref(0);
 const notifyData = ref<Record<string, unknown> | null>(null);

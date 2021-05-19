@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
 import { countdown, currentID } from '../composables/composition';
-import { fetchCall } from '@/views/home/network';
+import { fetchCall } from '@/network';
 
 import PayWay from './PayWay.vue';
 

@@ -22,10 +22,10 @@
   </teleport>
 </template>
 <script lang="ts">
-import { fetchCall } from '@/views/home/network';
+import { fetchCall } from '@/network';
 import { defineComponent, ref, watch } from 'vue';
 import { currentID, activePrice } from '../composables/composition';
-import { isBrowser } from '@/environ';
+import { isBrowser } from '@/runtime-env';
 
 export default defineComponent({
   name: 'PayWay',

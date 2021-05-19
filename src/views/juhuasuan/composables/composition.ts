@@ -1,9 +1,8 @@
-import { fetchConfig, fetchCall } from '@/views/home/network';
+import { fetchClientConfig, fetchCall } from '@/network';
 import { ref, watch } from 'vue';
 import { triggerUpdate } from './notify';
-import USER from '../user';
 
-const priceList = fetchConfig();
+const priceList = fetchClientConfig('');
 const activePrice = ref<number | null>(null);
 const activePricedata = ref<Record<string, unknown> | null>(null);
 
