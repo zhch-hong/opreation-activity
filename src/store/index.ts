@@ -29,18 +29,4 @@ export default createStore<State>({
       state.baseURL = payload;
     },
   },
-
-  getters: {
-    user(state) {
-      return state.user;
-    },
-
-    token(state) {
-      return state.token;
-    },
-
-    baseURL(state) {
-      return state.baseURL;
-    },
-  },
 });

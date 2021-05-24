@@ -3,9 +3,8 @@ import _ from 'lodash';
 import store from '@/store';
 import { v4 } from 'uuid';
 import { ref, watch } from 'vue';
-import { isBrowser } from '@/runtime-env';
+import { isBrowser, isWebview } from '@/runtime-env';
 import { emitter } from '@/window-listener';
-import { notify } from './notify';
 
 /**
  * 从webview发送消息到客户端
@@ -32,11 +31,15 @@ function webview2client() {
   const messageStack = ref<string[]>([]);
 
   const cb = (v: number) => {
+    console.log('count', 'send', v);
+
     if (v === 0) return;
 
     const url = messageStack.value.shift();
     if (url) {
       messageRun = true;
+      console.log('发送消息', url);
+
       location.href = url;
     }
   };
@@ -45,17 +48,38 @@ function webview2client() {
   watch(
     messageStack,
     (cur, pre) => {
+      console.log('messageStack变化', _.cloneDeep(cur), pre);
+
       // cur.length > pre.length
       // 说明是有消息被添加到消息队列，如果当前没有消息正处于通讯状态，则触发消息发送机制
       // 如果当前正有消息处于通讯状态，则消息触发交由 emitter.on(readuuid) 回调函数处理
-      if (cur.length > pre.length) {
-        if (!messageRun) count.value++;
+      if (pre) {
+        console.log('if');
+
+        if (cur.length > pre.length) {
+          if (!messageRun) {
+            count.value++;
+          }
+        }
+      } else {
+        console.log('else', _.cloneDeep(cur), cur.length, messageRun);
+
+        if (cur.length > 0) {
+          if (!messageRun) {
+            console.log('++');
+
+            count.value++;
+          }
+        }
       }
     },
-    { deep: true }
+    { deep: true, immediate: true }
   );
 
-  function send<T>(url: string, response: boolean) {
+  return function <T>(url: string, response: boolean) {
+    console.log(url, response);
+    console.log(messageStack);
+
     const uuid = v4();
     const readuuid = v4();
 
@@ -65,6 +89,8 @@ function webview2client() {
     messageStack.value.push(url);
 
     emitter.on(readuuid, () => {
+      console.log('消息回执', readuuid);
+
       emitter.off(readuuid);
       messageRun = false;
       if (messageStack.value.length === 0) count.value = 0;
@@ -74,16 +100,18 @@ function webview2client() {
     if (response) {
       return new Promise<T>((resolve, reject) => {
         emitter.on<T>(uuid, (data) => {
+          console.log('数据响应', uuid);
+
           if (data) resolve(data);
           else reject();
           emitter.off(uuid);
         });
       });
     }
-  }
-
-  return send;
+  };
 }
+
+const send = webview2client();
 
 /**
  * 请求客户端配置
@@ -122,7 +150,7 @@ function login(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       axios({
         baseURL: store.state.baseURL,
-        url: '/get_user_by_token',
+        url: 'get_user_by_token',
         method: 'GET',
         params: { token: store.state.token },
       })
@@ -136,17 +164,21 @@ function login(): Promise<void> {
     });
   }
 
-  return new Promise<void>((resolve, reject) => {
-    const url = `webmessage://request?name=login`;
-    const res = webview2client()<Record<string, unknown>>(url, true)!;
-    res
-      .then((data) => {
-        // 计算服务器时间和本地时间差值
-        data['diff'] = Math.floor((new Date().valueOf() - (data.ts as number) * 1000) / 1000);
-        store.commit('COMMIT_USER', data);
-        resolve();
-      })
-      .catch(reject);
+  return new Promise<void>((resolve) => {
+    const data: Record<string, unknown> = {
+      assets: { prop_web_chip_huafei: 1, jing_bi: 1, shop_gold_sum: 1 },
+      jing_bi: 1,
+      prop_web_chip_huafei: 1,
+      shop_gold_sum: 1,
+      nickname: '用户昵称',
+      result: '0',
+      status: 'enable',
+      ts: 0,
+      user_id: '105390',
+    };
+    data['diff'] = Math.floor((new Date().valueOf() - (data.ts as number) * 1000) / 1000);
+    store.commit('COMMIT_USER', data);
+    resolve();
   });
 }
 
@@ -160,7 +192,7 @@ function loopFetch() {
     if (store.state.token && !_.isEmpty(store.state.user)) {
       axios({
         baseURL: store.state.baseURL,
-        url: `/pull_msg?user_id=${store.state.user.user_id}`,
+        url: `pull_msg?user_id=${store.state.user.user_id}`,
         method: 'GET',
         headers: {
           token: store.state.token,
@@ -216,7 +248,7 @@ function fetchCall<T>(params: Record<string, string | Record<string, unknown>>) 
     return new Promise<T>((resolve) => {
       axios({
         baseURL: store.state.baseURL,
-        url: `/msg_call`,
+        url: `msg_call`,
         method: 'POST',
         withCredentials: false,
         data,
@@ -232,7 +264,7 @@ function fetchCall<T>(params: Record<string, string | Record<string, unknown>>) 
     const name = params.name as string;
     const query = JSON.stringify(params.data);
 
-    return webview2client()<T>(`webmessage://request?name=${name}&params=${query}`, true)!;
+    return send<T>(`webmessage://request?name=${name}&params=${query}`, true)!;
   }
 }
 
@@ -244,7 +276,7 @@ function fetchCall<T>(params: Record<string, string | Record<string, unknown>>) 
 function fetchSend(params: unknown) {
   axios({
     baseURL: store.state.baseURL,
-    url: `/msg_send`,
+    url: `msg_send`,
     method: 'POST',
     withCredentials: false,
     data: params,
@@ -263,7 +295,7 @@ function installMessage(params: Record<string, unknown>) {
   if (isBrowser) {
     axios({
       baseURL: store.state.baseURL,
-      url: `/register_msg`,
+      url: `register_msg`,
       method: 'POST',
       withCredentials: false,
       data: params,
@@ -278,7 +310,7 @@ function installMessage(params: Record<string, unknown>) {
     ms.forEach((m, i) => {
       query += `${i + 1}=${m}&`;
     });
-    webview2client()(`webmessage://addlisten?${query.slice(0, -1)}`, false);
+    send(`webmessage://addlisten?${query.slice(0, -1)}`, false);
   }
 }
 
@@ -305,7 +337,7 @@ function uninstallMessage(params: Record<string, unknown>) {
     ms.forEach((m, i) => {
       query += `${i + 1}=${m}&`;
     });
-    webview2client()(`webmessage://removelisten?${query.slice(0, -1)}`, false);
+    send(`webmessage://removelisten?${query.slice(0, -1)}`, false);
   }
 }
 
@@ -319,7 +351,7 @@ function fetchNative(params: Record<string, string | Record<string, unknown>>) {
   data['user_id'] = store.state.user.user_id as string;
   return axios({
     baseURL: store.state.baseURL,
-    url: `/msg_webview_notify`,
+    url: `msg_webview_notify`,
     method: 'GET',
     withCredentials: false,
     params: data,
@@ -330,5 +362,5 @@ function fetchNative(params: Record<string, string | Record<string, unknown>>) {
   });
 }
 
-export default webview2client;
+export default send;
 export { login, fetchClientConfig, loopFetch, fetchCall, installMessage, listenerPositiveMessage, uninstallMessage };

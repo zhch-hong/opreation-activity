@@ -53,4 +53,10 @@ export default defineComponent({
 body {
   margin: 0;
 }
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

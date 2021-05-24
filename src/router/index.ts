@@ -3,8 +3,11 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: '聚划算',
-    component: () => import('@/views/juhuasuan/index.vue'),
+    redirect: '/multi-nav',
+  },
+  {
+    path: '/multi-nav',
+    component: () => import('@/views/multi-nav/multi-nav.vue'),
   },
 ];
 
