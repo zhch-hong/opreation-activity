@@ -13,13 +13,13 @@ export default defineComponent({});
 <style lang="scss" scoped>
 .refresh {
   position: fixed;
-  top: 200px;
-  right: 200px;
+  bottom: 0;
+  right: 0;
   z-index: 10;
-  background-color: rgba(51, 153, 255, 0.5);
 
   a {
-    padding: 20px 40px;
+    background-color: rgba(51, 153, 255, 0.5);
+    padding: 20px 30px;
     margin: 20px;
     font-size: 40px;
   }

@@ -22,7 +22,7 @@ export default defineComponent({
     // 视图缩放，当内容高度大于窗口高度时，将内容高度缩小到窗口高度
     // 当内容高度小于窗口高度时，则不进行缩放
     const appElement = document.querySelector('#app') as HTMLDivElement;
-    const scale = store.state.scale;
+    let scale: string | null = store.state.scale;
 
     if (scale) {
       appElement.style.transform = scale;
@@ -36,9 +36,11 @@ export default defineComponent({
           appElement.style.transform = v;
 
           if (isWebview) {
-            send(`unityfun://storage?scale=${v}`, false);
+            send(`unityfun://storage?1_string=scale&2_string=${v}`, false);
+          } else {
+            localStorage.setItem('scale', v);
           }
-        }, 800);
+        }, 600);
       });
     }
 
@@ -62,6 +64,7 @@ html {
   width: 100vw;
   height: 100vh;
 }
+
 body {
   margin: 0;
   width: 100vw;
@@ -70,5 +73,11 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
