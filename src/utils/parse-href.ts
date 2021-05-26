@@ -11,5 +11,6 @@ export default function () {
 
     if (k === 'token') store.commit('COMMIT_TOKEN', v);
     if (k === 'url') store.commit('COMMIT_BASEURL', decodeURIComponent(v));
+    if (k === 'scale') store.commit('COMMIT_SCALE', v);
   });
 }

@@ -1,9 +1,9 @@
 import { App } from 'vue';
 
 export default function (app: App) {
-  app.directive('center', {
-    mounted(element: HTMLElement) {
-      element.classList.add('flex-center');
+  app.directive('flex', {
+    created: function (el: HTMLElement, binding) {
+      console.log(el, binding);
     },
   });
 }

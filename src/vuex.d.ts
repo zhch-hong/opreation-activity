@@ -7,6 +7,7 @@ declare module '@vue/runtime-core' {
     user: Record<string, unknown>;
     token: string;
     baseURL: string;
+    scale: string;
   }
 
   // 为 `this.$store` 提供类型声明

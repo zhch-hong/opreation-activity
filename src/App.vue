@@ -1,37 +1,46 @@
 <template>
   <router-view />
+  <Refresh />
 </template>
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
-import { isBrowser } from '@/runtime-env';
-import { login, loopFetch } from '@/network';
+import { isBrowser, isWebview } from '@/runtime-env';
+import send, { login, loopFetch } from '@/network';
 import parseHref from '@/utils/parse-href';
+import Refresh from '@/Refresh.vue';
+import store from './store';
 
 export default defineComponent({
-  setup() {
-    // 视图缩放，当内容高度大于窗口高度时，将内容高度缩小到窗口高度
-    // 当内容高度小于窗口高度时，则不进行缩放
-    const html = document.querySelector('html');
-    if (html) {
-      const appScale = localStorage.getItem('appScale');
-      if (appScale) {
-        html.style.transform = appScale;
-      } else {
-        onMounted(() => {
-          setTimeout(() => {
-            const h = parseFloat(getComputedStyle(html).getPropertyValue('height'));
-            let s = window.innerHeight / h;
-            if (s > 1) s = 1;
-            const v = `scale(${s})`;
-            html.style.transform = v;
-            localStorage.setItem('appScale', v);
-          }, 300);
-        });
-      }
-    }
+  components: {
+    Refresh,
+  },
 
+  setup() {
     // 解析 location.href 上的token和服务器的url
     parseHref();
+
+    // 视图缩放，当内容高度大于窗口高度时，将内容高度缩小到窗口高度
+    // 当内容高度小于窗口高度时，则不进行缩放
+    const appElement = document.querySelector('#app') as HTMLDivElement;
+    const scale = store.state.scale;
+
+    if (scale) {
+      appElement.style.transform = scale;
+    } else {
+      onMounted(() => {
+        setTimeout(() => {
+          let s = window.innerHeight / parseFloat(getComputedStyle(appElement).getPropertyValue('height'));
+
+          if (s > 1) s = 1;
+          const v = `scale(${s})`;
+          appElement.style.transform = v;
+
+          if (isWebview) {
+            send(`unityfun://storage?scale=${v}`, false);
+          }
+        }, 800);
+      });
+    }
 
     // 登录
     login();
@@ -42,21 +51,24 @@ export default defineComponent({
     }
   },
 });
+
+// padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom)
+//   constant(safe-area-inset-left); /* 兼容 iOS < 11.2 */
+// padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* 兼容 iOS >= 11.2 */
 </script>
 
-<style>
-*::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+<style lang="scss">
+html {
+  width: 100vw;
+  height: 100vh;
 }
-
 body {
   margin: 0;
-}
-
-.flex-center {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 </style>
