@@ -11,7 +11,7 @@ module.exports = {
       unitPrecision: 6,
       // propList: ['*', '!font*'],
       // fontViewportUnit: 'px',
-      selectorBlackList: ['ignore'],
+      selectorBlackList: ['ignore', 'van'],
       include: /\/src\//,
       landscapeWidth: 1080,
     },

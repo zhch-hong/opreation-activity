@@ -1,5 +1,8 @@
 <template>
-  <div class="multi-nav"></div>
+  <div v-bind="$attrs" class="multi-nav">
+    <span>每日福利</span><br />
+    <span>疯狂返利</span>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -18,5 +21,6 @@ export default defineComponent({
   background-position: center;
   background-size: cover;
   overflow: hidden;
+  color: aquamarine;
 }
 </style>

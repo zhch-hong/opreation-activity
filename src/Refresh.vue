@@ -1,27 +1,32 @@
 <template>
-  <div class="refresh">
-    <a href="uniwebviewfun://CleanCache">清除缓存</a>
-    <a href="uniwebviewfun://Reload">刷新</a>
-    <a href="uniwebviewfun://Hide">关闭</a>
-  </div>
+  <teleport to="body">
+    <div class="refresh">
+      <a href="uniwebviewfun://CleanCache">清除缓存</a>
+      <a href="uniwebviewfun://Reload">刷新</a>
+      <a href="uniwebviewfun://Hide">关闭</a>
+    </div>
+  </teleport>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export default defineComponent({});
+export default defineComponent({
+  name: 'Refresh',
+});
 </script>
 <style lang="scss" scoped>
 .refresh {
   position: fixed;
-  bottom: 0;
+  top: 20px;
   right: 0;
-  z-index: 10;
+  z-index: 1000;
 
   a {
     background-color: rgba(51, 153, 255, 0.5);
-    padding: 20px 30px;
-    margin: 20px;
-    font-size: 40px;
+    padding: 10px 30px;
+    margin-right: 20px;
+    border-radius: 6px;
+    color: turquoise;
   }
 }
 </style>

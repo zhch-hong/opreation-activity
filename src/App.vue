@@ -16,6 +16,10 @@ export default defineComponent({
   },
 
   setup() {
+    if (isWebview) {
+      document.body.style.fontFamily = "'FZY4JW' !important;";
+    }
+
     // 解析 location.href 上的token和服务器的url
     parseHref();
 
@@ -40,7 +44,7 @@ export default defineComponent({
           } else {
             localStorage.setItem('scale', v);
           }
-        }, 600);
+        }, 1000);
       });
     }
 
@@ -49,7 +53,7 @@ export default defineComponent({
 
     // 如果在浏览器中，要循环请求主动推送到webview的消息
     if (isBrowser) {
-      loopFetch();
+      // loopFetch();
     }
   },
 });
@@ -60,19 +64,31 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: 'FZY3JW';
+  src: url('./assets/font/FZY3JW.TTF');
+}
+
+@font-face {
+  font-family: 'FZY4JW';
+  src: url('./assets/font/FZY4JW.TTF');
+}
+
 html {
   width: 100vw;
   height: 100vh;
+  // padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom)
+  //   constant(safe-area-inset-left); /* 兼容 iOS < 11.2 */
+  // padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* 兼容 iOS >= 11.2 */
 }
 
 body {
   margin: 0;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
+
+  font-size: 32px;
 }
 
 .center {
