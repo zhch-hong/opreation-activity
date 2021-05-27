@@ -1,14 +1,19 @@
 <template>
-  <div v-bind="$attrs" class="multi-nav">
-    <span>每日福利</span><br />
-    <span>疯狂返利</span>
-  </div>
+  <div v-bind="$attrs" class="multi-nav"><span @click="send">每日福利</span><br /></div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { fetchMessage } from '@/network';
 
 export default defineComponent({
   name: 'MultiNav',
+
+  methods: {
+    send() {
+      fetchMessage('webmessage://addlisten?1=notify_asset_change_msg', false);
+      fetchMessage('webmessage://addlisten?2=notify_asset_change_msg2', false);
+    },
+  },
 });
 </script>
 <style lang="scss" scoped>

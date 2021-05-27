@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import { isBrowser, isWebview } from '@/runtime-env';
-import send, { login, loopFetch } from '@/network';
+import { fetchMessage, login, loopFetch } from '@/network';
 import parseHref from '@/utils/parse-href';
 import Refresh from '@/Refresh.vue';
 import store from './store';
@@ -40,7 +40,7 @@ export default defineComponent({
           appElement.style.transform = v;
 
           if (isWebview) {
-            send(`unityfun://storage?1_string=scale&2_string=${v}`, false);
+            fetchMessage(`unityfun://storage?1_string=scale&2_string=${v}`, false);
           } else {
             localStorage.setItem('scale', v);
           }

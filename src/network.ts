@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import store from '@/store';
 import { v4 } from 'uuid';
-import { ref, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { isBrowser } from '@/runtime-env';
 import { emitter } from '@/window-listener';
 
@@ -24,84 +24,64 @@ function webview2client() {
    * 以此循环
    */
   const count = ref(0);
+  watch(count, (v: number) => {
+    if (v === 0) return;
+
+    const url = messageStack.shift();
+    if (url) {
+      messageRun = true;
+      console.log(`发送消息___${url}`);
+      location.href = url;
+    }
+  });
 
   /**
    * 消息队列
    */
-  const messageStack = ref<string[]>([]);
-
-  const cb = (v: number) => {
-    console.log('count', 'send', v);
-
-    if (v === 0) return;
-
-    const url = messageStack.value.shift();
-    if (url) {
-      messageRun = true;
-      console.log('发送消息', url);
-
-      location.href = url;
-    }
-  };
-
-  watch(count, cb);
+  const messageStack = reactive<string[]>([]);
   watch(
-    messageStack,
+    () => _.cloneDeep(messageStack),
     (cur, pre) => {
-      console.log('messageStack变化', _.cloneDeep(cur), pre);
-
       // cur.length > pre.length
       // 说明是有消息被添加到消息队列，如果当前没有消息正处于通讯状态，则触发消息发送机制
       // 如果当前正有消息处于通讯状态，则消息触发交由 emitter.on(readuuid) 回调函数处理
       if (pre) {
-        console.log('if');
-
         if (cur.length > pre.length) {
           if (!messageRun) {
             count.value++;
           }
         }
       } else {
-        console.log('else', _.cloneDeep(cur), cur.length, messageRun);
-
         if (cur.length > 0) {
           if (!messageRun) {
-            console.log('++');
-
             count.value++;
           }
         }
       }
-    },
-    { deep: true, immediate: true }
+    }
   );
 
   return function <T>(url: string, response: boolean) {
-    console.log(url, response);
-    console.log(messageStack);
-
     const uuid = v4();
     const readuuid = v4();
 
     if (url.includes('?')) url += `&uuid='${uuid}'&readuuid='${readuuid}'`;
     else url += `?uuid='${uuid}'&readuuid='${readuuid}'`;
 
-    messageStack.value.push(url);
+    messageStack.push(url);
 
     emitter.on(readuuid, () => {
-      console.log('消息回执', readuuid);
+      console.log(`消息回执___${readuuid}`);
 
       emitter.off(readuuid);
       messageRun = false;
-      if (messageStack.value.length === 0) count.value = 0;
+      if (messageStack.length === 0) count.value = 0;
       else count.value++;
     });
 
     if (response) {
       return new Promise<T>((resolve, reject) => {
         emitter.on<T>(uuid, (data) => {
-          console.log('数据响应', uuid);
-
           if (data) resolve(data);
           else reject();
           emitter.off(uuid);
@@ -111,7 +91,7 @@ function webview2client() {
   };
 }
 
-const send = webview2client();
+const fetchMessage = webview2client();
 
 /**
  * 请求客户端配置
@@ -264,7 +244,7 @@ function fetchCall<T>(params: Record<string, string | Record<string, unknown>>) 
     const name = params.name as string;
     const query = JSON.stringify(params.data);
 
-    return send<T>(`webmessage://request?name=${name}&params=${query}`, true)!;
+    return fetchMessage<T>(`webmessage://request?name=${name}&params=${query}`, true)!;
   }
 }
 
@@ -310,7 +290,7 @@ function installMessage(params: Record<string, unknown>) {
     ms.forEach((m, i) => {
       query += `${i + 1}=${m}&`;
     });
-    send(`webmessage://addlisten?${query.slice(0, -1)}`, false);
+    fetchMessage(`webmessage://addlisten?${query.slice(0, -1)}`, false);
   }
 }
 
@@ -337,7 +317,7 @@ function uninstallMessage(params: Record<string, unknown>) {
     ms.forEach((m, i) => {
       query += `${i + 1}=${m}&`;
     });
-    send(`webmessage://removelisten?${query.slice(0, -1)}`, false);
+    fetchMessage(`webmessage://removelisten?${query.slice(0, -1)}`, false);
   }
 }
 
@@ -362,5 +342,13 @@ function fetchNative(params: Record<string, string | Record<string, unknown>>) {
   });
 }
 
-export default send;
-export { login, fetchClientConfig, loopFetch, fetchCall, installMessage, listenerPositiveMessage, uninstallMessage };
+export {
+  fetchMessage,
+  login,
+  fetchClientConfig,
+  loopFetch,
+  fetchCall,
+  installMessage,
+  listenerPositiveMessage,
+  uninstallMessage,
+};
