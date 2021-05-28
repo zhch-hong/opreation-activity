@@ -16,10 +16,6 @@ export default defineComponent({
   },
 
   setup() {
-    if (isWebview) {
-      document.body.style.fontFamily = "'FZY4JW' !important;";
-    }
-
     // 解析 location.href 上的token和服务器的url
     parseHref();
 
@@ -66,12 +62,12 @@ export default defineComponent({
 <style lang="scss">
 @font-face {
   font-family: 'FZY3JW';
-  src: url('./assets/font/FZY3JW.TTF');
+  src: url('./assets/font/FZY3JW.ttf');
 }
 
 @font-face {
   font-family: 'FZY4JW';
-  src: url('./assets/font/FZY4JW.TTF');
+  src: url('./assets/font/FZY4JW.ttf');
 }
 
 html {
@@ -87,8 +83,8 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-
   font-size: 32px;
+  font-family: 'FZY4JW' !important;
 }
 
 .center {
