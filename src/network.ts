@@ -65,8 +65,13 @@ function webview2client() {
     const uuid = v4();
     const readuuid = v4();
 
-    if (url.includes('?')) url += `&uuid='${uuid}'&readuuid='${readuuid}'`;
-    else url += `?uuid='${uuid}'&readuuid='${readuuid}'`;
+    if (url.includes('?')) url += `&readuuid='${readuuid}'`;
+    else url += `?readuuid='${readuuid}'`;
+
+    // 只有需要返回数据的消息，才用uuid
+    if (url.startsWith('webmessage://request')) {
+      url += `&uuid='${uuid}'`;
+    }
 
     messageStack.push(url);
 

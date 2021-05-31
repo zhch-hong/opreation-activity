@@ -4,6 +4,7 @@
       <a href="uniwebviewfun://CleanCache">清除缓存</a>
       <a href="uniwebviewfun://Reload">刷新</a>
       <a href="uniwebviewfun://Hide">关闭</a>
+      <a href="unityfun://destroy">销毁</a>
     </div>
   </teleport>
 </template>
