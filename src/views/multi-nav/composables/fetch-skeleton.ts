@@ -10,8 +10,6 @@ fetchClientConfig('/game_activity/config/game_activity_config.json').then((respo
   const config = response['config|其他配置'];
   console.log(config);
   const configProxy = excelProxy(config);
-  const be = configProxy[47]['beginTime'] as number;
-  console.log(dayjs.unix(be) > dayjs());
 
   // 活动开关
   const onAct = configProxy.filter((item) => item['is_on_off'] === 1);
@@ -40,8 +38,6 @@ fetchClientConfig('/game_activity/config/game_activity_config.json').then((respo
 
     return false;
   });
-
-  activeMenu.value = timeAct[0]['ID'] as number;
 
   activityList.value = timeAct;
 });

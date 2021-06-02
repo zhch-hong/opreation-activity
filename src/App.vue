@@ -60,6 +60,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 @font-face {
   font-family: 'FZY3JW';
   src: url('./assets/font/FZY3JW.ttf');
