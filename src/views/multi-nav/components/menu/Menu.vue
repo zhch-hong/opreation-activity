@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { activityList } from '../../composables/fetch-skeleton';
+import activityList from '../../composables/fetch-skeleton';
 import BScroll from '@better-scroll/core';
 import activeMenu from '../../composables/active-menu';
 
@@ -30,7 +30,7 @@ export default defineComponent({
 
   setup() {
     return {
-      activityList,
+      activityList: activityList(),
       activeMenu,
     };
   },
@@ -44,7 +44,7 @@ export default defineComponent({
       this.$nextTick(() => {
         setTimeout(() => {
           new BScroll(this.$refs.Menu as HTMLDivElement, { click: true, bounceTime: 200 });
-        }, 300);
+        }, 800);
       });
     },
   },

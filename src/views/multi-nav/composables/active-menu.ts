@@ -1,7 +1,5 @@
-import { ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 
 const activeMenu = ref(18);
-
-watchEffect(() => console.log(activeMenu.value));
 
 export default activeMenu;

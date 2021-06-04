@@ -52,7 +52,7 @@ export default defineComponent({
   height: 760px;
   width: 1113px;
   border: 10px solid white;
-  border-radius: 26px;
+  border-radius: 24px;
   overflow: auto;
 }
 </style>

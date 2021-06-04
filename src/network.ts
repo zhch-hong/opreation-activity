@@ -69,7 +69,7 @@ function webview2client() {
     else url += `?readuuid='${readuuid}'`;
 
     // 只有需要返回数据的消息，才用uuid
-    if (url.startsWith('webmessage://request')) {
+    if (response) {
       url += `&uuid='${uuid}'`;
     }
 
@@ -221,12 +221,17 @@ function listenerPositiveMessage(message: string, callback: (params: unknown) =>
   emitter.on<unknown>(message, (event) => callback(event));
 }
 
+type FetchCallParam = {
+  name: string;
+  data: string | Record<PropertyKey, unknown>;
+  user_id?: string; // 这个参数只有在浏览器环境下跟服务器通信需要，在webview环境下跟客户端通信时不需要
+};
 /**
  * 发送消息并需要返回
  * @param params
  * @returns
  */
-function fetchCall<T>(params: Record<string, string | Record<string, unknown>>) {
+function fetchCall<T>(params: FetchCallParam) {
   if (isBrowser) {
     const data = _.cloneDeep(params);
     data['user_id'] = store.state.user.user_id as string;
@@ -272,12 +277,20 @@ function fetchSend(params: unknown) {
   });
 }
 
+type InstallMsgParam = {
+  msg_names: string[];
+  user_id?: string; // 这个参数只有在浏览器环境下跟服务器通信需要，在webview环境下跟客户端通信时不需要
+};
 /**
  * 注册需要发送到webview的消息
  * @param params
  */
-function installMessage(params: Record<string, unknown>) {
+function installMessage(params: InstallMsgParam) {
   if (isBrowser) {
+    if (!params['user_id']) {
+      params['user_id'] = store.state.user.user_id as string;
+    }
+
     axios({
       baseURL: store.state.baseURL,
       url: `register_msg`,

@@ -2,6 +2,8 @@ import { isBrowser } from '@/runtime-env';
 import store from '@/store';
 
 export default function () {
+  console.log(location.href);
+
   if (isBrowser) {
     store.commit('COMMIT_BASEURL', process.env.VUE_APP_HTTP_HOST);
     store.commit('COMMIT_SCALE', localStorage.getItem('scale'));
