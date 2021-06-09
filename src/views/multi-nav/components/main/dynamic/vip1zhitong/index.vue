@@ -3,6 +3,14 @@
     <img class="pay" src="./image/buy.png" alt="10元领取" />
   </div>
 </template>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'Vip1zhitong',
+});
+</script>
+
 <style lang="scss" scoped>
 @keyframes animate {
   from {

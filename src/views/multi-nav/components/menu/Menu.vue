@@ -35,19 +35,24 @@ export default defineComponent({
     };
   },
 
-  mounted() {
-    this.initBScroll();
-  },
-
-  methods: {
-    initBScroll() {
-      this.$nextTick(() => {
-        setTimeout(() => {
-          new BScroll(this.$refs.Menu as HTMLDivElement, { click: true, bounceTime: 200 });
-        }, 800);
-      });
+  watch: {
+    activityList: {
+      immediate: true,
+      handler(value) {
+        if (value.length !== 0) {
+          this.$nextTick(() => {
+            new BScroll(this.$refs.Menu as HTMLDivElement, { click: true });
+          });
+        }
+      },
     },
   },
+
+  mounted() {
+    //
+  },
+
+  methods: {},
 });
 </script>
 

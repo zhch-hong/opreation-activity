@@ -42,6 +42,8 @@ function filtTime(list: ActList) {
 function filtPermission(list: ActList): Promise<ActList> {
   return new Promise((resolve) => {
     const permissionAct: ActList = [];
+    const promiseList: Array<Promise<any>> = [];
+    const promiseListRow: any[] = [];
 
     list.forEach((item, index) => {
       if (!item['condi_key']) {
@@ -54,13 +56,15 @@ function filtPermission(list: ActList): Promise<ActList> {
         return;
       }
 
+      promiseListRow.push(item);
+
       if (isBrowser) {
         const data = {
           name: 'judge_permission',
           user_id: store.state.user.user_id,
           data: { permission: item['condi_key'] },
         };
-        axios({
+        const promise = axios({
           baseURL: store.state.baseURL,
           url: `msg_call`,
           method: 'POST',
@@ -69,27 +73,42 @@ function filtPermission(list: ActList): Promise<ActList> {
             token: store.state.token,
             userid: store.state.user.user_id,
           },
-        }).then(({ data }) => {
-          if (data['effect']) permissionAct.push(item);
-
-          if (index === list.length - 1) {
-            resolve(permissionAct);
-          }
         });
-      } else {
-        fetchMessage<Record<'result', boolean>>(`unityfun://checkpermiss?1_string=${item['condi_key']}`, true)?.then(
-          ({ result }) => {
-            if (result) {
-              permissionAct.push(item);
-            }
 
-            if (index === list.length - 1) {
-              resolve(permissionAct);
-            }
-          }
+        promiseList.push(promise);
+      } else {
+        const promise = fetchMessage<Record<'result', boolean>>(
+          `unityfun://checkpermiss?1_string=${item['condi_key']}`,
+          true
         );
+
+        promiseList.push(promise!);
       }
     });
+
+    if (isBrowser) {
+      Promise.all<Record<string, unknown>>(promiseList).then((value) => {
+        value.forEach((item, index) => {
+          const data = item.data as Record<'effect', boolean>;
+
+          if (data.effect) {
+            permissionAct.push(promiseListRow[index]);
+          }
+        });
+
+        resolve(permissionAct);
+      });
+    } else {
+      Promise.all<Record<'result', boolean>>(promiseList).then((value) => {
+        value.forEach((item, index) => {
+          if (item.result) {
+            permissionAct.push(promiseListRow[index]);
+          }
+        });
+
+        resolve(permissionAct);
+      });
+    }
   });
 }
 

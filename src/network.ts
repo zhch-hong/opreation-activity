@@ -105,12 +105,6 @@ const fetchMessage = webview2client();
  */
 function fetchClientConfig(url: string) {
   return new Promise<Record<string, Record<string, unknown>[]>>((resolve) => {
-    const cache = localStorage.getItem(url);
-
-    if (cache) {
-      resolve(JSON.parse(cache));
-    }
-
     axios({
       baseURL: process.env.VUE_APP_ASSET_URL,
       url,
@@ -118,7 +112,6 @@ function fetchClientConfig(url: string) {
     })
       .then(({ data }) => {
         resolve(data);
-        localStorage.setItem(url, JSON.stringify(data));
       })
       .catch(() => {
         alert(`获取配置文件失败[${url}]`);

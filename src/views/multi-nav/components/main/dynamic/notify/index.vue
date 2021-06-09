@@ -14,9 +14,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  setup() {
-    //
-  },
+  name: 'Notify',
 });
 </script>
 <style lang="scss" scoped>
@@ -24,6 +22,7 @@ export default defineComponent({
   color: #b59134;
   background-color: #a2d6e9;
   min-height: 100%;
+  box-sizing: border-box;
   padding: 20px;
 
   .title {

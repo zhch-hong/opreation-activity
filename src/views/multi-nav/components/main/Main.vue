@@ -4,40 +4,31 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, h, ref, watchEffect } from 'vue';
+import { defineAsyncComponent, defineComponent, markRaw, ref, watch } from 'vue';
 import activeMenu from '../../composables/active-menu';
 
-import Chaozhiyueka from './dynamic/chaozhiyueka/index.vue';
-import Libaoduihuan from './dynamic/libaoduihuan/index.vue';
-import Notify from './dynamic/notify/index.vue';
-import Sanyuanlibao from './dynamic/sanyuanlibao/index.vue';
-import Vip1zhitong from './dynamic/vip1zhitong/index.vue';
-
 const map = new Map<number, string>();
-map.set(11, 'Chaozhiyueka');
-map.set(6, 'Libaoduihuan');
-map.set(18, 'Notify');
-map.set(13, 'Sanyuanlibao');
-map.set(15, 'Vip1zhitong');
+map.set(11, 'chaozhiyueka');
+map.set(6, 'libaoduihuan');
+map.set(18, 'notify');
+map.set(13, 'sanyuanlibao');
+map.set(15, 'vip1zhitong');
 
 export default defineComponent({
-  components: {
-    'default-component': {
-      render() {
-        return h('div', ['未找到对应组件']);
-      },
-    },
-    Chaozhiyueka,
-    Notify,
-    Sanyuanlibao,
-    Libaoduihuan,
-    Vip1zhitong,
-  },
-
   setup() {
-    const currentComponent = ref('');
+    const currentComponent = ref(markRaw(defineAsyncComponent(() => import(`./dynamic/default-component/index.vue`))));
 
-    watchEffect(() => (currentComponent.value = map.get(activeMenu.value) || 'default-component'));
+    watch(
+      () => activeMenu.value,
+      (value) => {
+        currentComponent.value = markRaw(
+          defineAsyncComponent(() => import(`./dynamic/${map.get(value) || 'default-component'}/index.vue`))
+        );
+      },
+      {
+        immediate: true,
+      }
+    );
 
     return {
       currentComponent,
