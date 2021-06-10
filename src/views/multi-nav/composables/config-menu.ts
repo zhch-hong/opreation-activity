@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { isBrowser } from '@/runtime-env';
 import store from '@/store';
 import axios from 'axios';
+import _ from 'lodash';
 
 type ActList = Record<string, unknown>[];
 
@@ -43,46 +44,40 @@ function filtPermission(list: ActList): Promise<ActList> {
   return new Promise((resolve) => {
     const permissionAct: ActList = [];
     const promiseList: Array<Promise<any>> = [];
-    const promiseListRow: any[] = [];
 
     list.forEach((item, index) => {
-      if (!item['condi_key']) {
-        permissionAct.push(item);
-
-        if (index === list.length - 1) {
-          resolve(permissionAct);
-        }
-
-        return;
-      }
-
-      promiseListRow.push(item);
-
       if (isBrowser) {
-        const data = {
-          name: 'judge_permission',
-          user_id: store.state.user.user_id,
-          data: { permission: item['condi_key'] },
-        };
-        const promise = axios({
-          baseURL: store.state.baseURL,
-          url: `msg_call`,
-          method: 'POST',
-          data,
-          headers: {
-            token: store.state.token,
-            userid: store.state.user.user_id,
-          },
-        });
-
-        promiseList.push(promise);
+        if (!item['condi_key']) {
+          promiseList.push(Promise.resolve({ data: { effect: true } }));
+        } else {
+          const data = {
+            name: 'judge_permission',
+            user_id: store.state.user.user_id,
+            data: { permission: item['condi_key'] },
+          };
+          const promise = axios({
+            baseURL: store.state.baseURL,
+            url: `msg_call`,
+            method: 'POST',
+            data,
+            headers: {
+              token: store.state.token,
+              userid: store.state.user.user_id,
+            },
+          });
+          promiseList.push(promise);
+        }
       } else {
-        const promise = fetchMessage<Record<'result', boolean>>(
-          `unityfun://checkpermiss?1_string=${item['condi_key']}`,
-          true
-        );
+        if (!item['condi_key']) {
+          promiseList.push(Promise.resolve({ result: true }));
+        } else {
+          const promise = fetchMessage<Record<'result', boolean>>(
+            `unityfun://checkpermiss?1_string=${item['condi_key']}`,
+            true
+          );
 
-        promiseList.push(promise!);
+          promiseList.push(promise!);
+        }
       }
     });
 
@@ -92,7 +87,7 @@ function filtPermission(list: ActList): Promise<ActList> {
           const data = item.data as Record<'effect', boolean>;
 
           if (data.effect) {
-            permissionAct.push(promiseListRow[index]);
+            permissionAct.push(list[index]);
           }
         });
 
@@ -102,7 +97,7 @@ function filtPermission(list: ActList): Promise<ActList> {
       Promise.all<Record<'result', boolean>>(promiseList).then((value) => {
         value.forEach((item, index) => {
           if (item.result) {
-            permissionAct.push(promiseListRow[index]);
+            permissionAct.push(list[index]);
           }
         });
 
@@ -112,24 +107,25 @@ function filtPermission(list: ActList): Promise<ActList> {
   });
 }
 
+const activityList = ref<ActList>([]);
 export default () => {
-  const activityList = ref<ActList>([]);
+  if (activityList.value.length === 0) {
+    fetchClientConfig('/game_activity/config/game_activity_config.json').then(async (response) => {
+      const config = response['config|其他配置'];
+      const configProxy = excelProxy(config);
 
-  fetchClientConfig('/game_activity/config/game_activity_config.json').then(async (response) => {
-    const config = response['config|其他配置'];
-    const configProxy = excelProxy(config);
+      // 活动开关
+      const onAct = filtSwitch(configProxy);
 
-    // 活动开关
-    const onAct = filtSwitch(configProxy);
+      // 时间限制
+      const timeAct = filtTime(onAct);
 
-    // 时间限制
-    const timeAct = filtTime(onAct);
+      // 权限验证
+      const permissionAct = await filtPermission(timeAct);
 
-    // 权限验证
-    const permissionAct = await filtPermission(timeAct);
-
-    activityList.value = permissionAct;
-  });
+      activityList.value = permissionAct;
+    });
+  }
 
   return activityList;
 };

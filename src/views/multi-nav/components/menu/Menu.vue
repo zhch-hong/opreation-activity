@@ -17,9 +17,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import activityList from '../../composables/fetch-skeleton';
+import activityList from '../../composables/config-menu';
 import BScroll from '@better-scroll/core';
-import activeMenu from '../../composables/active-menu';
+import { activeMenu } from '../../composables/active-menu';
 
 import MenuTag from './MenuTag.vue';
 
@@ -29,9 +29,11 @@ export default defineComponent({
   },
 
   setup() {
+    const { menuID } = activeMenu();
+
     return {
       activityList: activityList(),
-      activeMenu,
+      activeMenu: menuID,
     };
   },
 

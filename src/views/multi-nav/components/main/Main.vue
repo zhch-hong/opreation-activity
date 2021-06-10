@@ -5,25 +5,17 @@
 </template>
 <script lang="ts">
 import { defineAsyncComponent, defineComponent, markRaw, ref, watch } from 'vue';
-import activeMenu from '../../composables/active-menu';
-
-const map = new Map<number, string>();
-map.set(11, 'chaozhiyueka');
-map.set(6, 'libaoduihuan');
-map.set(18, 'notify');
-map.set(13, 'sanyuanlibao');
-map.set(15, 'vip1zhitong');
+import { activeMenu } from '../../composables/active-menu';
 
 export default defineComponent({
   setup() {
+    const { menuComponentName } = activeMenu();
     const currentComponent = ref(markRaw(defineAsyncComponent(() => import(`./dynamic/default-component/index.vue`))));
 
     watch(
-      () => activeMenu.value,
+      menuComponentName,
       (value) => {
-        currentComponent.value = markRaw(
-          defineAsyncComponent(() => import(`./dynamic/${map.get(value) || 'default-component'}/index.vue`))
-        );
+        currentComponent.value = markRaw(defineAsyncComponent(() => import(`./dynamic/${value}/index.vue`)));
       },
       {
         immediate: true,
