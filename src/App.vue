@@ -53,10 +53,6 @@ export default defineComponent({
     }
   },
 });
-
-// padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom)
-//   constant(safe-area-inset-left); /* 兼容 iOS < 11.2 */
-// padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* 兼容 iOS >= 11.2 */
 </script>
 
 <style lang="scss">
@@ -67,12 +63,12 @@ export default defineComponent({
 
 @font-face {
   font-family: 'FZY3JW';
-  src: url('./assets/font/FZY3JW.ttf');
+  src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/zt.ttf');
 }
 
 @font-face {
   font-family: 'FZY4JW';
-  src: url('./assets/font/FZY4JW.ttf');
+  src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/ct.ttf');
 }
 
 html {
