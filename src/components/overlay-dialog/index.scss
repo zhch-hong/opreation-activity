@@ -1,11 +1,14 @@
 .wrapper {
-  position: relative;
+  position: absolute;
   background-image: url('../../assets/image/bg_1.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   width: 942px;
   height: 590px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
 }
 
 .close {

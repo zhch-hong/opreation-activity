@@ -29,6 +29,8 @@
 import { defineComponent, ref, watch, watchEffect } from 'vue';
 import { fetchCall } from '@/network';
 import { parseTimestamp } from '@/utils/stamp2hms';
+import { Dialog } from 'vant';
+import alertMessage from '@/components/alert';
 
 import OverlayDialog from '@/components/overlay-dialog/index.vue';
 
@@ -93,10 +95,10 @@ export default defineComponent({
           data: { code: this.giftCode },
         }).then(({ result, time }) => {
           if (result === 0) {
-            alert('兑换成功');
+            alertMessage('兑换成功');
           } else {
             if (time !== 0) {
-              alert('次数上限');
+              alertMessage('次数上限');
               this.disable = true;
 
               const refCut = cutdown(time);
@@ -114,7 +116,7 @@ export default defineComponent({
                 { immediate: true }
               );
             } else {
-              alert('无效兑换码');
+              alertMessage('兑换码无效');
             }
           }
         });

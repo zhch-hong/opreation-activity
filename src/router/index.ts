@@ -7,7 +7,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/multi-nav',
-    component: () => import('@/views/multi-nav/multi-nav.vue'),
+    component: () => import('@/views/multi-nav/index.vue'),
   },
 ];
 

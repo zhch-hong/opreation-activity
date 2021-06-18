@@ -1,8 +1,8 @@
 <template>
   <teleport to="#app">
-    <van-overlay v-center :show="visible" :custom-style="customStyle" duration="0">
+    <Overlay :show="visible" :custom-style="customStyle" duration="0">
       <div class="wrapper">
-        <img class="close" src="@/assets/image/gb_1.png" alt="关闭" @click="close" />
+        <img v-if="showClose" class="close" src="@/assets/image/gb_1.png" alt="关闭" @click="close" />
         <div class="header">
           <slot name="title" />
         </div>
@@ -10,17 +10,26 @@
           <slot />
         </div>
       </div>
-    </van-overlay>
+    </Overlay>
   </teleport>
 </template>
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 
+import { Overlay } from 'vant';
+import 'vant/es/overlay/style';
+
 export default defineComponent({
   name: 'OverlayDialog',
 
+  components: { Overlay },
+
   props: {
     visible: Boolean,
+    showClose: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   emits: ['close'],
@@ -36,10 +45,8 @@ export default defineComponent({
   data() {
     return {
       customStyle: {
-        width: '200%',
-        height: '200%',
-        top: '-50%',
-        left: '-50%',
+        width: '200vw',
+        left: '-50vw',
       },
     };
   },
