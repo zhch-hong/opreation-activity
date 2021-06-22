@@ -29,8 +29,8 @@
 import { defineComponent, ref, watch, watchEffect } from 'vue';
 import { fetchCall } from '@/network';
 import { parseTimestamp } from '@/utils/stamp2hms';
-import { Dialog } from 'vant';
 import alertMessage from '@/components/alert';
+import assetNotify from '@/asset-notify';
 
 import OverlayDialog from '@/components/overlay-dialog/index.vue';
 
@@ -41,6 +41,8 @@ function cutdown(count: number) {
   watchEffect(() => (time.value = parseTimestamp(timestamp.value)));
 
   const timer = setInterval(() => {
+    console.log('xx');
+
     timestamp.value--;
   }, 1000);
 
@@ -98,8 +100,10 @@ export default defineComponent({
             alertMessage('兑换成功');
           } else {
             if (time !== 0) {
-              alertMessage('次数上限');
+              alertMessage('你操作错误过多，稍后再试');
               this.disable = true;
+
+              clearInterval(this.timer);
 
               const refCut = cutdown(time);
 

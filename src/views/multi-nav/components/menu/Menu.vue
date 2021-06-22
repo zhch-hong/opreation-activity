@@ -43,7 +43,9 @@ export default defineComponent({
       handler(value) {
         if (value.length !== 0) {
           this.$nextTick(() => {
-            new BScroll(this.$refs.Menu as HTMLDivElement, { click: true });
+            setTimeout(() => {
+              new BScroll(this.$refs.Menu as HTMLDivElement, { click: true });
+            }, 300);
           });
         }
       },
@@ -68,6 +70,7 @@ export default defineComponent({
 
   .list {
     list-style: none;
+    margin: 0;
     padding: 20px 0;
     text-align: center;
 
