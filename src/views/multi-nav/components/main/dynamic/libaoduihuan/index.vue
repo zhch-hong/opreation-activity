@@ -27,10 +27,11 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch, watchEffect } from 'vue';
-import { fetchCall } from '@/network';
+import { fetchCall, installMessage, uninstallMessage, listenerPositiveMessage } from '@/network';
 import { parseTimestamp } from '@/utils/stamp2hms';
 import alertMessage from '@/components/alert';
 import assetNotify from '@/asset-notify';
+import _ from 'lodash';
 
 import OverlayDialog from '@/components/overlay-dialog/index.vue';
 
@@ -41,12 +42,31 @@ function cutdown(count: number) {
   watchEffect(() => (time.value = parseTimestamp(timestamp.value)));
 
   const timer = setInterval(() => {
-    console.log('xx');
-
     timestamp.value--;
   }, 1000);
 
   return { time, timer };
+}
+
+function addListenMsg() {
+  installMessage({ msg_names: ['notify_asset_change_msg'] });
+}
+
+function removeListenMsg() {
+  uninstallMessage({ msg_names: ['notify_asset_change_msg'] });
+}
+
+function listenCallback() {
+  listenerPositiveMessage<Record<string, unknown>>('notify_asset_change_msg', (params) => {
+    if (params) {
+      const asset = params.change_asset as Record<string, string | number>[];
+      const changeList = asset.map((ast) => ({
+        name: ast.asset_type as string,
+        count: _.toNumber(ast.asset_value),
+      }));
+      assetNotify(changeList);
+    }
+  });
 }
 
 export default defineComponent({
@@ -55,6 +75,8 @@ export default defineComponent({
   },
 
   setup() {
+    addListenMsg();
+
     const visible = ref(false);
     const timedown = ref('');
 
@@ -62,6 +84,10 @@ export default defineComponent({
       visible,
       timedown,
     };
+  },
+
+  mounted() {
+    listenCallback();
   },
 
   data() {
@@ -75,6 +101,7 @@ export default defineComponent({
 
   beforeUnmount() {
     clearInterval(this.timer);
+    removeListenMsg();
   },
 
   methods: {
@@ -97,7 +124,8 @@ export default defineComponent({
           data: { code: this.giftCode },
         }).then(({ result, time }) => {
           if (result === 0) {
-            alertMessage('兑换成功');
+            this.visible = false;
+            this.giftCode = '';
           } else {
             if (time !== 0) {
               alertMessage('你操作错误过多，稍后再试');
@@ -134,7 +162,6 @@ export default defineComponent({
           },
           { once: true }
         );
-        //
       }
     },
   },

@@ -40,7 +40,7 @@ function webview2client() {
    */
   const messageStack = reactive<string[]>([]);
   watch(
-    () => _.cloneDeep(messageStack),
+    () => [...messageStack],
     (cur, pre) => {
       // cur.length > pre.length
       // 说明是有消息被添加到消息队列，如果当前没有消息正处于通讯状态，则触发消息发送机制
@@ -210,8 +210,8 @@ function loopFetch() {
  * @param message 消息名称
  * @param callback 回调函数
  */
-function listenerPositiveMessage(message: string, callback: (params: unknown) => void) {
-  emitter.on<unknown>(message, (event) => callback(event));
+function listenerPositiveMessage<T = unknown>(message: string, callback: (params?: T) => void) {
+  emitter.on<T>(message, (event) => callback(event));
 }
 
 type FetchCallParam = {
