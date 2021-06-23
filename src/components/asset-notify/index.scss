@@ -20,7 +20,8 @@ div.animate {
   // background: linear-gradient(to bottom, rgba(79, 181, 226, 0), rgba(79, 181, 226, 1), rgba(79, 181, 226, 0)),
   //   linear-gradient(to right, rgba(79, 181, 226, 0), rgba(79, 181, 226, 1), rgba(79, 181, 226, 0)),
   //   url('../../../assets/image/shine02.png');
-  background: radial-gradient(rgba(79, 181, 226, 1), transparent 70%, transparent), url('../assets/image/shine02.png');
+  background: radial-gradient(rgba(79, 181, 226, 1), transparent 70%, transparent),
+    url('../../assets/image/shine02.png');
   opacity: 0.6;
   background-size: contain;
   animation: loop 60s linear infinite;
@@ -31,7 +32,7 @@ div.main {
   z-index: 1;
   width: 1900px;
   height: 454px;
-  background-image: url('../assets/image/com_bg_tips.png');
+  background-image: url('../../assets/image/com_bg_tips.png');
   background-size: contain;
   top: 50%;
   left: 50%;
@@ -41,7 +42,7 @@ div.main {
     position: absolute;
     width: 498px;
     height: 134px;
-    background-image: url('../assets/image/bt_1.png');
+    background-image: url('../../assets/image/bt_1.png');
     background-size: contain;
     left: 50%;
     top: -70px;
@@ -56,7 +57,7 @@ div.main {
     text-align: center;
 
     div.content {
-      background-image: url('../assets/image/jhs_bg_6.png');
+      background-image: url('../../assets/image/jhs_bg_6.png');
       background-size: contain;
       width: 144px;
       height: 140px;
@@ -101,7 +102,7 @@ div.main {
     transform: translateX(-50%);
     width: 315px;
     height: 122px;
-    background-image: url('../assets/image/btn_1.png');
+    background-image: url('../../assets/image/btn_1.png');
     background-size: contain;
   }
 }

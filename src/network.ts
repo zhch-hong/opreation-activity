@@ -181,7 +181,7 @@ function loopFetch() {
 
         data.forEach((msg) => {
           const name = msg.name as string;
-          const param = msg.data as Record<string, string | Record<string, string>[]>;
+          const param = msg.data as Record<string, unknown>;
           emitter.emit(name, param);
         });
 
