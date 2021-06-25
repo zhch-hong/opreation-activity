@@ -58,7 +58,7 @@ export default defineComponent({
 
   methods: {
     submit() {
-      payPanel(10337, 10);
+      payPanel(10254, 198);
     },
   },
 
