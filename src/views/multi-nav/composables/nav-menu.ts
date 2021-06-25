@@ -108,13 +108,24 @@ function filtPermissions(list: ActList): Promise<ActList> {
 
 const beforePermissions: ActList = [];
 const menuList = reactive<ActList>([]);
+
+/**
+ * 是否已经请求过配置文件了
+ */
+let isFetch = false;
+
 /**
  * 获取活动菜单，从服务器请求配置文件，然后根据开关和时间过滤，不包括权限过滤，权限过滤需要发送到客户端判断
  * @returns
  */
 function getMenu() {
+  if (isFetch) return menuList;
+
+  isFetch = true;
+
   fetchClientConfig('/game_activity/config/game_activity_config.json').then(async (response) => {
     const config = response['config'];
+    console.log(config);
 
     // 活动开关
     const onAct = filtSwitch(config);

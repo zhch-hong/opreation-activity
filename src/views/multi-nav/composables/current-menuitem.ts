@@ -13,9 +13,7 @@ export function activeMenu() {
       (id) => {
         const act = activityList.find((m) => m['ID'] === id);
 
-        menuComponentName.value = act
-          ? (act['dynamic_component'] as string) || 'default-component'
-          : 'default-component';
+        menuComponentName.value = act ? (act['vue_component'] as string) || 'default-component' : 'default-component';
       },
       {
         immediate: true,
