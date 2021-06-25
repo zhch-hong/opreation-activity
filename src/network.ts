@@ -310,6 +310,13 @@ function installMessage(params: InstallMsgParam) {
  * @param params
  */
 function uninstallMessage(params: Record<string, unknown>) {
+  const ms = params.msg_names as string[];
+  let query = '';
+  ms.forEach((m, i) => {
+    emitter.off(m);
+
+    query += `${i + 1}=${m}&`;
+  });
   if (isBrowser) {
     // axios({
     //   baseURL: baseURL.value,
@@ -323,11 +330,7 @@ function uninstallMessage(params: Record<string, unknown>) {
     //   },
     // });
   } else {
-    const ms = params.msg_names as string[];
-    let query = '';
-    ms.forEach((m, i) => {
-      query += `${i + 1}=${m}&`;
-    });
+    //
     fetchMessage(`webmessage://removelisten?${query.slice(0, -1)}`, false);
   }
 }

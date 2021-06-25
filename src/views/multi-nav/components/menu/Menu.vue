@@ -7,7 +7,11 @@
         :class="['item', activeMenu === item['ID'] ? 'active' : 'inactive']"
         @click="activeMenu = item['ID']"
       >
-        <MenuTag :tag="item['tag']" />
+        <!-- 活动标签 -->
+        <template v-if="item['tag'] && item['tag'] !== 'normal'">
+          <MenuTag :tag="item['tag']" />
+        </template>
+
         <div class="title">
           <span>{{ item['title'] }}</span>
         </div>
@@ -17,9 +21,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import activityList from '../../composables/config-menu';
-import BScroll from '@better-scroll/core';
-import { activeMenu } from '../../composables/active-menu';
+import { getMenu } from '../../composables/nav-menu';
+import BScroll, { BScrollInstance } from '@better-scroll/core';
+import { activeMenu } from '../../composables/current-menuitem';
 
 import MenuTag from './MenuTag.vue';
 
@@ -32,7 +36,7 @@ export default defineComponent({
     const { menuID } = activeMenu();
 
     return {
-      activityList: activityList(),
+      activityList: getMenu(),
       activeMenu: menuID,
     };
   },
@@ -40,23 +44,16 @@ export default defineComponent({
   watch: {
     activityList: {
       immediate: true,
-      handler(value) {
-        if (value.length !== 0) {
-          this.$nextTick(() => {
-            setTimeout(() => {
-              new BScroll(this.$refs.Menu as HTMLDivElement, { click: true });
-            }, 300);
-          });
-        }
+      deep: true,
+      handler() {
+        this.$nextTick(() => {
+          setTimeout(() => {
+            new BScroll(this.$refs.Menu as HTMLDivElement, { click: true });
+          }, 300);
+        });
       },
     },
   },
-
-  mounted() {
-    //
-  },
-
-  methods: {},
 });
 </script>
 

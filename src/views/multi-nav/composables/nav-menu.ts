@@ -1,6 +1,5 @@
 import { fetchClientConfig, fetchMessage } from '@/network';
-import excelProxy from '@/utils/excel-proxy';
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import dayjs from 'dayjs';
 import { isBrowser } from '@/runtime-env';
 import store from '@/store';
@@ -40,12 +39,12 @@ function filtTime(list: ActList) {
   });
 }
 
-function filtPermission(list: ActList): Promise<ActList> {
+function filtPermissions(list: ActList): Promise<ActList> {
   return new Promise((resolve) => {
     const permissionAct: ActList = [];
     const promiseList: Array<Promise<any>> = [];
 
-    list.forEach((item, index) => {
+    list.forEach((item) => {
       if (isBrowser) {
         if (!item['condi_key']) {
           promiseList.push(Promise.resolve({ data: { effect: true } }));
@@ -107,25 +106,34 @@ function filtPermission(list: ActList): Promise<ActList> {
   });
 }
 
-const activityList = ref<ActList>([]);
-export default () => {
-  if (activityList.value.length === 0) {
-    fetchClientConfig('/game_activity/config/game_activity_config.json').then(async (response) => {
-      const config = response['config|其他配置'];
-      const configProxy = excelProxy(config);
+const beforePermissions: ActList = [];
+const menuList = reactive<ActList>([]);
+/**
+ * 获取活动菜单，从服务器请求配置文件，然后根据开关和时间过滤，不包括权限过滤，权限过滤需要发送到客户端判断
+ * @returns
+ */
+function getMenu() {
+  fetchClientConfig('/game_activity/config/game_activity_config.json').then(async (response) => {
+    const config = response['config'];
 
-      // 活动开关
-      const onAct = filtSwitch(configProxy);
+    // 活动开关
+    const onAct = filtSwitch(config);
 
-      // 时间限制
-      const timeAct = filtTime(onAct);
+    // 时间限制
+    const timeAct = filtTime(onAct);
 
-      // 权限验证
-      const permissionAct = await filtPermission(timeAct);
+    beforePermissions.splice(0, 999, ...timeAct);
 
-      activityList.value = permissionAct;
-    });
-  }
+    const array = await filtPermissions(timeAct);
+    menuList.splice(0, 999, ...array);
+  });
 
-  return activityList;
-};
+  return menuList;
+}
+
+async function updateMenu() {
+  const array = await filtPermissions(beforePermissions);
+  menuList.splice(0, 999, ...array);
+}
+
+export { getMenu, updateMenu };

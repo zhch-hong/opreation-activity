@@ -1,5 +1,5 @@
 <template>
-  <img v-if="tag" class="tag" :src="imgSrc" :alt="tag" />
+  <img class="tag" :src="imgSrc" :alt="tag" />
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';

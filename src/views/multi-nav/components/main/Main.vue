@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import { defineAsyncComponent, defineComponent, markRaw, ref, watch } from 'vue';
-import { activeMenu } from '../../composables/active-menu';
+import { activeMenu } from '../../composables/current-menuitem';
 
 export default defineComponent({
   setup() {
