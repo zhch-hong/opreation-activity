@@ -1,11 +1,11 @@
-import { createApp, defineAsyncComponent } from 'vue';
+import { createApp } from 'vue';
+import PayPanel from './index.vue';
 
 export default (giftid: number, price: number) => {
   const div = document.createElement('div');
   document.body.append(div);
 
-  const cpt = defineAsyncComponent(() => import('./index.vue'));
-  const app = createApp(cpt, {
+  const app = createApp(PayPanel, {
     giftid,
     price,
     onUnmount: () => {

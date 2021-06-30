@@ -1,5 +1,5 @@
 import { createApp, h, nextTick } from 'vue';
-import AssetNotify from './AssetNotify.vue';
+import AssetNotify from './index.vue';
 
 type Asset = {
   name: string;
@@ -48,3 +48,6 @@ export default (assets: Asset[]): void => {
     mountNotify();
   }
 };
+
+export { default as notifyValidate } from './asset-notify-validate';
+export { addListenMsg, removeListenMsg } from './listener-message';

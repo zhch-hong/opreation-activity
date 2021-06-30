@@ -63,7 +63,7 @@ export default (type: string) => {
       'buy_gift_bag_10335',
       'buy_gift_bag_10336',
       'task_award_1000116',
-    ].includes(type)
+    ].includes(type.toLowerCase())
   )
     return;
 
@@ -256,7 +256,7 @@ export default (type: string) => {
       'FISHBOWL_COMPOSE',
       'XXLZB_004_RANK_EMAIL_AWARD',
       'NSJ_007_MGBD_RANK_EMAIL_AWARD',
-    ].includes(type as string)
+    ].includes(type.toUpperCase())
   ) {
     return true;
   }

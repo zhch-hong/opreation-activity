@@ -27,12 +27,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch, watchEffect } from 'vue';
-import { fetchCall, installMessage, uninstallMessage, listenerPositiveMessage } from '@/network';
+import { fetchCall } from '@/network';
 import { parseTimestamp } from '@/utils/stamp2hms';
 import alertMessage from '@/components/alert';
-import assetNotify from '@/components/asset-notify';
-import notifyValidate from '@/permissions/asset-notify-validate';
-import _ from 'lodash';
+import { addListenMsg, removeListenMsg } from '@/components/asset-notify';
 
 import OverlayDialog from '@/components/overlay-dialog/index.vue';
 
@@ -47,44 +45,6 @@ function cutdown(count: number) {
   }, 1000);
 
   return { time, timer };
-}
-
-function addListenMsg() {
-  installMessage({ msg_names: ['notify_asset_change_msg'] });
-
-  listenerPositiveMessage<Record<string, unknown>>('notify_asset_change_msg', (params) => {
-    if (params) {
-      if (typeof params.type !== 'undefined') {
-        const asset = params.change_asset as Record<string, string>[] | undefined;
-        if (asset) {
-          // 需要弹出
-          const filtAsset = asset
-            .filter((item) => {
-              if (item.asset_type.startsWith('obj_')) {
-                if (typeof item.attribute !== 'undefined') {
-                  return true;
-                }
-              } else {
-                if (_.toNumber(item.asset_value) > 0) {
-                  return true;
-                }
-              }
-            })
-            .map((item) => ({ name: item.asset_type, count: _.toNumber(item.asset_value) }));
-
-          const type = params.type as string;
-
-          if (notifyValidate(type)) {
-            assetNotify(filtAsset);
-          }
-        }
-      }
-    }
-  });
-}
-
-function removeListenMsg() {
-  uninstallMessage({ msg_names: ['notify_asset_change_msg'] });
 }
 
 export default defineComponent({
