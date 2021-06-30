@@ -12,3 +12,8 @@ export const ZXYUEKA = { id: 10236, price: 96 };
  * 系统升级奖励ID
  */
 export const SYSTEM_UPGRADE = 1000351;
+
+/**
+ * 三元福利礼包
+ */
+export const SANYUANLIBAO = { id: 10, price: 3 };
