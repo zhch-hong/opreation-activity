@@ -13,7 +13,6 @@ type RES_QUERY_GIFT_BAG_STATUS = {
   status: 0 | 1;
   time: number;
 };
-
 /**
  * 查询礼包状态，1 能购买，0 不能购买
  * @param id
@@ -91,7 +90,6 @@ type RES_QUERY_JIKA_BASE_INFO = {
   /** 服务器时间 */
   server_time: number;
 };
-
 /**
  * 请求季卡信息
  * @returns
@@ -101,4 +99,17 @@ export function API_QUERY_JIKA_BASE_INFO() {
     name: 'query_jika_base_info',
     data: {},
   });
+}
+
+type RES_GET_TASK_AWARD = {
+  result: number;
+  id: number;
+};
+/**
+ * 领取系统升级奖励
+ * @param id 任务ID
+ * @returns
+ */
+export function API_GET_TASK_AWARD(id: number) {
+  return fetchCall<RES_GET_TASK_AWARD>({ name: 'get_task_award', data: { id } });
 }
