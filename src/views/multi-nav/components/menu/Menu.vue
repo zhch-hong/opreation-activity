@@ -22,7 +22,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { getMenu } from '../../composables/nav-menu';
-import BScroll, { BScrollInstance } from '@better-scroll/core';
+import BScroll from '@better-scroll/core';
 import { activeMenu } from '../../composables/current-menuitem';
 
 import MenuTag from './MenuTag.vue';
