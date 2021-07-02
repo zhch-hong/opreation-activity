@@ -22,3 +22,8 @@ export const SANYUANLIBAO = { id: 10, price: 3 };
  * 周卡
  */
 export const ZHOUKA = { id: 10436, price: 10 };
+
+/**
+ * 至尊季卡
+ */
+export const ZHIZUNJIKA = { id: 10168, price: 198 };

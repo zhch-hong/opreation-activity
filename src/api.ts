@@ -19,7 +19,7 @@ type RES_QUERY_GIFT_BAG_STATUS = {
  * @returns
  */
 export function API_QUERY_GIFT_BAG_STATUS(id: number) {
-  return fetchCall<RES_QUERY_GIFT_BAG_STATUS>({ name: 'query_gift_bag_status', data: { gift_bag_id: id } });
+  return fetchCall<RES_QUERY_GIFT_BAG_STATUS>('query_gift_bag_status', { gift_bag_id: id });
 }
 
 /**
@@ -61,14 +61,14 @@ export type RES_QUERY_NEW_YUEKA_BASE_INFO = {
  * @returns
  */
 export function API_QUERY_NEW_YUEKA_BASE_INFO() {
-  return fetchCall<RES_QUERY_NEW_YUEKA_BASE_INFO>({ name: 'query_new_yueka_base_info', data: {} });
+  return fetchCall<RES_QUERY_NEW_YUEKA_BASE_INFO>('query_new_yueka_base_info');
 }
 
 /**
  * 购买尊享月卡后，领取每日奖励
  */
 export function API_NEW_YUEKA_RECEIVE_AWARD() {
-  return fetchCall<Record<'result', number>>({ name: 'new_yueka_receive_award', data: {} });
+  return fetchCall<Record<'result', number>>('new_yueka_receive_award');
 }
 
 /**
@@ -95,10 +95,7 @@ type RES_QUERY_JIKA_BASE_INFO = {
  * @returns
  */
 export function API_QUERY_JIKA_BASE_INFO() {
-  return fetchCall<RES_QUERY_JIKA_BASE_INFO>({
-    name: 'query_jika_base_info',
-    data: {},
-  });
+  return fetchCall<RES_QUERY_JIKA_BASE_INFO>('query_jika_base_info', {});
 }
 
 type RES_GET_TASK_AWARD = {
@@ -111,5 +108,5 @@ type RES_GET_TASK_AWARD = {
  * @returns
  */
 export function API_GET_TASK_AWARD(id: number) {
-  return fetchCall<RES_GET_TASK_AWARD>({ name: 'get_task_award', data: { id } });
+  return fetchCall<RES_GET_TASK_AWARD>('get_task_award', { id });
 }

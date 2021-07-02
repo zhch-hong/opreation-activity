@@ -1,0 +1,131 @@
+.container {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: url('./image/zzjk_icon_6.png') center/cover no-repeat;
+
+  & > a.close {
+    position: absolute;
+    right: 240px;
+    top: 40px;
+
+    img {
+      width: 104px;
+      height: 104px;
+    }
+  }
+
+  & > img.img-1 {
+    position: absolute;
+    width: 524px;
+    height: 42px;
+    right: 420px;
+    top: 360px;
+  }
+
+  & > img.img-2 {
+    position: absolute;
+    width: 563px;
+    height: 43px;
+    right: 420px;
+    top: 700px;
+  }
+
+  & > img.img-3 {
+    position: absolute;
+    width: 257px;
+    height: 96px;
+    right: 550px;
+    top: 770px;
+  }
+
+  & > div.box-1 {
+    position: absolute;
+    display: flex;
+    width: 417px;
+    height: 258px;
+    top: 418px;
+    left: 1018px;
+
+    & > div.item {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      & > img {
+        width: 152px;
+        height: 152px;
+      }
+
+      & > span {
+        color: #fff;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  div.box-2 {
+    position: absolute;
+    display: flex;
+    width: 417px;
+    height: 258px;
+    top: 418px;
+    left: 1018px;
+
+    & > img.img-1 {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      top: 4px;
+      left: 4px;
+    }
+
+    & > img.img-2,
+    & > img.img-3,
+    & > img.img-4 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    & > img.img-2 {
+      width: 178px;
+      height: 56px;
+      top: 4px;
+    }
+    & > img.img-3 {
+      width: 223px;
+      height: 122px;
+      top: 60px;
+    }
+    & > img.img-4 {
+      width: 200px;
+      height: 75px;
+      bottom: -8px;
+    }
+  }
+
+  div.box-3 {
+    position: absolute;
+    right: 520px;
+    bottom: 270px;
+    display: flex;
+    align-items: center;
+    color: #feaa22;
+
+    & > img {
+      width: 134px;
+      height: 144px;
+    }
+  }
+
+  p.tip {
+    position: absolute;
+    bottom: 218px;
+    left: 990px;
+    font-size: 24px;
+    color: #fff;
+  }
+}

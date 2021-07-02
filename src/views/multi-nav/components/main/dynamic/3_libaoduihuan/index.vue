@@ -95,39 +95,38 @@ export default defineComponent({
 
     submit() {
       if (this.validate()) {
-        fetchCall<Record<'result' | 'time', number>>({
-          name: 'use_redeem_code',
-          data: { code: this.giftCode },
-        }).then(({ result, time }) => {
-          if (result === 0) {
-            this.visible = false;
-            this.giftCode = '';
-          } else {
-            if (time !== 0) {
-              alertMessage('你操作错误过多，稍后再试');
-              this.disable = true;
-
-              clearInterval(this.timer);
-
-              const refCut = cutdown(time);
-
-              this.timer = refCut.timer;
-
-              watch(
-                refCut.time,
-                (value) => {
-                  this.timedown = value;
-                  if (value === '') {
-                    this.disable = false;
-                  }
-                },
-                { immediate: true }
-              );
+        fetchCall<Record<'result' | 'time', number>>('use_redeem_code', { code: this.giftCode }).then(
+          ({ result, time }) => {
+            if (result === 0) {
+              this.visible = false;
+              this.giftCode = '';
             } else {
-              alertMessage('兑换码无效');
+              if (time !== 0) {
+                alertMessage('你操作错误过多，稍后再试');
+                this.disable = true;
+
+                clearInterval(this.timer);
+
+                const refCut = cutdown(time);
+
+                this.timer = refCut.timer;
+
+                watch(
+                  refCut.time,
+                  (value) => {
+                    this.timedown = value;
+                    if (value === '') {
+                      this.disable = false;
+                    }
+                  },
+                  { immediate: true }
+                );
+              } else {
+                alertMessage('兑换码无效');
+              }
             }
           }
-        });
+        );
       } else {
         this.invalid = true;
 

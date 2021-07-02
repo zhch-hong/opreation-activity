@@ -3,14 +3,54 @@ import _ from 'lodash';
 import store from '@/store';
 import { v4 } from 'uuid';
 import { reactive, ref, watch } from 'vue';
-import { isBrowser } from '@/runtime-env';
+import { isBrowser, isWebview } from '@/runtime-env';
 import { emitter } from '@/window-listener';
+
+/**
+ * 发送消息不需要返回
+ * @param params
+ * @returns
+ */
+/* function fetchSend(params: unknown) {
+  axios({
+    baseURL: store.state.baseURL,
+    url: `msg_send`,
+    method: 'POST',
+    withCredentials: false,
+    data: params,
+    headers: {
+      token: store.state.token,
+      userid: store.state.user.user_id,
+    },
+  });
+} */
+
+/**
+ * 通过服务器向客户端发送消息
+ * @param params
+ * @returns
+ */
+/* function fetchNative(params: Record<string, string | Record<string, unknown>>) {
+  const data = _.cloneDeep(params);
+  data['user_id'] = store.state.user.user_id as string;
+  return axios({
+    baseURL: store.state.baseURL,
+    url: `msg_webview_notify`,
+    method: 'GET',
+    withCredentials: false,
+    params: data,
+    headers: {
+      token: store.state.token,
+      userid: store.state.user.user_id,
+    },
+  });
+} */
 
 /**
  * 从webview发送消息到客户端
  * @returns
  */
-function webview2client() {
+const fetchMessage = (function webview2client() {
   /**
    * 标识当前是否正处于通讯状态
    * 即从webview发送消息到客户端，客户端还有没有消息回执（告诉webview客户端已经收到消息了）
@@ -61,7 +101,7 @@ function webview2client() {
     }
   );
 
-  return function <T>(url: string, response: boolean) {
+  return function <T = any>(url: string, response: boolean) {
     const uuid = v4();
     const readuuid = v4();
 
@@ -75,42 +115,47 @@ function webview2client() {
 
     messageStack.push(url);
 
-    emitter.on(readuuid, () => {
+    emitter.on<number>(readuuid, () => {
       console.log(`消息回执___${readuuid}`);
 
       emitter.off(readuuid);
+
       messageRun = false;
-      if (messageStack.length === 0) count.value = 0;
-      else count.value++;
+
+      if (messageStack.length === 0) {
+        count.value = 0;
+      } else {
+        count.value++;
+      }
     });
 
     if (response) {
       return new Promise<T>((resolve, reject) => {
         emitter.on<T>(uuid, (data) => {
+          emitter.off(uuid);
+
           if (data) resolve(data);
           else reject();
-          emitter.off(uuid);
         });
       });
     }
   };
-}
-
-const fetchMessage = webview2client();
+})();
 
 /**
  * 请求客户端配置
  * @param url
  * @returns
  */
-function fetchClientConfig(url: string) {
-  return new Promise<Record<string, Record<string, unknown>[]>>((resolve) => {
+function fetchClientConfig<T = any>(url: string) {
+  return new Promise<T>((resolve) => {
     axios({
       baseURL: process.env.VUE_APP_ASSET_URL,
       url,
       method: 'GET',
     })
-      .then(({ data }) => {
+      .then((response) => {
+        const data = response.data as T;
         resolve(data);
       })
       .catch(() => {
@@ -206,163 +251,77 @@ function loopFetch() {
 }
 
 /**
- * 监听主动推送的消息
+ * 请求服务器数据
  * @param message 消息名称
- * @param callback 回调函数
- */
-function listenerPositiveMessage<T = unknown>(message: string, callback: (params?: T) => void) {
-  emitter.on<T>(message, (event) => callback(event));
-}
-
-type FetchCallParam = {
-  name: string;
-  data: string | Record<PropertyKey, unknown>;
-  user_id?: string; // 这个参数只有在浏览器环境下跟服务器通信需要，在webview环境下跟客户端通信时不需要
-};
-/**
- * 发送消息并需要返回
- * @param params
+ * @param data
  * @returns
  */
-function fetchCall<T>(params: FetchCallParam) {
-  if (isBrowser) {
-    const data = _.cloneDeep(params);
-    data['user_id'] = store.state.user.user_id as string;
-    return new Promise<T>((resolve) => {
-      axios({
-        baseURL: store.state.baseURL,
-        url: `msg_call`,
-        method: 'POST',
-        withCredentials: false,
-        data,
-        headers: {
-          token: store.state.token,
-          userid: store.state.user.user_id,
-        },
-      }).then(({ data }) => {
-        resolve(data);
-      });
-    });
-  } else {
-    const name = params.name as string;
-    const query = JSON.stringify(params.data);
-
-    return fetchMessage<T>(`webmessage://request?name=${name}&params=${query}`, true)!;
+function fetchCall<T = any>(message: string, data: Record<string, unknown> = {}): Promise<T> {
+  if (isWebview) {
+    return fetchMessage<T>(`webmessage://request?name=${message}&params=${JSON.stringify(data)}`, true)!;
   }
-}
 
-/**
- * 发送消息不需要返回
- * @param params
- * @returns
- */
-function fetchSend(params: unknown) {
-  axios({
-    baseURL: store.state.baseURL,
-    url: `msg_send`,
-    method: 'POST',
-    withCredentials: false,
-    data: params,
-    headers: {
-      token: store.state.token,
-      userid: store.state.user.user_id,
-    },
+  return new Promise<T>((resolve) => {
+    axios({
+      baseURL: store.state.baseURL,
+      url: `msg_call`,
+      method: 'POST',
+      data: {
+        name: message,
+        user_id: store.state.user.user_id,
+        data,
+      },
+      headers: {
+        token: store.state.token,
+        userid: store.state.user.user_id,
+      },
+    }).then(({ data }) => {
+      resolve(data);
+    });
   });
 }
 
-type InstallMsgParam = {
-  msg_names: string[];
-  user_id?: string; // 这个参数只有在浏览器环境下跟服务器通信需要，在webview环境下跟客户端通信时不需要
-};
 /**
- * 注册需要发送到webview的消息
- * @param params
+ * 注册服务端消息
+ * @param message 服务端推送的消息名称
+ * @param callback
  */
-function installMessage(params: InstallMsgParam) {
+function registerServeMsg<T = any>(message: string, callback?: (params: T) => void) {
   if (isBrowser) {
-    if (!params['user_id']) {
-      params['user_id'] = store.state.user.user_id as string;
-    }
+    const data = {
+      user_id: store.state.user.user_id,
+      msg_names: [message],
+    };
 
     axios({
       baseURL: store.state.baseURL,
       url: `register_msg`,
       method: 'POST',
-      withCredentials: false,
-      data: params,
+      data,
       headers: {
         token: store.state.token,
-        userid: store.state.user.user_id,
+        userid: data.user_id,
       },
     });
   } else {
-    const ms = params.msg_names as string[];
-    let query = '';
-    ms.forEach((m, i) => {
-      query += `${i + 1}=${m}&`;
-    });
-    fetchMessage(`webmessage://addlisten?${query.slice(0, -1)}`, false);
+    fetchMessage(`webmessage://addlisten?1=${message}`, false);
   }
-}
 
-/**
- * 取消注册需要发送到webview的消息
- * @param params
- */
-function uninstallMessage(params: Record<string, unknown>) {
-  const ms = params.msg_names as string[];
-  let query = '';
-  ms.forEach((m, i) => {
-    emitter.off(m);
-
-    query += `${i + 1}=${m}&`;
-  });
-  if (isBrowser) {
-    // axios({
-    //   baseURL: baseURL.value,
-    //   url: `/register_msg`,
-    //   method: 'POST',
-    //   withCredentials: false,
-    //   data: params,
-    //   headers: {
-    //     token: TOKEN.value,
-    //     userid: USER.value?.user_id,
-    //   },
-    // });
-  } else {
-    //
-    fetchMessage(`webmessage://removelisten?${query.slice(0, -1)}`, false);
-  }
-}
-
-/**
- * 通过服务器向客户端发送消息
- * @param params
- * @returns
- */
-function fetchNative(params: Record<string, string | Record<string, unknown>>) {
-  const data = _.cloneDeep(params);
-  data['user_id'] = store.state.user.user_id as string;
-  return axios({
-    baseURL: store.state.baseURL,
-    url: `msg_webview_notify`,
-    method: 'GET',
-    withCredentials: false,
-    params: data,
-    headers: {
-      token: store.state.token,
-      userid: store.state.user.user_id,
-    },
+  emitter.on<T>(message, (event) => {
+    if (typeof event !== 'undefined' && callback) callback(event);
   });
 }
 
-export {
-  fetchMessage,
-  login,
-  fetchClientConfig,
-  loopFetch,
-  fetchCall,
-  installMessage,
-  listenerPositiveMessage,
-  uninstallMessage,
-};
+/**
+ * 注销服务端消息
+ * @param message
+ */
+function unregisterServeMsg(message: string) {
+  if (isWebview) {
+    fetchMessage(`webmessage://removelisten?1=${message}`, false);
+  }
+
+  emitter.off(message);
+}
+
+export { fetchMessage, login, fetchClientConfig, loopFetch, fetchCall, registerServeMsg, unregisterServeMsg };

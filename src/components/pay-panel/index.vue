@@ -62,25 +62,19 @@ export default defineComponent({
 
   methods: {
     fetchPayType() {
-      fetchCall<Record<'types', Record<string, string>[]>>({
-        name: 'get_pay_types',
-        data: {
-          goods_id: this.giftid,
-        },
+      fetchCall<Record<'types', Record<string, string>[]>>('get_pay_types', {
+        goods_id: this.giftid,
       }).then(({ types }) => {
         this.paytypes = types.filter((o) => ['wxgzh', 'alipay', 'UnionPay'].includes(o.channel));
       });
     },
 
     createOrder(value: string) {
-      fetchCall<Record<string, unknown>>({
-        name: 'create_pay_order',
-        data: {
-          goods_id: this.giftid,
-          channel_type: value,
-          geturl: 'y',
-          convert: undefined,
-        },
+      fetchCall<Record<string, unknown>>('create_pay_order', {
+        goods_id: this.giftid,
+        channel_type: value,
+        geturl: 'y',
+        convert: undefined,
       }).then((data) => {
         if (data.result !== 0) {
           alertMessage(`[${data.result}]创建订单失败`);

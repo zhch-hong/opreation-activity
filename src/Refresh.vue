@@ -18,8 +18,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .refresh {
   position: fixed;
+  left: 20px;
   top: 20px;
-  right: 0;
   z-index: 1000;
 
   a {

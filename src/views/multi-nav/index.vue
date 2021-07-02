@@ -1,5 +1,10 @@
 <template>
   <div v-bind="$attrs" class="multi-nav">
+    <!-- 关闭按钮 -->
+    <a class="close" href="uniwebviewfun://Hide">
+      <img src="./image/close.png" alt="关闭" />
+    </a>
+
     <div class="container">
       <Menu />
       <Main />
@@ -32,6 +37,17 @@ export default defineComponent({
   background-size: cover;
   overflow: hidden;
   color: aquamarine;
+
+  & > a.close {
+    position: absolute;
+    right: 140px;
+    top: 50px;
+
+    img {
+      width: 104px;
+      height: 104px;
+    }
+  }
 }
 
 .container {

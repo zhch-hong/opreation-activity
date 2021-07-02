@@ -1,12 +1,10 @@
 import _ from 'lodash';
-import { installMessage, listenerPositiveMessage, uninstallMessage } from '@/network';
+import { registerServeMsg, unregisterServeMsg } from '@/network';
 import assetNotify from '.';
 import notifyValidate from './asset-notify-validate';
 
 function addListenMsg(cb?: (p: Record<string, unknown>) => void) {
-  installMessage({ msg_names: ['notify_asset_change_msg'] });
-
-  listenerPositiveMessage<Record<string, unknown>>('notify_asset_change_msg', (params) => {
+  registerServeMsg('notify_asset_change_msg', (params) => {
     if (params) {
       if (typeof params.type !== 'undefined') {
         const asset = params.change_asset as Record<string, string>[] | undefined;
@@ -40,7 +38,7 @@ function addListenMsg(cb?: (p: Record<string, unknown>) => void) {
 }
 
 function removeListenMsg() {
-  uninstallMessage({ msg_names: ['notify_asset_change_msg'] });
+  unregisterServeMsg('notify_asset_change_msg');
 }
 
 export { addListenMsg, removeListenMsg };
