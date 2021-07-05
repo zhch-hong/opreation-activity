@@ -48,6 +48,7 @@
     left: 1018px;
 
     & > div.item {
+      position: relative;
       width: 50%;
       height: 100%;
       display: flex;
@@ -62,6 +63,15 @@
       & > span {
         color: #fff;
         margin-top: 10px;
+      }
+
+      & > img.icon {
+        position: absolute;
+        width: 128px;
+        height: 105px;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
   }

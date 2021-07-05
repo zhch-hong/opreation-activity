@@ -1,8 +1,7 @@
 import { fetchCall } from '@/network';
 
-/**
- * 查询礼包状态响应数据
- */
+// ======== 礼包数据
+
 type RES_QUERY_GIFT_BAG_STATUS = {
   /** 礼包ID */
   gift_bag_id: number;
@@ -10,17 +9,20 @@ type RES_QUERY_GIFT_BAG_STATUS = {
   permit_time: number;
   remain_time: number;
   result: number;
+  /** 1 能购买，0 不能购买 */
   status: 0 | 1;
   time: number;
 };
 /**
- * 查询礼包状态，1 能购买，0 不能购买
+ * 查询礼包数据
  * @param id
  * @returns
  */
 export function API_QUERY_GIFT_BAG_STATUS(id: number) {
   return fetchCall<RES_QUERY_GIFT_BAG_STATUS>('query_gift_bag_status', { gift_bag_id: id });
 }
+
+// ======== 超值月卡
 
 /**
  * 月卡信息
@@ -71,6 +73,8 @@ export function API_NEW_YUEKA_RECEIVE_AWARD() {
   return fetchCall<Record<'result', number>>('new_yueka_receive_award');
 }
 
+// ======== 至尊季卡
+
 /**
  * 季卡数据
  */
@@ -98,6 +102,8 @@ export function API_QUERY_JIKA_BASE_INFO() {
   return fetchCall<RES_QUERY_JIKA_BASE_INFO>('query_jika_base_info', {});
 }
 
+// ======== 系统升级奖励
+
 type RES_GET_TASK_AWARD = {
   result: number;
   id: number;
@@ -109,4 +115,30 @@ type RES_GET_TASK_AWARD = {
  */
 export function API_GET_TASK_AWARD(id: number) {
   return fetchCall<RES_GET_TASK_AWARD>('get_task_award', { id });
+}
+
+// ======== 全返礼包
+
+type ALL_RETURN_LB_DATA = {
+  /** 是否购买 */
+  is_buy: number;
+  /** 剩余次数 */
+  remain_num: number;
+  /** 购买时间 */
+  buy_time: number;
+  /** 任务过期时间 */
+  over_time: number;
+};
+type RES_QUERY_ALL_RETURN_LB_INFO = {
+  result: number;
+  all_return_lb_1: ALL_RETURN_LB_DATA;
+  all_return_lb_2: ALL_RETURN_LB_DATA;
+  all_return_lb_3: ALL_RETURN_LB_DATA;
+};
+/**
+ * 请求全返礼包数据
+ * @returns
+ */
+export function API_QUERY_ALL_RETURN_LB_INFO() {
+  return fetchCall<RES_QUERY_ALL_RETURN_LB_INFO>('query_all_return_lb_info');
 }

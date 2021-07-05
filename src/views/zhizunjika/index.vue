@@ -9,12 +9,29 @@
     <RulePanel />
 
     <template v-if="isBuyed">
-      <div class="box-2">
-        <img class="img-1" src="./image/zzjk_icon_1.png" alt="猜你喜欢" />
-        <img class="img-2" src="./image/zzjk_icon_10.png" alt="季返礼包" />
-        <img class="img-3" src="./image/zzjk_icon_11.png" alt="待领取100元" />
-        <img class="img-4" src="./image/zzjk_icon_4.png" alt="立即领取" />
-      </div>
+      <template v-if="showQuanfan">
+        <div class="box-2">
+          <img class="img-1" src="./image/zzjk_icon_1.png" alt="猜你喜欢" />
+          <img class="img-2" src="./image/zzjk_icon_10.png" alt="季返礼包" />
+          <img class="img-3" src="./image/zzjk_icon_11.png" alt="待领取100元" />
+          <img class="img-4" src="./image/zzjk_icon_4.png" alt="立即领取" />
+        </div>
+      </template>
+      <template v-else>
+        <!-- 金币880万，抽奖券90 -->
+        <div class="box-1">
+          <div class="item">
+            <img src="./image/zzjk_icon_3.png" alt="880万金币" />
+            <span>金币 x880万</span>
+            <img class="icon" src="./image/yihuode.png" alt="已获得" />
+          </div>
+          <div class="item">
+            <img src="./image/zzjk_icon_2.png" alt="880万金币" />
+            <span>抽奖券 x90</span>
+            <img class="icon" src="./image/yihuode.png" alt="已获得" />
+          </div>
+        </div>
+      </template>
 
       <div class="box-3">
         <span>剩余奖券：</span>
@@ -33,10 +50,12 @@
         <div class="item">
           <img src="./image/zzjk_icon_3.png" alt="880万金币" />
           <span>金币 x880万</span>
+          <!-- <img v-if="!showQuanfan" class="icon" src="./image/yihuode.png" alt="已获得" /> -->
         </div>
         <div class="item">
           <img src="./image/zzjk_icon_2.png" alt="880万金币" />
           <span>抽奖券 x90</span>
+          <!-- <img v-if="!showQuanfan" class="icon" src="./image/yihuode.png" alt="已获得" /> -->
         </div>
       </div>
 
@@ -52,7 +71,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { ZHIZUNJIKA } from '@/shopping';
-import { API_QUERY_JIKA_BASE_INFO } from '@/api';
+import { API_QUERY_JIKA_BASE_INFO, API_QUERY_ALL_RETURN_LB_INFO } from '@/api';
 import payPanel from '@/components/pay-panel';
 import { addListenMsg, removeListenMsg } from '@/components/asset-notify';
 import { registerServeMsg, unregisterServeMsg } from '@/network';
@@ -71,6 +90,7 @@ export default defineComponent({
   setup() {
     const isBuyed = ref(false);
     const count = ref(0);
+    const showQuanfan = ref(false);
 
     const fetchStatus = () => {
       API_QUERY_JIKA_BASE_INFO().then(({ total_remain_num }) => {
@@ -79,12 +99,20 @@ export default defineComponent({
       });
     };
 
-    onBeforeMount(fetchStatus);
+    onBeforeMount(() => {
+      fetchStatus();
+
+      API_QUERY_ALL_RETURN_LB_INFO().then(({ all_return_lb_3 }) => {
+        const { is_buy } = all_return_lb_3;
+        showQuanfan.value = is_buy === 0;
+      });
+    });
 
     return {
       isBuyed,
       count,
       fetchStatus,
+      showQuanfan,
     };
   },
 
