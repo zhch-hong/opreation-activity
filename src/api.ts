@@ -81,16 +81,12 @@ export function API_NEW_YUEKA_RECEIVE_AWARD() {
 type RES_QUERY_JIKA_BASE_INFO = {
   /** 0 成功 */
   result: number;
-
   /** 购买时间 */
   buy_time: number;
-
   /** 剩余抽奖次数 */
   total_remain_num: number;
-
   /** 抽奖状态 */
   is_lottery: number;
-
   /** 服务器时间 */
   server_time: number;
 };
@@ -99,7 +95,27 @@ type RES_QUERY_JIKA_BASE_INFO = {
  * @returns
  */
 export function API_QUERY_JIKA_BASE_INFO() {
-  return fetchCall<RES_QUERY_JIKA_BASE_INFO>('query_jika_base_info', {});
+  return fetchCall<RES_QUERY_JIKA_BASE_INFO>('query_jika_base_info');
+}
+/**
+ * 每日抽奖返回数据
+ */
+type RES_JIKA_EVERYDAY_LOTTERY = {
+  /** 0 成功 */
+  result: number;
+  /** 奖励名称 */
+  award_name: string;
+  /** 奖励ID */
+  award_id: number;
+  /** 玩家昵称 */
+  name: string;
+};
+/**
+ * 每日抽奖
+ * @returns
+ */
+export function API_JIKA_EVERYDAY_LOTTERY() {
+  return fetchCall<RES_JIKA_EVERYDAY_LOTTERY>('jika_everyday_lottery');
 }
 
 // ======== 系统升级奖励

@@ -1,0 +1,168 @@
+@keyframes anmt-1 {
+  0% {
+    box-shadow: 0 0 1px 1px #f6d070;
+  }
+  25% {
+    box-shadow: 0 0 2px 2px #f6d070;
+  }
+  50% {
+    box-shadow: 0 0 3px 3px #f6d070;
+  }
+  75% {
+    box-shadow: 0 0 4px 4px #f6d070;
+  }
+  100% {
+    box-shadow: 0 0 5px 5px #f6d070;
+  }
+}
+@keyframes anmt-2 {
+  0% {
+    box-shadow: 0 0 1px 1px #fe5d26;
+  }
+  25% {
+    box-shadow: 0 0 2px 2px #fe5d26;
+  }
+  50% {
+    box-shadow: 0 0 3px 3px #fe5d26;
+  }
+  75% {
+    box-shadow: 0 0 4px 4px #fe5d26;
+  }
+  100% {
+    box-shadow: 0 0 5px 5px #fe5d26;
+  }
+}
+@keyframes anmt-3 {
+  0% {
+    box-shadow: 0 0 1px 1px #f2f1f0;
+  }
+  25% {
+    box-shadow: 0 0 2px 2px #f2f1f0;
+  }
+  50% {
+    box-shadow: 0 0 3px 3px #f2f1f0;
+  }
+  75% {
+    box-shadow: 0 0 4px 4px #f2f1f0;
+  }
+  100% {
+    box-shadow: 0 0 5px 5px #f6d070;
+  }
+}
+
+.lucky-wheel {
+  position: absolute;
+  width: 681px;
+  height: 681px;
+  left: 250px;
+  top: 174px;
+  background: url('./image/xyzp.png') center/contain no-repeat;
+
+  .wheel-box {
+    position: absolute;
+    left: 69px;
+    bottom: 33px;
+  }
+}
+
+.anmt-1,
+.anmt-2,
+.anmt-3,
+.anmt-4,
+.anmt-5,
+.anmt-6,
+.anmt-7,
+.anmt-8,
+.anmt-9,
+.anmt-10,
+.anmt-11,
+.anmt-12 {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.anmt-1,
+.anmt-4,
+.anmt-7,
+.anmt-10 {
+  background-color: #f6d070;
+  animation: anmt-1 400ms linear 0ms infinite alternate;
+}
+
+.anmt-2,
+.anmt-5,
+.anmt-8,
+.anmt-11 {
+  background-color: #fe5d26;
+  animation: anmt-2 400ms linear 150ms infinite alternate;
+}
+
+.anmt-3,
+.anmt-6,
+.anmt-9,
+.anmt-12 {
+  background-color: #f2f1f0;
+  animation: anmt-3 400ms linear 300ms infinite alternate;
+}
+
+.anmt-1,
+.anmt-6 {
+  left: 132px;
+}
+
+.anmt-2,
+.anmt-5 {
+  left: 112px;
+}
+
+.anmt-3,
+.anmt-4 {
+  left: 92px;
+}
+
+.anmt-7,
+.anmt-12 {
+  right: 132px;
+}
+
+.anmt-8,
+.anmt-11 {
+  right: 112px;
+}
+
+.anmt-9,
+.anmt-10 {
+  right: 92px;
+}
+
+.anmt-1,
+.anmt-12 {
+  top: 166px;
+}
+
+.anmt-2,
+.anmt-11 {
+  top: 188px;
+}
+
+.anmt-3,
+.anmt-10 {
+  top: 214px;
+}
+
+.anmt-4,
+.anmt-9 {
+  bottom: 138px;
+}
+
+.anmt-5,
+.anmt-8 {
+  bottom: 112px;
+}
+
+.anmt-6,
+.anmt-7 {
+  bottom: 90px;
+}

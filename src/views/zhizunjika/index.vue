@@ -5,6 +5,8 @@
       <img src="./image/close.png" alt="关闭" />
     </a>
 
+    <LuckyWheel :is-lottery="isLottery" :is-buyed="isBuyed" @lottery-resolve="lotteryResolve" @pay-panel="handlePay" />
+
     <!-- 规则 -->
     <RulePanel />
 
@@ -77,6 +79,7 @@ import { addListenMsg, removeListenMsg } from '@/components/asset-notify';
 import { registerServeMsg, unregisterServeMsg } from '@/network';
 
 import RulePanel from './components/RulePanel.vue';
+import LuckyWheel from './components/lucky-wheel/LuckyWheel.vue';
 
 type JIKA_CHANGE = {
   buy_time: number;
@@ -85,17 +88,19 @@ type JIKA_CHANGE = {
 };
 
 export default defineComponent({
-  components: { RulePanel },
+  components: { RulePanel, LuckyWheel },
 
   setup() {
     const isBuyed = ref(false);
+    const isLottery = ref(false);
     const count = ref(0);
     const showQuanfan = ref(false);
 
     const fetchStatus = () => {
-      API_QUERY_JIKA_BASE_INFO().then(({ total_remain_num }) => {
+      API_QUERY_JIKA_BASE_INFO().then(({ total_remain_num, is_lottery }) => {
         isBuyed.value = total_remain_num > 0;
         count.value = total_remain_num;
+        isLottery.value = is_lottery === 1;
       });
     };
 
@@ -110,6 +115,7 @@ export default defineComponent({
 
     return {
       isBuyed,
+      isLottery,
       count,
       fetchStatus,
       showQuanfan,
@@ -119,9 +125,10 @@ export default defineComponent({
   mounted() {
     addListenMsg();
 
-    registerServeMsg<JIKA_CHANGE>('jika_base_info_change_msg', ({ total_remain_num }) => {
+    registerServeMsg<JIKA_CHANGE>('jika_base_info_change_msg', ({ total_remain_num, is_lottery }) => {
       this.isBuyed = total_remain_num > 0;
       this.count = total_remain_num;
+      this.isLottery = is_lottery === 1;
     });
   },
 
@@ -134,6 +141,10 @@ export default defineComponent({
   methods: {
     handlePay() {
       payPanel(ZHIZUNJIKA.id, ZHIZUNJIKA.price);
+    },
+
+    lotteryResolve(event: unknown) {
+      console.log('抽奖结束', event);
     },
   },
 });

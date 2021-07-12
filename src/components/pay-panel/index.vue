@@ -55,8 +55,6 @@ export default defineComponent({
   },
 
   created() {
-    console.log('created');
-
     this.fetchPayType();
   },
 
