@@ -4,20 +4,20 @@
     <a class="close" href="uniwebviewfun://Hide">
       <img src="@/assets/image/close_2.png" alt="关闭" />
     </a>
-  </div>
 
-  <p class="tip">每日特惠礼包每天只能购买一次</p>
+    <p class="tip">每日特惠礼包每天只能购买一次</p>
 
-  <div class="pay-list">
-    <PayItem
-      v-for="(item, i) of list"
-      :ref="'PayItem_' + i"
-      :key="item.id"
-      :index="i"
-      :gift="item"
-      :update-status="updateStatus"
-      @update-status="updateStatus = false"
-    />
+    <div class="pay-list">
+      <PayItem
+        v-for="(item, i) of list"
+        :ref="'PayItem_' + i"
+        :key="item.id"
+        :index="i"
+        :gift="item"
+        :update-status="updateStatus"
+        @update-status="updateStatus = false"
+      />
+    </div>
   </div>
 </template>
 <script lang="ts">
