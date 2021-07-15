@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/meiritehui',
+    redirect: '/yibenwanli',
   },
   {
     path: '/multi-nav',
@@ -19,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/meiritehui',
     name: '每日特惠',
     component: () => import('@/views/meiritehui/index.vue'),
+  },
+  {
+    path: '/yibenwanli',
+    name: '一本万利',
+    component: () => import('@/views/yibenwanli/index.vue'),
   },
 ];
 
