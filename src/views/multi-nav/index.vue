@@ -2,7 +2,7 @@
   <div v-bind="$attrs" class="multi-nav">
     <!-- 关闭按钮 -->
     <a class="close" href="uniwebviewfun://Hide">
-      <img src="./image/close.png" alt="关闭" />
+      <img src="@/assets/image/close_1.png" alt="关闭" />
     </a>
 
     <div class="container">

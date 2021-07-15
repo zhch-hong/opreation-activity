@@ -2,7 +2,7 @@
   <teleport to="#app">
     <Overlay :show="visible" :custom-style="customStyle" duration="0">
       <div class="wrapper">
-        <img v-if="showClose" class="close" src="@/assets/image/gb_1.png" alt="关闭" @click="close" />
+        <img v-if="showClose" class="close" src="@/assets/image/close_1.png" alt="关闭" @click="close" />
         <div class="header">
           <slot name="title" />
         </div>

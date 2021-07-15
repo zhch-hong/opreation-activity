@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.js"></script>
+  </head>
+  <body>
+    <input type="file" name="file" id="file" />
+
+    <script>
+      const inputFile = document.getElementById('file');
+
+      inputFile.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const fileName = file.name.split('.')[0];
+
+        const reader = new FileReader();
+        reader.onloadend = function (e) {
+          const workbook = XLSX.read(e.target.result, { type: 'array' });
+
+          // const workbookMap = {};
+
+          // for (const key in workbook.Sheets) {
+          //   if (Object.hasOwnProperty.call(workbook.Sheets, key)) {
+          //     const k = key.split('|')[0];
+          //     if (k !== '') {
+          //       workbookMap[k] = [];
+
+          //       const worksheet = workbook.Sheets[key];
+          //       const json = XLSX.utils.sheet_to_json(worksheet, {
+          //         defval: null,
+          //       });
+
+          //       json.forEach((row) => {
+          //         const worksheetMap = {};
+          //         Object.keys(row).forEach((cKey) => {
+          //           const _k = cKey.split('|')[0];
+          //           if (_k !== '') {
+          //             worksheetMap[_k] = row[cKey];
+          //           }
+          //         });
+          //         workbookMap[k].push(worksheetMap);
+          //       });
+          //     }
+          //   }
+          // }
+
+          const data = [];
+
+          const worksheet = workbook.Sheets['config|礼包配置'];
+
+          const json = XLSX.utils.sheet_to_json(worksheet, {
+            defval: null,
+          });
+
+          console.log(json);
+
+          json.forEach((row, index) => {
+            if (index >= 2 && index <= 7) {
+              let xx = 0;
+              while (xx < 9) {
+                data.push({
+                  text: row['pay_name|'].split(',')[xx].replace(/"/g, ''),
+                  icon: row['icon_img|礼包icon图'].split(',')[xx].replace(/"/g, ''),
+                });
+                xx++;
+              }
+            }
+          });
+
+          console.log(data);
+
+          const blob = new Blob([JSON.stringify(data)], {
+            type: 'application/json;charset=utf-8',
+          });
+          saveAs(blob, fileName + '.json');
+        };
+
+        reader.readAsArrayBuffer(file);
+      });
+    </script>
+  </body>
+</html>

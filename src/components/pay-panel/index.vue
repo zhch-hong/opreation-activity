@@ -39,9 +39,9 @@ export default defineComponent({
 
   data() {
     return {
-      weixin: true,
-      alipay: true,
-      unionpay: true,
+      weixin: false,
+      alipay: false,
+      unionpay: false,
       paytypes: [] as Record<string, string>[],
     };
   },

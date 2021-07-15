@@ -1,5 +1,5 @@
 <template>
-  <img class="lbdy" src="./image/btn_1.png" alt="礼包兑换" @click="duihuan" />
+  <img class="lbdy" src="./image/lbdh.png" alt="礼包兑换" @click="duihuan" />
   <OverlayDialog :visible="visible" @close="visible = false">
     <template #title>
       <span>礼包兑换</span>

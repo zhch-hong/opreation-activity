@@ -1,6 +1,40 @@
-import { fetchCall } from '@/network';
+import { fetchCall, fetchMessage } from '@/network';
+import axios from 'axios';
+import { isWebview } from './runtime-env';
+import store from './store';
 
-// ======== 礼包数据
+// ======== 权限查询
+/**
+ * 权限查询
+ * @param name
+ * @returns
+ */
+export function API_CHECK_PERMISS(name: string) {
+  if (isWebview) {
+    return fetchMessage<Record<'result', boolean>>(`unityfun://checkpermiss?1_string=${name}`, true)!;
+  }
+
+  return new Promise<Record<'result', boolean>>((resolve) => {
+    axios({
+      baseURL: store.state.baseURL,
+      url: `msg_call`,
+      method: 'POST',
+      data: {
+        name: 'judge_permission',
+        user_id: store.state.user.user_id,
+        data: { permission: name },
+      },
+      headers: {
+        token: store.state.token,
+        userid: store.state.user.user_id,
+      },
+    }).then(({ data }) => {
+      resolve({ result: data.effect });
+    });
+  });
+}
+
+// ======== 礼包状态数据
 
 type RES_QUERY_GIFT_BAG_STATUS = {
   /** 礼包ID */
@@ -158,3 +192,5 @@ type RES_QUERY_ALL_RETURN_LB_INFO = {
 export function API_QUERY_ALL_RETURN_LB_INFO() {
   return fetchCall<RES_QUERY_ALL_RETURN_LB_INFO>('query_all_return_lb_info');
 }
+
+// ======== 每日特惠
