@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import _ from 'lodash';
 
 const routes: Array<RouteRecordRaw> = [
   {

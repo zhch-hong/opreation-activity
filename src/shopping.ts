@@ -31,7 +31,7 @@ export const ZHIZUNJIKA = { id: 10168, price: 198 };
 /**
  * 每日特惠配置数据结构
  */
-export type TYPE_MEIRITEHUI = {
+export type T_MEIRITEHUI = {
   id: number;
   price: number;
   desc: { text: string; icon: string }[];
@@ -40,7 +40,7 @@ export type TYPE_MEIRITEHUI = {
  * 每日特惠
  * 根据vip等级展示相应的档次
  */
-export const MEIRITEHUI: Array<Array<TYPE_MEIRITEHUI>> = [
+export const MEIRITEHUI: Array<Array<T_MEIRITEHUI>> = [
   [
     {
       id: 10093,
@@ -215,4 +215,91 @@ export const MEIRITEHUI: Array<Array<TYPE_MEIRITEHUI>> = [
       ],
     },
   ],
+];
+
+/**
+ * 一本万利
+ */
+export type T_YIBENWANLI_ITEM = {
+  id: number;
+  price: number;
+  name: string;
+  taskid: number;
+  handsel: string;
+  neednum: number[];
+  awards: number[];
+};
+export const YIBENWANLI: T_YIBENWANLI_ITEM[] = [
+  {
+    id: 10391,
+    price: 2498,
+    name: '荣耀礼包',
+    taskid: 1000107,
+    handsel: '2.5亿',
+    neednum: [20000000, 50000000, 100000000, 500000000, 1000000000, 3000000000, 5000000000],
+    awards: [160000, 250000, 500000, 600000, 1000000, 2000000, 3000000],
+  },
+  {
+    id: 10390,
+    price: 998,
+    name: '王者礼包',
+    taskid: 1000106,
+    handsel: '9980万',
+    neednum: [10000000, 30000000, 50000000, 100000000, 300000000, 500000000, 1000000000],
+    awards: [100000, 150000, 200000, 250000, 300000, 450000, 600000],
+  },
+  {
+    id: 10389,
+    price: 498,
+    name: '星耀礼包',
+    taskid: 1000105,
+    handsel: '4980万',
+    neednum: [5000000, 10000000, 20000000, 50000000, 100000000, 300000000, 600000000],
+    awards: [45000, 75000, 80000, 150000, 200000, 250000, 300000],
+  },
+  {
+    id: 10388,
+    price: 198,
+    name: '钻石礼包',
+    taskid: 1000104,
+    handsel: '1980万',
+    neednum: [5000000, 10000000, 20000000, 50000000, 100000000, 200000000, 400000000],
+    awards: [20000, 30000, 50000, 60000, 80000, 120000, 250000],
+  },
+  {
+    id: 10387,
+    price: 98,
+    name: '铂金礼包',
+    taskid: 1000103,
+    handsel: '980万',
+    neednum: [1000000, 5000000, 10000000, 20000000, 50000000, 100000000, 300000000],
+    awards: [10000, 15000, 20000, 30000, 50000, 80000, 200000],
+  },
+  {
+    id: 10386,
+    price: 68,
+    name: '黄金礼包',
+    taskid: 1000102,
+    handsel: '680万',
+    neednum: [1000000, 5000000, 10000000, 30000000, 50000000, 80000000, 150000000],
+    awards: [8000, 12000, 20000, 30000, 40000, 50000, 60000],
+  },
+  {
+    id: 10385,
+    price: 30,
+    name: '白银礼包',
+    taskid: 1000101,
+    handsel: '300万',
+    neednum: [500000, 1000000, 5000000, 10000000, 20000000, 50000000, 100000000],
+    awards: [2000, 5000, 10000, 15000, 20000, 30000, 50000],
+  },
+  {
+    id: 10384,
+    price: 6,
+    name: '青铜礼包',
+    taskid: 1000100,
+    handsel: '60万',
+    neednum: [100000, 300000, 600000, 1000000, 5000000, 10000000, 50000000],
+    awards: [1000, 2000, 3000, 4000, 5000, 6000, 40000],
+  },
 ];

@@ -12,12 +12,12 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 
-import { addListenMsg, removeListenMsg } from '@/components/asset-notify';
 import { API_QUERY_NEW_YUEKA_BASE_INFO, API_QUERY_JIKA_BASE_INFO } from '@/api';
 
 import HaohuaYueka from './components/haohuayueka/index.vue';
 import ZunxiangYueka from './components/zunxiangyueka/index.vue';
 import ZhizunJika from './components/zhizunjika/index.vue';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
 
 function fetchInfo() {
   return Promise.all([API_QUERY_NEW_YUEKA_BASE_INFO(), API_QUERY_JIKA_BASE_INFO()]);
@@ -36,6 +36,16 @@ export default defineComponent({
     const baseData = ref({});
     const showJika = ref(false);
 
+    const cb = () => {
+      fetchInfo().then(([YK, JK]) => {
+        baseData.value = YK;
+
+        if (YK.total_remain_num_2 > 0 && JK.total_remain_num === 0) showJika.value = true;
+        else showJika.value = false;
+      });
+    };
+    SKT_NOTIFY_ASSET_CHANGE_MSG(cb);
+
     fetchInfo().then(([YK, JK]) => {
       baseData.value = YK;
 
@@ -47,23 +57,6 @@ export default defineComponent({
       showJika,
       baseData,
     };
-  },
-
-  mounted() {
-    const cb = () => {
-      fetchInfo().then(([YK, JK]) => {
-        this.baseData = YK;
-
-        if (YK.total_remain_num_2 > 0 && JK.total_remain_num === 0) this.showJika = true;
-        else this.showJika = false;
-      });
-    };
-
-    addListenMsg(cb);
-  },
-
-  beforeUnmount() {
-    removeListenMsg();
   },
 });
 </script>

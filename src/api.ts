@@ -3,7 +3,21 @@ import axios from 'axios';
 import { isWebview } from './runtime-env';
 import store from './store';
 
-// ======== 权限查询
+// ========================================= 页面大小适配缩放值
+/**
+ * 页面大小适配缩放值
+ * @param scale
+ */
+export function API_APP_SCALE(scale: string) {
+  fetchMessage(`unityfun://storage?1_string=scale&2_string=${scale}`, false);
+}
+
+// ========================================= 调用系统浏览器打开url
+export function API_OPEN_BROWSER(url: string) {
+  fetchMessage(`unityfun://openurl?1_url=${encodeURIComponent(url)}`, false);
+}
+
+// ========================================= 权限查询
 /**
  * 权限查询
  * @param name
@@ -34,9 +48,9 @@ export function API_CHECK_PERMISS(name: string) {
   });
 }
 
-// ======== 礼包状态数据
+// ========================================= 礼包状态
 
-type RES_QUERY_GIFT_BAG_STATUS = {
+export type RES_QUERY_GIFT_BAG_STATUS = {
   /** 礼包ID */
   gift_bag_id: number;
   permit_start_time: number;
@@ -48,7 +62,7 @@ type RES_QUERY_GIFT_BAG_STATUS = {
   time: number;
 };
 /**
- * 查询礼包数据
+ * 查询礼包
  * @param id
  * @returns
  */
@@ -56,7 +70,126 @@ export function API_QUERY_GIFT_BAG_STATUS(id: number) {
   return fetchCall<RES_QUERY_GIFT_BAG_STATUS>('query_gift_bag_status', { gift_bag_id: id });
 }
 
-// ======== 超值月卡
+// ========================================= 任务状态
+export type T_AWARD_DATA = {
+  asset_type: string;
+  asset_value: number;
+};
+export type T_FIX_AWARD_DATA = {
+  award_data: T_AWARD_DATA;
+};
+export type T_TASK_DATA = {
+  /** 奖励领取的状态 */
+  award_get_status: string;
+  /** 0-不能领取 | 1-可领取 | 2-已完成 | 3- 未启用 */
+  award_status: number;
+  /** 创建时间 */
+  create_time: string;
+  /** 结束的有效时间 */
+  end_valid_time: string;
+  /** 任务ID */
+  id: number;
+  /** 当前等级需要的总进度 */
+  need_process: string;
+  /** 当前等级 */
+  now_lv: number;
+  /** 当前等级总进度 */
+  now_process: string;
+  /** 当前总进度 */
+  now_total_process: string;
+  /** 其他数据 */
+  other_data_str?: {
+    valid_time: number;
+    /** 已购买的礼包ID */
+    bought_gift_bag_ids: number[];
+    /** 购买的礼包相对应的任务ID */
+    children_task_ids: number[];
+  };
+  /** 过期时间 */
+  over_time: string;
+  /** 开始的有效时间 */
+  start_valid_time: string;
+  /** 应该领取的奖励档位 */
+  task_round: number;
+  /** 任务类型 */
+  task_type: string;
+  /** 任务的条件类型(按什么条件来加进度) */
+  task_condition_type?: string;
+  /** 固定奖励类型 */
+  fix_award_data?: T_FIX_AWARD_DATA;
+};
+export type RES_QUERY_ONE_TASK_DATA = {
+  result: number;
+  task_data?: T_TASK_DATA;
+};
+/**
+ * 查询任务
+ * @param id 任务ID
+ * @returns
+ */
+export function API_QUERY_ONE_TASK_DATA(id: number) {
+  return fetchCall<RES_QUERY_ONE_TASK_DATA>('query_one_task_data', { task_id: id });
+}
+
+// ========================================= 跳转到原生活动
+/**
+ * 跳转到原生活动
+ * @param key 活动的模块key值
+ * @param panel 活动的界面UI
+ */
+export function API_BREAK_ACTIVITY(key: string, panel: string) {
+  if (isWebview) {
+    fetchMessage<undefined>(`unityfun://gotoui?1_string=${key}&2_string=${panel}`, false);
+  } else {
+    console.log('跳转到原生活动，浏览器环境不支持', `unityfun://gotoui?1_string=${key}&2_string=${panel}`);
+  }
+}
+
+// ========================================= 领取奖励（多阶段任务）
+export type T_AWARD_DATAⅡ = {
+  asset_type: string;
+  asset_value: number;
+  award_name: string;
+};
+export type RES_GET_TASK_AWARD_NEW = {
+  result: number;
+  id: number;
+  award_list: T_AWARD_DATAⅡ;
+};
+/**
+ * 领取奖励（多阶段任务）
+ * @param taskid
+ * @param level
+ * @returns
+ */
+export function API_GET_TASK_AWARD_NEW(taskid: number, level: number) {
+  return fetchCall<RES_GET_TASK_AWARD_NEW>('get_task_award_new', { id: taskid, award_progress_lv: level });
+}
+
+// ========================================= 获取某个任务各阶段的奖励领取状态
+export type RES_TASK_AWARD_STATUS = {
+  result?: Array<0 | 1 | 2>;
+};
+/**
+ * 获取某个任务各阶段的奖励领取状态
+ * @param id 任务ID
+ * @param count 任务有共有几个阶段
+ * @returns
+ */
+export function API_TASK_AWARD_STATUS(id: number, count: number) {
+  if (isWebview)
+    return fetchMessage<RES_TASK_AWARD_STATUS>(
+      `unityfun://decode_all_task_award_status?1_int=${id}&2_int=${count}`,
+      true
+    )!;
+  else
+    console.log(
+      '浏览器环境不支持获取某个任务各阶段的奖励领取状态',
+      `unityfun://decode_all_task_award_status?1_int=${id}`
+    );
+}
+
+// ========================================= 超值月卡
 
 /**
  * 月卡信息
@@ -107,7 +240,7 @@ export function API_NEW_YUEKA_RECEIVE_AWARD() {
   return fetchCall<Record<'result', number>>('new_yueka_receive_award');
 }
 
-// ======== 至尊季卡
+// ========================================= 至尊季卡
 
 /**
  * 季卡数据
@@ -152,7 +285,7 @@ export function API_JIKA_EVERYDAY_LOTTERY() {
   return fetchCall<RES_JIKA_EVERYDAY_LOTTERY>('jika_everyday_lottery');
 }
 
-// ======== 系统升级奖励
+// ========================================= 系统升级奖励
 
 type RES_GET_TASK_AWARD = {
   result: number;
@@ -167,7 +300,7 @@ export function API_GET_TASK_AWARD(id: number) {
   return fetchCall<RES_GET_TASK_AWARD>('get_task_award', { id });
 }
 
-// ======== 全返礼包
+// ========================================= 全返礼包
 
 type ALL_RETURN_LB_DATA = {
   /** 是否购买 */
@@ -193,4 +326,6 @@ export function API_QUERY_ALL_RETURN_LB_INFO() {
   return fetchCall<RES_QUERY_ALL_RETURN_LB_INFO>('query_all_return_lb_info');
 }
 
-// ======== 每日特惠
+// ========================================= 每日特惠
+
+// ========================================= 一本万利

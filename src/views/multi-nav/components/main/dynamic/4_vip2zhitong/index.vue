@@ -6,30 +6,26 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import payPanel from '@/components/pay-panel';
-import { addListenMsg, removeListenMsg } from '@/components/asset-notify';
 import { updateMenu } from '@/views/multi-nav/composables/nav-menu';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
 
 export default defineComponent({
   name: 'Vip1zhitong',
 
-  methods: {
-    submit() {
-      payPanel(10254, 198);
-    },
-  },
-
-  mounted() {
+  setup() {
     const cb = (params: Record<string, unknown>) => {
       const type = params.type as string;
       if (type.startsWith('buy_gift_bag')) {
         updateMenu();
       }
     };
-    addListenMsg(cb);
+    SKT_NOTIFY_ASSET_CHANGE_MSG(cb);
   },
 
-  beforeUnmount() {
-    removeListenMsg();
+  methods: {
+    submit() {
+      payPanel(10254, 198);
+    },
   },
 });
 </script>

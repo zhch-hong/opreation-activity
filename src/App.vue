@@ -1,18 +1,23 @@
 <template>
   <router-view />
   <Refresh />
+  <Route />
 </template>
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import { isBrowser, isWebview } from '@/runtime-env';
-import { fetchMessage, login, loopFetch } from '@/network';
+import { login, loopFetch } from '@/network';
+import { API_APP_SCALE } from '@/api';
 import parseHref from '@/utils/parse-href';
-import Refresh from '@/Refresh.vue';
 import store from './store';
+
+import Refresh from '@/Refresh.vue';
+import Route from '@/components/route/index.vue';
 
 export default defineComponent({
   components: {
     Refresh,
+    Route,
   },
 
   setup() {
@@ -36,7 +41,7 @@ export default defineComponent({
           appElement.style.transform = v;
 
           if (isWebview) {
-            fetchMessage(`unityfun://storage?1_string=scale&2_string=${v}`, false);
+            API_APP_SCALE(v);
           } else {
             localStorage.setItem('scale', v);
           }

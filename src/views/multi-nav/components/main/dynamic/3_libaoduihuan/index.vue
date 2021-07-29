@@ -30,9 +30,9 @@ import { defineComponent, ref, watch, watchEffect } from 'vue';
 import { fetchCall } from '@/network';
 import { parseTimestamp } from '@/utils/stamp2hms';
 import alertMessage from '@/components/alert';
-import { addListenMsg, removeListenMsg } from '@/components/asset-notify';
 
 import OverlayDialog from '@/components/overlay-dialog/index.vue';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
 
 function cutdown(count: number) {
   const time = ref('');
@@ -56,18 +56,15 @@ export default defineComponent({
     const visible = ref(false);
     const timedown = ref('');
 
+    SKT_NOTIFY_ASSET_CHANGE_MSG();
+
     return {
       visible,
       timedown,
     };
   },
 
-  mounted() {
-    addListenMsg();
-  },
-
   beforeUnmount() {
-    removeListenMsg();
     clearInterval(this.timer);
   },
 

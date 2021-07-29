@@ -22,17 +22,17 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { MEIRITEHUI, TYPE_MEIRITEHUI } from '@/shopping';
+import { MEIRITEHUI, T_MEIRITEHUI } from '@/shopping';
 import { API_CHECK_PERMISS } from '@/api';
-import { addListenMsg, removeListenMsg } from '@/components/asset-notify/listener-message';
 import _ from 'lodash';
 
 import PayItem from './components/PayItem.vue';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
 
 function getLevelData() {
-  const data = ref<TYPE_MEIRITEHUI[]>([]);
+  const data = ref<T_MEIRITEHUI[]>([]);
   const clone = _.cloneDeep(MEIRITEHUI);
-  const fun = function (array: Array<Array<TYPE_MEIRITEHUI>>) {
+  const fun = function (array: Array<Array<T_MEIRITEHUI>>) {
     const el = array.shift();
     if (el) {
       API_CHECK_PERMISS('actp_buy_gift_bag_' + el[0]['id']).then((value) => {
@@ -50,20 +50,16 @@ export default defineComponent({
   components: { PayItem },
 
   setup() {
+    const updateStatus = ref(true);
+
+    SKT_NOTIFY_ASSET_CHANGE_MSG(() => {
+      updateStatus.value = true;
+    });
+
     return {
       list: getLevelData(),
       updateStatus: ref(true),
     };
-  },
-
-  mounted() {
-    addListenMsg(() => {
-      this.updateStatus = true;
-    });
-  },
-
-  beforeUnmount() {
-    removeListenMsg();
   },
 });
 </script>

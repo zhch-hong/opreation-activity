@@ -70,7 +70,21 @@ const fetchMessage = (function webview2client() {
     const url = messageStack.shift();
     if (url) {
       messageRun = true;
-      console.log(`发送消息___${url}`);
+
+      // const rIndex = url.indexOf('readuuid');
+      // const uIndex = url.indexOf('&uuid');
+      // if (uIndex !== -1) {
+      //   console.group(`发送消息【${url.slice(uIndex + 7, uIndex + 43)}】`);
+      //   console.log(url);
+      //   console.groupEnd();
+      // } else if (rIndex !== -1) {
+      //   console.group(`发送消息【${url.slice(rIndex + 10, rIndex + 46)}】`);
+      //   console.log(url);
+      //   console.groupEnd();
+      // } else {
+      //   console.error(`发送消息未添加uuid或readuuid【${url}】`);
+      // }
+
       location.href = url;
     }
   });
@@ -116,7 +130,8 @@ const fetchMessage = (function webview2client() {
     messageStack.push(url);
 
     emitter.on<number>(readuuid, () => {
-      console.log(`消息回执___${readuuid}`);
+      // console.group(`消息已读【${readuuid}】`);
+      // console.groupEnd();
 
       emitter.off(readuuid);
 
@@ -132,6 +147,10 @@ const fetchMessage = (function webview2client() {
     if (response) {
       return new Promise<T>((resolve, reject) => {
         emitter.on<T>(uuid, (data) => {
+          // console.group(`消息响应【${uuid}】`);
+          // console.log(data);
+          // console.groupEnd();
+
           emitter.off(uuid);
 
           if (data) resolve(data);
@@ -282,46 +301,109 @@ function fetchCall<T = any>(message: string, data: Record<string, unknown> = {})
 }
 
 /**
+ * 需要注册的服务端主动推送的消息列表
+ */
+const SERVE_MESSAGE_LIST: string[] = [];
+/**
+ * 注册消息延时发送定时器
+ */
+let messageTimer: number | null = null;
+/**
  * 注册服务端消息
  * @param message 服务端推送的消息名称
- * @param callback
+ * @param callback 处理数据的回调函数
  */
-function registerServeMsg<T = any>(message: string, callback?: (params: T) => void) {
-  if (isBrowser) {
-    const data = {
-      user_id: store.state.user.user_id,
-      msg_names: [message],
-    };
-
-    axios({
-      baseURL: store.state.baseURL,
-      url: `register_msg`,
-      method: 'POST',
-      data,
-      headers: {
-        token: store.state.token,
-        userid: data.user_id,
-      },
-    });
-  } else {
-    fetchMessage(`webmessage://addlisten?1=${message}`, false);
-  }
+function registerServeMsg<T>(message: string, callback: (params: T) => void) {
+  SERVE_MESSAGE_LIST.push(message);
 
   emitter.on<T>(message, (event) => {
     if (typeof event !== 'undefined' && callback) callback(event);
   });
+
+  if (messageTimer) {
+    clearTimeout(messageTimer);
+  }
+
+  messageTimer = _.delay(() => {
+    if (isWebview) {
+      let params = '';
+      SERVE_MESSAGE_LIST.forEach((m, i) => {
+        params += `${++i}=${m}&`;
+      });
+      params = params.slice(0, -1);
+
+      fetchMessage(`webmessage://addlisten?${params}`, false);
+    } else {
+      const data = {
+        user_id: store.state.user.user_id,
+        msg_names: SERVE_MESSAGE_LIST,
+      };
+
+      axios({
+        baseURL: store.state.baseURL,
+        url: `register_msg`,
+        method: 'POST',
+        data,
+        headers: {
+          token: store.state.token,
+          userid: data.user_id,
+        },
+      });
+    }
+
+    SERVE_MESSAGE_LIST.splice(0);
+    messageTimer = null;
+  }, 2000);
 }
 
+/**
+ * 需要取消注册的服务端主动推送的消息列表
+ */
+const UNSERVE_MESSAGE_LIST: string[] = [];
+/**
+ * 取消注册消息延时发送定时器
+ */
+let unmessageTimer: number | null = null;
 /**
  * 注销服务端消息
  * @param message
  */
 function unregisterServeMsg(message: string) {
-  if (isWebview) {
-    fetchMessage(`webmessage://removelisten?1=${message}`, false);
-  }
-
+  UNSERVE_MESSAGE_LIST.push(message);
   emitter.off(message);
+
+  if (unmessageTimer) clearTimeout(unmessageTimer);
+
+  unmessageTimer = _.delay(() => {
+    if (isWebview) {
+      let params = '';
+      UNSERVE_MESSAGE_LIST.forEach((m, i) => {
+        params += `${++i}=${m}&`;
+      });
+      params = params.slice(0, -1);
+
+      fetchMessage(`webmessage://removelisten?${params}`, false);
+    } else {
+      const data = {
+        user_id: store.state.user.user_id,
+        msg_names: [],
+      };
+
+      axios({
+        baseURL: store.state.baseURL,
+        url: `register_msg`,
+        method: 'POST',
+        data,
+        headers: {
+          token: store.state.token,
+          userid: data.user_id,
+        },
+      });
+    }
+
+    UNSERVE_MESSAGE_LIST.splice(0);
+    unmessageTimer = null;
+  }, 1000);
 }
 
 export { fetchMessage, login, fetchClientConfig, loopFetch, fetchCall, registerServeMsg, unregisterServeMsg };

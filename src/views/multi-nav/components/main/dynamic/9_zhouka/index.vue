@@ -19,7 +19,7 @@ import { defineComponent, onMounted, ref } from 'vue';
 import { ZHOUKA } from '@/shopping';
 import { API_QUERY_GIFT_BAG_STATUS } from '@/api';
 import payPanel from '@/components/pay-panel';
-import { addListenMsg, removeListenMsg } from '@/components/asset-notify';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
 
 export default defineComponent({
   setup() {
@@ -32,6 +32,8 @@ export default defineComponent({
       });
     };
 
+    SKT_NOTIFY_ASSET_CHANGE_MSG(fetchStatus);
+
     onMounted(fetchStatus);
 
     return {
@@ -39,14 +41,6 @@ export default defineComponent({
       fetchStatus,
       visibleTip,
     };
-  },
-
-  mounted() {
-    addListenMsg(this.fetchStatus);
-  },
-
-  beforeUnmount() {
-    removeListenMsg();
   },
 
   methods: {
