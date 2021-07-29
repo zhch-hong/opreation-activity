@@ -9,9 +9,8 @@ module.exports = {
     'postcss-px-to-viewport': {
       viewportWidth: 1920,
       unitPrecision: 6,
-      // propList: ['*', '!font*'],
-      // fontViewportUnit: 'px',
-      selectorBlackList: ['ignore', 'van'],
+      propList: ['*'],
+      // selectorBlackList: [/^(?!\.van-(divider|button))/],
       include: /\/src\//,
       landscapeWidth: 1080,
     },

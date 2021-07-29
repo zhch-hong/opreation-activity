@@ -86,7 +86,6 @@ function getMenu() {
 
   fetchClientConfig('/game_activity/config/game_activity_config.json').then(async (response) => {
     const config = response['config'];
-    console.log(config);
 
     // 活动开关
     const onAct = filtSwitch(config);

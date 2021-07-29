@@ -7,14 +7,16 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { SANYUANLIBAO } from '@/shopping';
-import { addListenMsg, removeListenMsg } from '@/components/asset-notify';
 import { API_QUERY_GIFT_BAG_STATUS } from '@/api';
 import payPanel from '@/components/pay-panel';
 import { activeMenu } from '@/views/multi-nav/composables/current-menuitem';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
 
 export default defineComponent({
   setup() {
     const isBuyed = ref(false);
+
+    SKT_NOTIFY_ASSET_CHANGE_MSG();
 
     API_QUERY_GIFT_BAG_STATUS(SANYUANLIBAO.id).then(({ status }) => {
       isBuyed.value = status === 0;
@@ -23,14 +25,6 @@ export default defineComponent({
     return {
       isBuyed,
     };
-  },
-
-  mounted() {
-    addListenMsg();
-  },
-
-  beforeUnmount() {
-    removeListenMsg();
   },
 
   methods: {

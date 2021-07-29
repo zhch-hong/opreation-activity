@@ -38,8 +38,6 @@ export default defineComponent({
     watch(
       () => props.baseData,
       (object) => {
-        console.log(object);
-
         if (!_.isEmpty(object)) {
           isLingqu.value = object.is_receive_2 !== 0;
           count.value = object.total_remain_num_2;

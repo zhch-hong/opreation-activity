@@ -50,4 +50,3 @@ export default (assets: Asset[]): void => {
 };
 
 export { default as notifyValidate } from './asset-notify-validate';
-export { addListenMsg, removeListenMsg } from './listener-message';

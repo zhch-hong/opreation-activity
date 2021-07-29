@@ -22,6 +22,7 @@ import { isBrowser } from '@/runtime-env';
 import alertMessage from '@/components/alert';
 
 import OverlayDialog from '../overlay-dialog/index.vue';
+import { API_OPEN_BROWSER } from '@/api';
 
 export default defineComponent({
   name: 'PayPanel',
@@ -92,7 +93,7 @@ export default defineComponent({
         if (isBrowser) {
           window.open(url);
         } else {
-          fetchMessage(`unityfun://openurl?1_url=${encodeURIComponent(url)}`, false);
+          API_OPEN_BROWSER(url);
         }
       });
     },

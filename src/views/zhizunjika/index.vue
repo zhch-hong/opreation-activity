@@ -74,9 +74,8 @@
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { ZHIZUNJIKA } from '@/shopping';
 import { API_QUERY_JIKA_BASE_INFO, API_QUERY_ALL_RETURN_LB_INFO } from '@/api';
+import { SKT_JIKA_BASE_INFO_CHANGE_MSG, SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
 import payPanel from '@/components/pay-panel';
-import { addListenMsg, removeListenMsg } from '@/components/asset-notify';
-import { registerServeMsg, unregisterServeMsg } from '@/network';
 
 import RulePanel from './components/RulePanel.vue';
 import LuckyWheel from './components/lucky-wheel/LuckyWheel.vue';
@@ -91,6 +90,8 @@ export default defineComponent({
   components: { RulePanel, LuckyWheel },
 
   setup() {
+    SKT_NOTIFY_ASSET_CHANGE_MSG();
+
     const isBuyed = ref(false);
     const isLottery = ref(false);
     const count = ref(0);
@@ -113,6 +114,12 @@ export default defineComponent({
       });
     });
 
+    SKT_JIKA_BASE_INFO_CHANGE_MSG(({ total_remain_num, is_lottery }) => {
+      isBuyed.value = total_remain_num > 0;
+      count.value = total_remain_num;
+      isLottery.value = is_lottery === 1;
+    });
+
     return {
       isBuyed,
       isLottery,
@@ -120,22 +127,6 @@ export default defineComponent({
       fetchStatus,
       showQuanfan,
     };
-  },
-
-  mounted() {
-    addListenMsg();
-
-    registerServeMsg<JIKA_CHANGE>('jika_base_info_change_msg', ({ total_remain_num, is_lottery }) => {
-      this.isBuyed = total_remain_num > 0;
-      this.count = total_remain_num;
-      this.isLottery = is_lottery === 1;
-    });
-  },
-
-  beforeUnmount() {
-    removeListenMsg();
-
-    unregisterServeMsg('jika_base_info_change_msg');
   },
 
   methods: {

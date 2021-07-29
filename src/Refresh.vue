@@ -23,11 +23,11 @@ export default defineComponent({
   z-index: 1000;
 
   a {
-    background-color: rgba(51, 153, 255, 0.5);
+    background-color: rgba(0, 153, 255, 0.6);
     padding: 10px 30px;
     margin-right: 20px;
     border-radius: 6px;
-    color: turquoise;
+    color: #fff;
   }
 }
 </style>

@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
-import { TYPE_MEIRITEHUI } from '@/shopping';
+import { T_MEIRITEHUI } from '@/shopping';
 import { API_QUERY_GIFT_BAG_STATUS } from '@/api';
 
 import payPanel from '@/components/pay-panel';
@@ -48,7 +48,7 @@ export default defineComponent({
     },
 
     gift: {
-      type: Object as PropType<TYPE_MEIRITEHUI>,
+      type: Object as PropType<T_MEIRITEHUI>,
       required: true,
     },
   },
