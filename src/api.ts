@@ -139,7 +139,7 @@ export function API_QUERY_ONE_TASK_DATA(id: number) {
  */
 export function API_BREAK_ACTIVITY(key: string, panel: string) {
   if (isWebview) {
-    fetchMessage<undefined>(`unityfun://gotoui?1_string=${key}&2_string=${panel}`, false);
+    fetchMessage<void>(`unityfun://gotoui?1_string=${key}&2_string=${panel}`, false);
   } else {
     console.log('跳转到原生活动，浏览器环境不支持', `unityfun://gotoui?1_string=${key}&2_string=${panel}`);
   }

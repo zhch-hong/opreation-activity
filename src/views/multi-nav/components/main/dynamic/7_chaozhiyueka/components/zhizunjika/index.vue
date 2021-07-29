@@ -12,13 +12,13 @@
       <div v-else class="lingqu" @click="submit"></div>
     </div>
     <div class="jika">
-      <div class="lingqu"></div>
+      <div class="lingqu" @click="breakActivity"></div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
-import { API_NEW_YUEKA_RECEIVE_AWARD, RES_QUERY_NEW_YUEKA_BASE_INFO } from '@/api';
+import { API_BREAK_ACTIVITY, API_NEW_YUEKA_RECEIVE_AWARD, RES_QUERY_NEW_YUEKA_BASE_INFO } from '@/api';
 import _ from 'lodash';
 
 export default defineComponent({
@@ -55,6 +55,10 @@ export default defineComponent({
   methods: {
     submit() {
       API_NEW_YUEKA_RECEIVE_AWARD();
+    },
+
+    breakActivity() {
+      API_BREAK_ACTIVITY('act_004_jika', 'panel');
     },
   },
 });
