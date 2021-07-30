@@ -8,6 +8,8 @@
       <router-link class="route-link" :to="{ path: '/meiritehui', query: { token } }">每日特惠</router-link>
       <Divider />
       <router-link class="route-link" :to="{ path: '/yibenwanli', query: { token } }">一本万利</router-link>
+      <Divider />
+      <router-link class="route-link" :to="{ path: '/shouchonglibao', query: { token } }">首充礼包</router-link>
     </div>
   </teleport>
 </template>
@@ -19,6 +21,8 @@ import 'vant/es/divider/style';
 import { useRoute } from 'vue-router';
 
 export default defineComponent({
+  name: '导航菜单',
+
   components: { Divider },
 
   setup() {

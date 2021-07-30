@@ -2,7 +2,7 @@
   <div class="container">
     <!-- 关闭按钮 -->
     <a class="close" href="uniwebviewfun://Hide">
-      <img src="./image/close.png" alt="关闭" />
+      <img src="@/assets/image/close_3.png" alt="关闭" />
     </a>
 
     <LuckyWheel :is-lottery="isLottery" :is-buyed="isBuyed" @lottery-resolve="lotteryResolve" @pay-panel="handlePay" />
@@ -16,14 +16,14 @@
           <img class="img-1" src="./image/zzjk_icon_1.png" alt="猜你喜欢" />
           <img class="img-2" src="./image/zzjk_icon_10.png" alt="季返礼包" />
           <img class="img-3" src="./image/zzjk_icon_11.png" alt="待领取100元" />
-          <img class="img-4" src="./image/zzjk_icon_4.png" alt="立即领取" />
+          <img class="img-4" src="@/assets/image/zzjk_icon_4.png" alt="立即领取" />
         </div>
       </template>
       <template v-else>
         <!-- 金币880万，抽奖券90 -->
         <div class="box-1">
           <div class="item">
-            <img src="./image/zzjk_icon_3.png" alt="880万金币" />
+            <img src="@/assets/image/zzjk_icon_3.png" alt="880万金币" />
             <span>金币 x880万</span>
             <img class="icon" src="./image/yihuode.png" alt="已获得" />
           </div>
@@ -37,7 +37,7 @@
 
       <div class="box-3">
         <span>剩余奖券：</span>
-        <img src="./image/com_award_icon_dhq.png" alt="奖券" />
+        <img src="@/assets/image/com_award_icon_dhq.png" alt="奖券" />
         <span>x{{ count }}</span>
       </div>
 
@@ -50,7 +50,7 @@
       <!-- 金币880万，抽奖券90 -->
       <div class="box-1">
         <div class="item">
-          <img src="./image/zzjk_icon_3.png" alt="880万金币" />
+          <img src="@/assets/image/zzjk_icon_3.png" alt="880万金币" />
           <span>金币 x880万</span>
           <!-- <img v-if="!showQuanfan" class="icon" src="./image/yihuode.png" alt="已获得" /> -->
         </div>

@@ -95,7 +95,7 @@ export default defineComponent({
     .active {
       width: 339px;
       color: white;
-      background-image: url('../../image/btn_1.png');
+      background-image: url('../../../../assets/image/btn_1.png');
 
       & > img.tag {
         left: -9px;
@@ -110,7 +110,7 @@ export default defineComponent({
       width: 299px;
       margin-right: 30px;
       color: #3a6ca8;
-      background-image: url('../../image/btn_2.png');
+      background-image: url('../../../../assets/image/btn_2.png');
     }
   }
 }

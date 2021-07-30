@@ -4,15 +4,15 @@
     <span class="title">{{ gift.price }}元礼包</span>
 
     <div class="top">
-      <img :src="require('../image/' + gift.desc[0]['icon'] + '.png')" :alt="gift.desc[0]['text']" />
+      <img :src="require('@/assets/image/' + gift.desc[0]['icon'] + '.png')" :alt="gift.desc[0]['text']" />
       <span class="text">{{ gift.desc[0]['text'] }}</span>
     </div>
     <div class="left">
-      <img :src="require('../image/' + gift.desc[1]['icon'] + '.png')" :alt="gift.desc[1]['text']" />
+      <img :src="require('@/assets/image/' + gift.desc[1]['icon'] + '.png')" :alt="gift.desc[1]['text']" />
       <span class="text">{{ gift.desc[1]['text'] }}</span>
     </div>
     <div class="right">
-      <img :src="require('../image/' + gift.desc[2]['icon'] + '.png')" :alt="gift.desc[2]['text']" />
+      <img :src="require('@/assets/image/' + gift.desc[2]['icon'] + '.png')" :alt="gift.desc[2]['text']" />
       <span class="text">{{ gift.desc[2]['text'] }}</span>
     </div>
 

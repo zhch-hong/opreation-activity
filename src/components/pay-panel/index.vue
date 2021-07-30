@@ -17,12 +17,11 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { fetchCall, fetchMessage } from '@/network';
-import { isBrowser } from '@/runtime-env';
+import { isWebview } from '@/runtime-env';
 import alertMessage from '@/components/alert';
 
 import OverlayDialog from '../overlay-dialog/index.vue';
-import { API_OPEN_BROWSER } from '@/api';
+import { API_CREATE_PAY_ORDER, API_GET_PAY_TYPES, API_OPEN_BROWSER } from '@/api';
 
 export default defineComponent({
   name: 'PayPanel',
@@ -61,38 +60,31 @@ export default defineComponent({
 
   methods: {
     fetchPayType() {
-      fetchCall<Record<'types', Record<string, string>[]>>('get_pay_types', {
-        goods_id: this.giftid,
-      }).then(({ types }) => {
+      if (!this.giftid) return;
+      API_GET_PAY_TYPES(this.giftid).then(({ types }) => {
+        if (!types) return;
         this.paytypes = types.filter((o) => ['wxgzh', 'alipay', 'UnionPay'].includes(o.channel));
       });
     },
 
     createOrder(value: string) {
-      fetchCall<Record<string, unknown>>('create_pay_order', {
-        goods_id: this.giftid,
-        channel_type: value,
-        geturl: 'y',
-        convert: undefined,
-      }).then((data) => {
-        if (data.result !== 0) {
-          alertMessage(`[${data.result}]创建订单失败`);
+      if (!this.giftid) return;
+
+      API_CREATE_PAY_ORDER(this.giftid, value).then(({ order_id, result, url }) => {
+        if (result !== 0) {
+          alertMessage(`[${result}]创建订单失败`);
           return;
         }
 
         this.$emit('unmount');
 
-        let url = data.url as string;
-        const orderID = data.order_id as string;
-        url = url.replace('@order_id@', orderID);
-
+        url = url.replace('@order_id@', order_id);
         const type = this.paytypes.find((item) => item.channel === value);
         if (type) {
           url = url.replace('@child_channel@', type.child_channel);
         }
-        if (isBrowser) {
-          window.open(url);
-        } else {
+
+        if (isWebview) {
           API_OPEN_BROWSER(url);
         }
       });

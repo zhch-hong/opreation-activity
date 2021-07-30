@@ -1,6 +1,6 @@
 <template>
   <div class="haohua">
-    <img class="ques" src="../../image/qs.png" alt="奖励领取" @click="showTips" />
+    <img class="ques" src="@/assets/image/qs.png" alt="奖励领取" @click="showTips" />
 
     <!-- 剩余天数 -->
     <span class="count">{{ count }}</span>

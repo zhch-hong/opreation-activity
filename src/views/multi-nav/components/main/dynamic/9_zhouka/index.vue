@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- 感叹号 -->
-    <img class="img-1" src="./image/czzk_icon_ts.png" alt="显示说明" @click="handleTip" />
+    <img class="img-1" src="@/assets/image/czzk_icon_ts.png" alt="显示说明" @click="handleTip" />
 
     <!-- 说明文本 -->
     <img v-if="visibleTip" class="img-2" src="./image/czzk_bg_2.png" alt="说明" />
@@ -11,7 +11,7 @@
 
     <img v-if="!isBuyed" class="img-4" src="./image/czzk_btn_ljlq.png" alt="立即购买" @click="handlePay" />
 
-    <img v-if="isBuyed" class="img-5" src="./image/czzk_btn_ygm.png" alt="已购买" />
+    <img v-if="isBuyed" class="img-5" src="@/assets/image/czzk_btn_ygm.png" alt="已购买" />
   </div>
 </template>
 <script lang="ts">

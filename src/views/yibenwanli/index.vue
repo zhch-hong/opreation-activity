@@ -2,7 +2,7 @@
   <div class="container">
     <!-- 关闭按钮 -->
     <a class="close" href="uniwebviewfun://Hide">
-      <img src="./image/close.png" alt="关闭" />
+      <img src="@/assets/image/close_3.png" alt="关闭" />
     </a>
 
     <main class="main">
@@ -30,7 +30,7 @@
         <div class="content">
           <!-- 时间区域 -->
           <header>
-            <img class="tip" src="./image/tip.png" alt="说明" @click="visibleRuleTip = true" />
+            <img class="tip" src="@/assets/image/tip.png" alt="说明" @click="visibleRuleTip = true" />
             <div
               v-if="bought.includes(activeConfig['id']) && activeConfig['id'] !== 10390 && activeConfig['id'] !== 10391"
               class="time"
@@ -41,7 +41,7 @@
           <!-- 礼包状态 -->
           <div class="pay-row">
             <span class="text">购买礼包立送</span>
-            <img class="icon" src="./image/jingbi.png" alt="金币" />
+            <img class="icon" src="@/assets/image/jingbi.png" alt="金币" />
             <div class="count" style="background-image: url('../../assets/image/btn_back_enable.png')">
               {{ activeConfig['handsel'] }}
             </div>

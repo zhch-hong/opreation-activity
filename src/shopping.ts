@@ -1,45 +1,51 @@
 /**
- * 豪华月卡
+ * 赠送商品类型
+ */
+export type T_ATTACH_AWARD = {
+  icon: string;
+  text: string;
+};
+
+/**
+ * ========================================= 豪华月卡
  */
 export const HHYUEKA = { id: 10235, price: 48 };
 
 /**
- * 尊享月卡
+ * ========================================= 尊享月卡
  */
 export const ZXYUEKA = { id: 10236, price: 96 };
 
 /**
- * 系统升级奖励ID
+ * ========================================= 系统升级奖励ID
  */
 export const SYSTEM_UPGRADE = 1000351;
 
 /**
- * 三元福利礼包
+ * ========================================= 三元福利礼包
  */
 export const SANYUANLIBAO = { id: 10, price: 3 };
 
 /**
- * 周卡
+ * ========================================= 周卡
  */
 export const ZHOUKA = { id: 10436, price: 10 };
 
 /**
- * 至尊季卡
+ * ========================================= 至尊季卡
  */
 export const ZHIZUNJIKA = { id: 10168, price: 198 };
 
 /**
- * 每日特惠配置数据结构
+ * ========================================= 每日特惠
+ *
+ * 根据vip等级展示相应的档次
  */
 export type T_MEIRITEHUI = {
   id: number;
   price: number;
   desc: { text: string; icon: string }[];
 };
-/**
- * 每日特惠
- * 根据vip等级展示相应的档次
- */
 export const MEIRITEHUI: Array<Array<T_MEIRITEHUI>> = [
   [
     {
@@ -218,7 +224,7 @@ export const MEIRITEHUI: Array<Array<T_MEIRITEHUI>> = [
 ];
 
 /**
- * 一本万利
+ * ========================================= 一本万利
  */
 export type T_YIBENWANLI_ITEM = {
   id: number;
@@ -303,3 +309,114 @@ export const YIBENWANLI: T_YIBENWANLI_ITEM[] = [
     awards: [1000, 2000, 3000, 4000, 5000, 6000, 40000],
   },
 ];
+
+// ========================================= 首充礼包
+export type T_SCLB_GIFT = {
+  id: number;
+  price: number;
+  count: number;
+  icon: string;
+  attach: T_ATTACH_AWARD[];
+};
+export const SHOUCHONGLIBAO: Record<string, T_SCLB_GIFT[]> = {
+  true: [
+    {
+      id: 10611,
+      price: 6,
+      count: 600000,
+      icon: 'pay_icon_gold7',
+      attach: [
+        {
+          icon: 'ty_icon_jb_50y',
+          text: 'x1',
+        },
+        {
+          icon: 'ty_icon_jb_50y',
+          text: '15万-60万',
+        },
+      ],
+    },
+    {
+      id: 10612,
+      price: 10,
+      count: 1000000,
+      icon: 'pay_icon_gold8',
+      attach: [
+        {
+          icon: 'ty_icon_jb_198y',
+          text: 'x1',
+        },
+        {
+          icon: 'ty_icon_jb_198y',
+          text: '40万-100万',
+        },
+      ],
+    },
+    {
+      id: 10613,
+      price: 48,
+      count: 4800000,
+      icon: 'pay_icon_gold9',
+      attach: [
+        {
+          icon: 'ty_icon_jb_498y',
+          text: 'x3',
+        },
+        {
+          icon: 'ty_icon_jb_498y',
+          text: '200万-480万',
+        },
+      ],
+    },
+  ],
+  false: [
+    {
+      id: 95,
+      price: 1,
+      count: 50000,
+      icon: 'pay_icon_gold7',
+      attach: [
+        {
+          icon: 'ty_icon_jb_50y',
+          text: 'x2',
+        },
+        {
+          icon: 'ty_icon_jb_50y',
+          text: '5.2万-20万',
+        },
+      ],
+    },
+    {
+      id: 96,
+      price: 10,
+      count: 500000,
+      icon: 'pay_icon_gold8',
+      attach: [
+        {
+          icon: 'ty_icon_jb_198y',
+          text: 'x20',
+        },
+        {
+          icon: 'ty_icon_jb_198y',
+          text: '55万-150万',
+        },
+      ],
+    },
+    {
+      id: 99,
+      price: 48,
+      count: 2400000,
+      icon: 'pay_icon_gold9',
+      attach: [
+        {
+          icon: 'ty_icon_jb_498y',
+          text: 'x200',
+        },
+        {
+          icon: 'ty_icon_jb_498y',
+          text: '260万-500万',
+        },
+      ],
+    },
+  ],
+};

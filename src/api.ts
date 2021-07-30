@@ -3,7 +3,7 @@ import axios from 'axios';
 import { isWebview } from './runtime-env';
 import store from './store';
 
-// ========================================= 页面大小适配缩放值
+// ========================================= 页面缩放
 /**
  * 页面大小适配缩放值
  * @param scale
@@ -12,9 +12,49 @@ export function API_APP_SCALE(scale: string) {
   fetchMessage(`unityfun://storage?1_string=scale&2_string=${scale}`, false);
 }
 
-// ========================================= 调用系统浏览器打开url
+// ========================================= 浏览器
+/**
+ * 打开系统浏览器
+ * @param url
+ */
 export function API_OPEN_BROWSER(url: string) {
   fetchMessage(`unityfun://openurl?1_url=${encodeURIComponent(url)}`, false);
+}
+
+// ========================================= 支付方式
+export type RES_GET_PAY_TYPES = {
+  result: number;
+  types?: Record<'channel' | 'child_channel', string>[];
+};
+/**
+ * 支付方式
+ * @param giftID
+ */
+export function API_GET_PAY_TYPES(giftID: number) {
+  return fetchCall<RES_GET_PAY_TYPES>('get_pay_types', { goods_id: giftID });
+}
+
+// ========================================= 创建订单
+export type RES_CREATE_PAY_ORDER = {
+  order_id: string;
+  result: number;
+  url: string;
+};
+/**
+ * 创建订单
+ * @param id 商品ID
+ * @param channel 支付渠道[微信，支付宝，云闪付，...]
+ * @param geturl
+ * @param convert
+ * @returns
+ */
+export function API_CREATE_PAY_ORDER(id: number, channel: string, geturl = 'y', convert = undefined) {
+  return fetchCall<RES_CREATE_PAY_ORDER>('create_pay_order', {
+    goods_id: id,
+    channel_type: channel,
+    geturl,
+    convert,
+  });
 }
 
 // ========================================= 权限查询
@@ -166,7 +206,7 @@ export function API_GET_TASK_AWARD_NEW(taskid: number, level: number) {
   return fetchCall<RES_GET_TASK_AWARD_NEW>('get_task_award_new', { id: taskid, award_progress_lv: level });
 }
 
-// ========================================= 获取某个任务各阶段的奖励领取状态
+// ========================================= 奖励领取状态（多阶段任务）
 export type RES_TASK_AWARD_STATUS = {
   result?: Array<0 | 1 | 2>;
 };

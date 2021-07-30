@@ -128,7 +128,7 @@ export default {
           title: item.label,
           background: index % 2 ? '#5b5fac' : '#3d2e6d',
           fonts: [{ text: item.label, top: '10%', fontColor: '#fff', fontStyle: 'FZY4JW', fontSize: '1.3vw' }],
-          imgs: [{ src: require(`./image/${item.icon}.png`), width: '50%', top: '30%' }],
+          imgs: [{ src: require(`@/assets/image/${item.icon}.png`), width: '50%', top: '30%' }],
         });
       });
       return prizes;

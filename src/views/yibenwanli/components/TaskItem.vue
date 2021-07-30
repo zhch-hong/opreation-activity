@@ -180,9 +180,9 @@ div.middle {
   background: url('../image/qwc.png') center/contain no-repeat;
 }
 .award_1 {
-  background: url('../image/lq.png') center/contain no-repeat;
+  background: url('../../../assets/image/lq.png') center/contain no-repeat;
 }
 .award_2 {
-  background: url('../image/ylq.png') center/contain no-repeat;
+  background: url('../../../assets/image/ylq.png') center/contain no-repeat;
 }
 </style>

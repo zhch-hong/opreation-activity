@@ -12,7 +12,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Refresh',
+  name: '页面菜单',
 });
 </script>
 <style lang="scss" scoped>

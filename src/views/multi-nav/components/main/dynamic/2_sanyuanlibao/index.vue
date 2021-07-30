@@ -57,7 +57,7 @@ export default defineComponent({
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background: url('./image/jk_btn_ljlq3.png') center/cover no-repeat;
+    background: url('../../../../../../assets/image/jk_btn_ljlq3.png') center/cover no-repeat;
   }
 }
 </style>
