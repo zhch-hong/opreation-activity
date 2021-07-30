@@ -327,7 +327,7 @@ export const SHOUCHONGLIBAO: Record<string, T_SCLB_GIFT[]> = {
       icon: 'pay_icon_gold7',
       attach: [
         {
-          icon: 'ty_icon_jb_50y',
+          icon: 'ty_icon_pms1',
           text: 'x1',
         },
         {
@@ -343,7 +343,7 @@ export const SHOUCHONGLIBAO: Record<string, T_SCLB_GIFT[]> = {
       icon: 'pay_icon_gold8',
       attach: [
         {
-          icon: 'ty_icon_jb_198y',
+          icon: 'ty_icon_pms2',
           text: 'x1',
         },
         {
@@ -359,7 +359,7 @@ export const SHOUCHONGLIBAO: Record<string, T_SCLB_GIFT[]> = {
       icon: 'pay_icon_gold9',
       attach: [
         {
-          icon: 'ty_icon_jb_498y',
+          icon: 'ty_icon_pms2',
           text: 'x3',
         },
         {
