@@ -9,27 +9,32 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/multi-nav',
     name: '活动',
-    component: () => import('@/views/multi-nav/index.vue'),
+    component: () => import('@/views/multi-nav/multi-nav.vue'),
   },
   {
     path: '/zhizunjika',
     name: '至尊季卡',
-    component: () => import('@/views/zhizunjika/index.vue'),
+    component: () => import('@/views/zhizunjika/zhizunjika.vue'),
   },
   {
     path: '/meiritehui',
     name: '每日特惠',
-    component: () => import('@/views/meiritehui/index.vue'),
+    component: () => import('@/views/meiritehui/meiritehui.vue'),
   },
   {
     path: '/yibenwanli',
     name: '一本万利',
-    component: () => import('@/views/yibenwanli/index.vue'),
+    component: () => import('@/views/yibenwanli/yibenwanli.vue'),
   },
   {
     path: '/shouchonglibao',
     name: '首充礼包',
-    component: () => import('@/views/shouchonglibao/index.vue'),
+    component: () => import('@/views/shouchonglibao/shouchonglibao.vue'),
+  },
+  {
+    path: '/quanfanlibao',
+    name: '全返礼包',
+    component: () => import('@/views/quanfanlibao/quanfanlibao.vue'),
   },
 ];
 

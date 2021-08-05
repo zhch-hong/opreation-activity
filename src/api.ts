@@ -185,6 +185,21 @@ export function API_BREAK_ACTIVITY(key: string, panel: string) {
   }
 }
 
+// ========================================= 领取奖励
+
+type RES_GET_TASK_AWARD = {
+  result: number;
+  id: number;
+};
+/**
+ * 领取奖励
+ * @param id 任务ID
+ * @returns
+ */
+export function API_GET_TASK_AWARD(id: number) {
+  return fetchCall<RES_GET_TASK_AWARD>('get_task_award', { id });
+}
+
 // ========================================= 领取奖励（多阶段任务）
 export type T_AWARD_DATAⅡ = {
   asset_type: string;
@@ -325,21 +340,6 @@ export function API_JIKA_EVERYDAY_LOTTERY() {
   return fetchCall<RES_JIKA_EVERYDAY_LOTTERY>('jika_everyday_lottery');
 }
 
-// ========================================= 系统升级奖励
-
-type RES_GET_TASK_AWARD = {
-  result: number;
-  id: number;
-};
-/**
- * 领取系统升级奖励
- * @param id 任务ID
- * @returns
- */
-export function API_GET_TASK_AWARD(id: number) {
-  return fetchCall<RES_GET_TASK_AWARD>('get_task_award', { id });
-}
-
 // ========================================= 全返礼包
 
 type ALL_RETURN_LB_DATA = {
@@ -365,7 +365,3 @@ type RES_QUERY_ALL_RETURN_LB_INFO = {
 export function API_QUERY_ALL_RETURN_LB_INFO() {
   return fetchCall<RES_QUERY_ALL_RETURN_LB_INFO>('query_all_return_lb_info');
 }
-
-// ========================================= 每日特惠
-
-// ========================================= 一本万利

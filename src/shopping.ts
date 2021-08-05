@@ -1,7 +1,7 @@
 /**
  * 赠送商品类型
  */
-export type T_ATTACH_AWARD = {
+export type T_AWARD_ITEM = {
   icon: string;
   text: string;
 };
@@ -316,7 +316,7 @@ export type T_SCLB_GIFT = {
   price: number;
   count: number;
   icon: string;
-  attach: T_ATTACH_AWARD[];
+  attach: T_AWARD_ITEM[];
 };
 export const SHOUCHONGLIBAO: Record<string, T_SCLB_GIFT[]> = {
   true: [
@@ -420,3 +420,97 @@ export const SHOUCHONGLIBAO: Record<string, T_SCLB_GIFT[]> = {
     },
   ],
 };
+
+// ========================================= 全返礼包
+export type T_QFLB_GIFT = {
+  /** 礼包ID */
+  id: number;
+  /** 任务ID */
+  taskid: number;
+  /** 礼包价格 */
+  price: number;
+  name: '周返' | '月返' | '季返';
+  content: string;
+  /** 购买立刻获得 */
+  immediately: T_AWARD_ITEM;
+  /** 任务奖励 */
+  taskAwards: T_AWARD_ITEM[];
+  /** 完成任务所需要消耗的金币量 */
+  needProcess: number;
+};
+export const QUANFANLIBAO: T_QFLB_GIFT[] = [
+  {
+    id: 10084,
+    taskid: 78,
+    price: 6,
+    name: '周返',
+    needProcess: 50000,
+    content: '共领<b style="color: #fff950;">15万</b>金币+<b style="color: #fff950;">700</b>福利券',
+    immediately: {
+      icon: 'jingbi',
+      text: '15万金币',
+    },
+    taskAwards: [
+      {
+        icon: 'fuliquan',
+        text: '100福利券',
+      },
+      {
+        icon: 'suoding',
+        text: '锁定x1',
+      },
+    ],
+  },
+  {
+    id: 10085,
+    taskid: 79,
+    price: 30,
+    name: '月返',
+    needProcess: 500000,
+    content: '3D捕鱼中累计消耗<b style="color: #fff950;">50万</b>',
+    immediately: {
+      icon: 'jingbi',
+      text: '100万金币',
+    },
+    taskAwards: [
+      {
+        icon: 'fuliquan',
+        text: '100福利券',
+      },
+      {
+        icon: 'ty_icon_jb_1y',
+        text: '4万金币',
+      },
+      {
+        icon: 'suoding',
+        text: '锁定x1',
+      },
+    ],
+  },
+  {
+    id: 10086,
+    taskid: 80,
+    price: 198,
+    name: '季返',
+    needProcess: 2000000,
+    content: '共领<b style="color: #fff950;">1050万</b>金币+<b style="color: #fff950;">1.98万</b>福利券',
+    immediately: {
+      icon: 'jingbi',
+      text: '600万金币',
+    },
+    taskAwards: [
+      {
+        icon: 'fuliquan',
+        text: '220福利券',
+      },
+      {
+        icon: 'ty_icon_jb_1y',
+        text: '5万金币',
+      },
+      {
+        icon: 'suoding',
+        text: '锁定x1',
+      },
+    ],
+  },
+];

@@ -25,7 +25,10 @@ export default defineComponent({
   components: { Overlay },
 
   props: {
-    visible: Boolean,
+    visible: {
+      type: Boolean,
+      default: true,
+    },
     showClose: {
       type: Boolean,
       default: true,

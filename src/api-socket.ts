@@ -4,7 +4,7 @@ import assetNotify, { notifyValidate } from './components/asset-notify';
 import { registerServeMsg, unregisterServeMsg } from './network';
 import { T_TASK_DATA } from './api';
 
-// ========================================= 订单
+// ========================================= 订单状态改变
 export type RES_NOTIFY_PAY_ORDER_MSG = {
   goods_id: number;
   money: number;
@@ -101,7 +101,7 @@ export function SKT_NOTIFY_ASSET_CHANGE_MSG(callback?: (data: T_NOTIFY_ASSET_CHA
   });
 }
 
-// ========================================= 季卡
+// ========================================= 季卡信息改变
 type T_JIKA_CHANGE = {
   buy_time: number;
   is_lottery: number;
