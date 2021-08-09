@@ -1,19 +1,21 @@
 <template>
   <teleport to="body">
     <div class="route-nav">
-      <router-link class="route-link" :to="{ path: '/multi-nav', query: { token } }">活动导航</router-link>
+      <router-link class="route-link" :to="{ path: '/sys_act_base_normal_web', query: { token } }"
+        >活动导航</router-link
+      >
       <Divider />
-      <router-link class="route-link" :to="{ path: '/zhizunjika', query: { token } }">至尊季卡</router-link>
+      <router-link class="route-link" :to="{ path: '/act_004_jika_web', query: { token } }">至尊季卡</router-link>
       <Divider />
-      <router-link class="route-link" :to="{ path: '/meiritehui', query: { token } }">每日特惠</router-link>
+      <router-link class="route-link" :to="{ path: '/gift_10087_web', query: { token } }">每日特惠</router-link>
       <Divider />
-      <router-link class="route-link" :to="{ path: '/yibenwanli', query: { token } }">一本万利</router-link>
+      <router-link class="route-link" :to="{ path: '/act_035_ybwl_web', query: { token } }">一本万利</router-link>
       <Divider />
-      <router-link class="route-link" :to="{ path: '/shouchonglibao', query: { token } }">首充礼包</router-link>
+      <router-link class="route-link" :to="{ path: '/sys_sclb_web', query: { token } }">首充礼包</router-link>
       <Divider />
-      <router-link class="route-link" :to="{ path: '/quanfanlibao', query: { token } }">全返礼包</router-link>
+      <router-link class="route-link" :to="{ path: '/act_022_qflb_web', query: { token } }">全返礼包</router-link>
       <Divider />
-      <router-link class="route-link" :to="{ path: '/changwanka', query: { token } }">畅玩卡</router-link>
+      <router-link class="route-link" :to="{ path: '/act_016_xyxcwk_web', query: { token } }">畅玩卡</router-link>
     </div>
   </teleport>
 </template>
