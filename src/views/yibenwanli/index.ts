@@ -3,14 +3,8 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import { YIBENWANLI, T_YIBENWANLI_ITEM } from '@/shopping';
-import {
-  API_QUERY_ONE_TASK_DATA,
-  API_TASK_AWARD_STATUS,
-  RES_QUERY_ONE_TASK_DATA,
-  RES_TASK_AWARD_STATUS,
-  T_TASK_DATA,
-} from '@/api';
-import { onBeforeMount, onUnmounted, reactive, ref, watch } from 'vue';
+import { API_QUERY_ONE_TASK_DATA, API_TASK_AWARD_STATUS, RES_QUERY_ONE_TASK_DATA, T_TASK_DATA } from '@/api';
+import { onBeforeMount, onUnmounted, ref, watch } from 'vue';
 
 dayjs.extend(relativeTime);
 dayjs.extend(duration);
@@ -155,12 +149,7 @@ export function fullFetch() {
   const getFullStatus = () => {
     API_QUERY_ONE_TASK_DATA(1000099).then(({ task_data }) => {
       if (task_data) {
-        const clone = _.cloneDeep(task_data);
-
-        let rs = JSON.stringify(clone['other_data_str']);
-        rs = JSON.parse(rs);
-
-        const { boughtList, validTime } = parseStringCode(rs);
+        const { boughtList, validTime } = parseStringCode(task_data.other_data_str || '');
 
         bought.value = boughtList;
 

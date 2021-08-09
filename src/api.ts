@@ -110,7 +110,7 @@ export function API_QUERY_GIFT_BAG_STATUS(id: number) {
   return fetchCall<RES_QUERY_GIFT_BAG_STATUS>('query_gift_bag_status', { gift_bag_id: id });
 }
 
-// ========================================= 任务状态
+// ========================================= 请求任务
 export type T_AWARD_DATA = {
   asset_type: string;
   asset_value: number;
@@ -138,13 +138,7 @@ export type T_TASK_DATA = {
   /** 当前总进度 */
   now_total_process: string;
   /** 其他数据 */
-  other_data_str?: {
-    valid_time: number;
-    /** 已购买的礼包ID */
-    bought_gift_bag_ids: number[];
-    /** 购买的礼包相对应的任务ID */
-    children_task_ids: number[];
-  };
+  other_data_str?: string;
   /** 过期时间 */
   over_time: string;
   /** 开始的有效时间 */
@@ -364,4 +358,38 @@ type RES_QUERY_ALL_RETURN_LB_INFO = {
  */
 export function API_QUERY_ALL_RETURN_LB_INFO() {
   return fetchCall<RES_QUERY_ALL_RETURN_LB_INFO>('query_all_return_lb_info');
+}
+
+// ========================================= 畅玩卡
+export type RES_QUERY_CHANG_WAN_KA_BASE_INFO = {
+  /** 购买次数 */
+  buy_num: number;
+  /** 过期时间 */
+  over_time: number;
+  /** 刷新任务的次数 */
+  refresh_task_num: number;
+  /** 任务1剩余次数 */
+  remain_num_1: number;
+  /** 任务2剩余次数 */
+  remain_num_2: number;
+  /** 任务3剩余次数 */
+  remain_num_3: number;
+  result: number;
+};
+export type RES_REFRESH_CHANG_WAN_KA_TASK = {
+  result: number;
+};
+/**
+ * 请求畅玩卡数据
+ */
+export function API_QUERY_CHANG_WAN_KA_BASE_INFO() {
+  return fetchCall<RES_QUERY_CHANG_WAN_KA_BASE_INFO>('query_chang_wan_ka_base_info');
+}
+/**
+ * 刷新任务
+ * @param index
+ * @returns
+ */
+export function API_REFRESH_CHANG_WAN_KA_TASK(index: number) {
+  return fetchCall<RES_REFRESH_CHANG_WAN_KA_TASK>('refresh_chang_wan_ka_task', { task_type: index });
 }

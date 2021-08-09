@@ -7,6 +7,146 @@ export type T_AWARD_ITEM = {
 };
 
 /**
+ * ========================================= 小游戏畅玩卡
+ */
+export type T_CWK_TASK = {
+  taskid: number;
+  text: string;
+  total: number;
+  award: number;
+  type: string;
+};
+export const CHANGWANKA = { id: 10243, price: 99 };
+export const CHANGWANKATASK: T_CWK_TASK[] = [
+  {
+    taskid: 21322,
+    text: '在财神消消乐中累计赢金1000万',
+    total: 10000000,
+    award: 1,
+    type: 'csxxl',
+  },
+  {
+    taskid: 21323,
+    text: '在水浒消消乐中累计赢金1000万',
+    total: 10000000,
+    award: 1,
+    type: 'shxxl',
+  },
+  {
+    taskid: 21324,
+    text: '在水果消消乐中累计赢金1000万',
+    total: 10000000,
+    award: 1,
+    type: 'xxl',
+  },
+  {
+    taskid: 21325,
+    text: '在苹果大战中累计纯赢1000万',
+    total: 10000000,
+    award: 1,
+    type: 'zpg',
+  },
+  {
+    taskid: 21326,
+    text: '在街机捕鱼中累计消耗1000万',
+    total: 10000000,
+    award: 1,
+    type: 'by',
+  },
+  {
+    taskid: 21327,
+    text: '在疯狂捕鱼中累计消耗1000万',
+    total: 10000000,
+    award: 1,
+    type: 'fkby',
+  },
+  {
+    taskid: 21328,
+    text: '在弹弹乐中累计赢金1000万',
+    total: 10000000,
+    award: 1,
+    type: 'ttl',
+  },
+  {
+    taskid: 21329,
+    text: '在敲敲乐中累计赢金1000万',
+    total: 10000000,
+    award: 1,
+    type: 'qql',
+  },
+  {
+    taskid: 21330,
+    text: '在敲敲乐财神模式中累计赢金1000万',
+    total: 10000000,
+    award: 1,
+    type: 'qql_cs',
+  },
+  {
+    taskid: 21331,
+    text: '苹果大战中累计纯赢8000万',
+    total: 80000000,
+    award: 4,
+    type: 'zpg',
+  },
+  {
+    taskid: 21332,
+    text: '苹果大战使用500万及以上档次，种出1次金苹果',
+    total: 1,
+    award: 4,
+    type: 'zpg',
+  },
+  {
+    taskid: 21333,
+    text: '街机捕鱼使用10万以上炮倍击杀一条黄金龙',
+    total: 1,
+    award: 4,
+    type: 'by',
+  },
+  {
+    taskid: 21334,
+    text: '敲敲乐财神模式中累计赢金8000万',
+    total: 80000000,
+    award: 4,
+    type: 'qql_cs',
+  },
+  {
+    taskid: 21335,
+    text: '弹弹乐中累计赢金8000万',
+    total: 80000000,
+    award: 4,
+    type: 'ttl',
+  },
+  {
+    taskid: 21336,
+    text: '水果消消乐使用48万及以上档次，出现1次幸运时刻',
+    total: 1,
+    award: 4,
+    type: 'xxl',
+  },
+  {
+    taskid: 21337,
+    text: '水浒消消乐中累计赢金8000万',
+    total: 80000000,
+    award: 4,
+    type: 'shxxl',
+  },
+  {
+    taskid: 21338,
+    text: '财神消消乐使用96万以上档次，打出1次天女散花',
+    total: 1,
+    award: 4,
+    type: 'csxxl',
+  },
+  {
+    taskid: 21339,
+    text: '敲敲乐使用10万及以上档次，敲出2次38倍财神',
+    total: 2,
+    award: 4,
+    type: 'qql',
+  },
+];
+
+/**
  * ========================================= 豪华月卡
  */
 export const HHYUEKA = { id: 10235, price: 48 };

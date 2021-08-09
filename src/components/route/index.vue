@@ -12,6 +12,8 @@
       <router-link class="route-link" :to="{ path: '/shouchonglibao', query: { token } }">首充礼包</router-link>
       <Divider />
       <router-link class="route-link" :to="{ path: '/quanfanlibao', query: { token } }">全返礼包</router-link>
+      <Divider />
+      <router-link class="route-link" :to="{ path: '/changwanka', query: { token } }">畅玩卡</router-link>
     </div>
   </teleport>
 </template>

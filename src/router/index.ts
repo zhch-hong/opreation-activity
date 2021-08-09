@@ -4,7 +4,7 @@ import _ from 'lodash';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/shouchonglibao',
+    redirect: '/changwanka',
   },
   {
     path: '/multi-nav',
@@ -35,6 +35,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/quanfanlibao',
     name: '全返礼包',
     component: () => import('@/views/quanfanlibao/quanfanlibao.vue'),
+  },
+  {
+    path: '/changwanka',
+    name: '小游戏畅玩卡',
+    component: () => import('@/views/changwanka/changwanka.vue'),
   },
 ];
 

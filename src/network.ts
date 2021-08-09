@@ -353,7 +353,7 @@ function registerServeMsg<T>(message: string, callback: (params: T) => void) {
 
     SERVE_MESSAGE_LIST.splice(0);
     messageTimer = null;
-  }, 2000);
+  }, 600);
 }
 
 /**
@@ -403,7 +403,7 @@ function unregisterServeMsg(message: string) {
 
     UNSERVE_MESSAGE_LIST.splice(0);
     unmessageTimer = null;
-  }, 1000);
+  }, 300);
 }
 
 export { fetchMessage, login, fetchClientConfig, loopFetch, fetchCall, registerServeMsg, unregisterServeMsg };

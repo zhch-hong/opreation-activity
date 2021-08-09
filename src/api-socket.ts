@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { onMounted, onUnmounted } from 'vue';
 import assetNotify, { notifyValidate } from './components/asset-notify';
 import { registerServeMsg, unregisterServeMsg } from './network';
-import { T_TASK_DATA } from './api';
+import { RES_QUERY_CHANG_WAN_KA_BASE_INFO, T_TASK_DATA } from './api';
 
 // ========================================= 订单状态改变
 export type RES_NOTIFY_PAY_ORDER_MSG = {
@@ -117,6 +117,18 @@ export function SKT_JIKA_BASE_INFO_CHANGE_MSG(callback: (data: T_JIKA_CHANGE) =>
 
   onMounted(() => {
     registerServeMsg<T_JIKA_CHANGE>(message, callback);
+  });
+
+  onUnmounted(() => {
+    unregisterServeMsg(message);
+  });
+}
+
+// ========================================= 畅玩卡信息改变
+export function SKT_QUERY_CHANG_WAN_KA_BASE_INFO(callback: (data: RES_QUERY_CHANG_WAN_KA_BASE_INFO) => void) {
+  const message = 'query_chang_wan_ka_base_info';
+  onMounted(() => {
+    registerServeMsg<RES_QUERY_CHANG_WAN_KA_BASE_INFO>(message, callback);
   });
 
   onUnmounted(() => {
