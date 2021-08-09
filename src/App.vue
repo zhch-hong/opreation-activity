@@ -1,23 +1,22 @@
 <template>
   <router-view />
-  <Refresh />
-  <Route />
+  <template v-if="!production">
+    <Refresh />
+    <Route />
+  </template>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineAsyncComponent, defineComponent, onMounted } from 'vue';
 import { isBrowser, isWebview } from '@/runtime-env';
 import { login, loopFetch } from '@/network';
 import { API_APP_SCALE } from '@/api';
 import parseHref from '@/utils/parse-href';
 import store from './store';
 
-import Refresh from '@/Refresh.vue';
-import Route from '@/components/route/index.vue';
-
 export default defineComponent({
   components: {
-    Refresh,
-    Route,
+    Refresh: defineAsyncComponent(() => import('@/Refresh.vue')),
+    Route: defineAsyncComponent(() => import('@/components/route/index.vue')),
   },
 
   setup() {
@@ -56,6 +55,10 @@ export default defineComponent({
     if (isBrowser) {
       loopFetch();
     }
+
+    return {
+      production: process.env.NODE_ENV === 'production',
+    };
   },
 });
 </script>

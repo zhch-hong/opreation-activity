@@ -167,7 +167,6 @@ export default _.once(function () {
           taskBot.awardText = '400福利券';
 
           API_QUERY_ONE_TASK_DATA(_.toNumber(other_data_str)).then(({ task_data }) => {
-            console.log('b', task_data);
             if (task_data) {
               taskBot.progress = _.toNumber(task_data.now_total_process);
               taskBot.status = task_data.award_status;
