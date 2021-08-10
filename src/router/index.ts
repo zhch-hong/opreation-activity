@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import _ from 'lodash';
 
 import SYS_ACT_BASE_NORMAL_WEB from '@/views/multi-nav/multi-nav.vue';
 import ACT_004_JIKA_WEB from '@/views/zhizunjika/zhizunjika.vue';

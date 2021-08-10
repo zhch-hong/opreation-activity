@@ -9,7 +9,6 @@ const emitter = mitt();
  * @param params 消息的数据
  */
 function PositiveMessage(message: string, params: unknown): void {
-  // console.log('======主动推送======', message, params);
   emitter.emit(message, params);
 }
 
@@ -20,7 +19,6 @@ function PositiveMessage(message: string, params: unknown): void {
  * @param params 消息的数据
  */
 function PassiveMessage(uuid: string, params: unknown): void {
-  // console.log('------请求响应------', uuid, params);
   emitter.emit(uuid, params);
 }
 
@@ -28,7 +26,7 @@ function webviewWillAppear() {
   emitter.emit('webviewWillAppear');
 }
 
-function installListener() {
+function installListener(): void {
   // 添加全局方法，供uniwebview调用
   Object.assign(window, { PositiveMessage, PassiveMessage, webviewWillAppear });
 }
