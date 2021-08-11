@@ -7,6 +7,7 @@
     "serve:b": "vue-cli-service serve --mode browser",
     "serve:w": "vue-cli-service serve --mode webview",
     "build": "vue-cli-service build",
+    "build:pre": "vue-cli-service build --mode preproduction",
     "build:dev": "vue-cli-service build --mode development",
     "lint": "vue-cli-service lint"
   },
