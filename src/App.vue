@@ -48,11 +48,9 @@ export default defineComponent({
       });
     }
 
-    // 登录
-    login();
-
     // 如果在浏览器中，要循环请求主动推送到webview的消息
     if (isBrowser) {
+      login();
       loopFetch();
     }
 

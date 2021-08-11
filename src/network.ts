@@ -188,39 +188,20 @@ function fetchClientConfig<T = any>(url: string) {
  * @returns
  */
 function login(): Promise<void> {
-  if (isBrowser) {
-    return new Promise<void>((resolve, reject) => {
-      axios({
-        baseURL: store.state.baseURL,
-        url: 'get_user_by_token',
-        method: 'GET',
-        params: { token: store.state.token },
+  return new Promise<void>((resolve, reject) => {
+    axios({
+      baseURL: store.state.baseURL,
+      url: 'get_user_by_token',
+      method: 'GET',
+      params: { token: store.state.token },
+    })
+      .then(({ data }) => {
+        // 计算服务器时间和本地时间差值
+        data['diff'] = Math.floor((new Date().valueOf() - (data.ts as number) * 1000) / 1000);
+        store.commit('COMMIT_USER', data);
+        resolve();
       })
-        .then(({ data }) => {
-          // 计算服务器时间和本地时间差值
-          data['diff'] = Math.floor((new Date().valueOf() - (data.ts as number) * 1000) / 1000);
-          store.commit('COMMIT_USER', data);
-          resolve();
-        })
-        .catch(reject);
-    });
-  }
-
-  return new Promise<void>((resolve) => {
-    const data: Record<string, unknown> = {
-      assets: { prop_web_chip_huafei: 1, jing_bi: 1, shop_gold_sum: 1 },
-      jing_bi: 1,
-      prop_web_chip_huafei: 1,
-      shop_gold_sum: 1,
-      nickname: '用户昵称',
-      result: '0',
-      status: 'enable',
-      ts: 0,
-      user_id: '105390',
-    };
-    data['diff'] = Math.floor((new Date().valueOf() - (data.ts as number) * 1000) / 1000);
-    store.commit('COMMIT_USER', data);
-    resolve();
+      .catch(reject);
   });
 }
 
