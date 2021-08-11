@@ -27,12 +27,12 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch, watchEffect } from 'vue';
-import { fetchCall } from '@/network';
+import { fetchCall } from '@/vendors/network';
 import { parseTimestamp } from '@/utils/stamp2hms';
 import alertMessage from '@/components/alert';
 
 import OverlayDialog from '@/components/overlay-dialog/index.vue';
-import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
 function cutdown(count: number) {
   const time = ref('');

@@ -1,7 +1,7 @@
-import { fetchCall, fetchMessage } from '@/network';
+import { fetchCall, fetchMessage } from '@/vendors/network';
 import axios from 'axios';
 import { isWebview } from './runtime-env';
-import store from './store';
+import store from '../store';
 
 // ========================================= 页面缩放
 /**

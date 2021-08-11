@@ -24,8 +24,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
-import { T_MEIRITEHUI } from '@/shopping';
-import { API_QUERY_GIFT_BAG_STATUS } from '@/api';
+import { T_MEIRITEHUI } from '@/vendors/shopping';
+import { API_QUERY_GIFT_BAG_STATUS } from '@/vendors/api';
 
 import payPanel from '@/components/pay-panel';
 

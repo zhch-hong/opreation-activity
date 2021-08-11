@@ -3,14 +3,14 @@ import {
   API_QUERY_GIFT_BAG_STATUS,
   API_QUERY_ONE_TASK_DATA,
   API_REFRESH_CHANG_WAN_KA_TASK,
-} from '@/api';
-import { CHANGWANKA, CHANGWANKATASK, T_CWK_TASK } from '@/shopping';
+} from '@/vendors/api';
+import { CHANGWANKA, CHANGWANKATASK, T_CWK_TASK } from '@/vendors/shopping';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import _ from 'lodash';
 import { onBeforeMount, reactive, ref } from 'vue';
-import { SKT_QUERY_CHANG_WAN_KA_BASE_INFO, SKT_TASK_CHANGE_MSG } from '@/api-socket';
+import { SKT_QUERY_CHANG_WAN_KA_BASE_INFO, SKT_TASK_CHANGE_MSG } from '@/vendors/api-socket';
 
 dayjs.extend(relativeTime);
 dayjs.extend(duration);

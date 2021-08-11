@@ -41,7 +41,7 @@ import 'vant/es/col/style';
 import composition, { T_TASK_ROW } from '../composition';
 import { tranNumber } from '@/utils/transform-unit';
 import alertMsg from '@/components/alert';
-import { API_GET_TASK_AWARD } from '@/api';
+import { API_GET_TASK_AWARD } from '@/vendors/api';
 
 export default defineComponent({
   components: {

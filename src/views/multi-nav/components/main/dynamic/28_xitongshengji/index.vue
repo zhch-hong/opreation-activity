@@ -3,10 +3,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { API_GET_TASK_AWARD } from '@/api';
-import { SYSTEM_UPGRADE } from '@/shopping';
+import { API_GET_TASK_AWARD } from '@/vendors/api';
+import { SYSTEM_UPGRADE } from '@/vendors/shopping';
 import alertMessage from '@/components/alert';
-import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
 export default defineComponent({
   setup() {

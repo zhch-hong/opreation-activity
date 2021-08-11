@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-import { SKT_QUERY_CHANG_WAN_KA_BASE_INFO, SKT_TASK_CHANGE_MSG } from '@/api-socket';
+import { SKT_QUERY_CHANG_WAN_KA_BASE_INFO, SKT_TASK_CHANGE_MSG } from '@/vendors/api-socket';
 import rulePanel from '@/components/rule-panel';
 import _ from 'lodash';
 import { defineComponent } from 'vue';

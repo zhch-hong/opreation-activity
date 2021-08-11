@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
-import { API_BREAK_ACTIVITY, API_NEW_YUEKA_RECEIVE_AWARD, RES_QUERY_NEW_YUEKA_BASE_INFO } from '@/api';
+import { API_BREAK_ACTIVITY, API_NEW_YUEKA_RECEIVE_AWARD, RES_QUERY_NEW_YUEKA_BASE_INFO } from '@/vendors/api';
 import _ from 'lodash';
 
 export default defineComponent({

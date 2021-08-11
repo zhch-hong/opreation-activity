@@ -14,7 +14,7 @@
   </div>
 </template>
 <script lang="ts">
-import { T_AWARD_ITEM } from '@/shopping';
+import { T_AWARD_ITEM } from '@/vendors/shopping';
 import { defineComponent, PropType } from 'vue';
 
 import AwardThreeRight from './AwardThreeRight.vue';

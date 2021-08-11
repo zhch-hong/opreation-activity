@@ -18,7 +18,7 @@
 </template>
 <script>
 import { LuckyWheel } from 'lucky-canvas';
-import { API_JIKA_EVERYDAY_LOTTERY } from '@/api';
+import { API_JIKA_EVERYDAY_LOTTERY } from '@/vendors/api';
 
 export default {
   props: {

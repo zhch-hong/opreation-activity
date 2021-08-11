@@ -1,11 +1,11 @@
-import { fetchClientConfig, fetchMessage } from '@/network';
+import { fetchClientConfig, fetchMessage } from '@/vendors/network';
 import { reactive } from 'vue';
 import dayjs from 'dayjs';
-import { isBrowser } from '@/runtime-env';
+import { isBrowser } from '@/vendors/runtime-env';
 import store from '@/store';
 import axios from 'axios';
 import _ from 'lodash';
-import { API_CHECK_PERMISS } from '@/api';
+import { API_CHECK_PERMISS } from '@/vendors/api';
 
 type ActList = Record<string, unknown>[];
 

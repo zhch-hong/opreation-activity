@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { onMounted, onUnmounted } from 'vue';
-import assetNotify, { notifyValidate } from './components/asset-notify';
+import assetNotify, { notifyValidate } from '../components/asset-notify';
 import { registerServeMsg, unregisterServeMsg } from './network';
 import { RES_QUERY_CHANG_WAN_KA_BASE_INFO, T_TASK_DATA } from './api';
 

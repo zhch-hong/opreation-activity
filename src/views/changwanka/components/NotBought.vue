@@ -14,8 +14,8 @@
 import { defineComponent } from 'vue';
 import rulePanel from '@/components/rule-panel';
 import payPanel from '@/components/pay-panel';
-import { CHANGWANKA } from '@/shopping';
-import { SKT_NOTIFY_PAY_ORDER_MSG } from '@/api-socket';
+import { CHANGWANKA } from '@/vendors/shopping';
+import { SKT_NOTIFY_PAY_ORDER_MSG } from '@/vendors/api-socket';
 import composition from '../composition';
 
 export default defineComponent({

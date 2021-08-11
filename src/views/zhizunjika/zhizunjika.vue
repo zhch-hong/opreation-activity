@@ -72,9 +72,9 @@
 
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from 'vue';
-import { ZHIZUNJIKA } from '@/shopping';
-import { API_QUERY_JIKA_BASE_INFO, API_QUERY_ALL_RETURN_LB_INFO } from '@/api';
-import { SKT_JIKA_BASE_INFO_CHANGE_MSG, SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
+import { ZHIZUNJIKA } from '@/vendors/shopping';
+import { API_QUERY_JIKA_BASE_INFO, API_QUERY_ALL_RETURN_LB_INFO } from '@/vendors/api';
+import { SKT_JIKA_BASE_INFO_CHANGE_MSG, SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 import payPanel from '@/components/pay-panel';
 
 import RulePanel from './components/RulePanel.vue';

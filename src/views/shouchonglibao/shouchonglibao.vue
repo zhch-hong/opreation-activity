@@ -13,10 +13,10 @@
   </div>
 </template>
 <script lang="ts">
-import { API_CHECK_PERMISS } from '@/api';
-import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
-import { isWebview } from '@/runtime-env';
-import { SHOUCHONGLIBAO, T_SCLB_GIFT } from '@/shopping';
+import { API_CHECK_PERMISS } from '@/vendors/api';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
+import { isWebview } from '@/vendors/runtime-env';
+import { SHOUCHONGLIBAO, T_SCLB_GIFT } from '@/vendors/shopping';
 import { defineComponent, ref } from 'vue';
 
 import GiftItem from './components/GiftItem.vue';

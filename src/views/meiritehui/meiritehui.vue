@@ -22,12 +22,12 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { MEIRITEHUI, T_MEIRITEHUI } from '@/shopping';
-import { API_CHECK_PERMISS } from '@/api';
+import { MEIRITEHUI, T_MEIRITEHUI } from '@/vendors/shopping';
+import { API_CHECK_PERMISS } from '@/vendors/api';
 import _ from 'lodash';
 
 import PayItem from './components/PayItem.vue';
-import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
 function getLevelData() {
   const data = ref<T_MEIRITEHUI[]>([]);

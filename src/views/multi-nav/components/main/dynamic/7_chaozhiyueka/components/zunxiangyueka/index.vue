@@ -20,9 +20,9 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
 import _ from 'lodash';
-import { ZXYUEKA } from '@/shopping';
+import { ZXYUEKA } from '@/vendors/shopping';
 import payPanel from '@/components/pay-panel';
-import { API_NEW_YUEKA_RECEIVE_AWARD, RES_QUERY_NEW_YUEKA_BASE_INFO } from '@/api';
+import { API_NEW_YUEKA_RECEIVE_AWARD, RES_QUERY_NEW_YUEKA_BASE_INFO } from '@/vendors/api';
 
 export default defineComponent({
   name: '尊享月卡',

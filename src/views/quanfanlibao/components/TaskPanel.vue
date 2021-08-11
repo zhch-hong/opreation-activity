@@ -27,7 +27,7 @@ import { activeObserver } from '../composition';
 import alertMsg from '@/components/alert';
 
 import AwardItem from './AwardItem.vue';
-import { API_GET_TASK_AWARD } from '@/api';
+import { API_GET_TASK_AWARD } from '@/vendors/api';
 
 export default defineComponent({
   components: {

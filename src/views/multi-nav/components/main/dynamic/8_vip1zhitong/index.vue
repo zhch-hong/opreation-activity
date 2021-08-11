@@ -7,7 +7,7 @@
 import { defineComponent } from 'vue';
 import payPanel from '@/components/pay-panel';
 import { updateMenu } from '@/views/multi-nav/composables/nav-menu';
-import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
 export default defineComponent({
   name: 'Vip1zhitong',

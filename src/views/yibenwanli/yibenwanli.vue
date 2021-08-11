@@ -81,15 +81,15 @@
 import _ from 'lodash';
 import { defineComponent, ref, watch } from 'vue';
 import BScroll from '@better-scroll/core';
-import { YIBENWANLI } from '@/shopping';
+import { YIBENWANLI } from '@/vendors/shopping';
 import { fullFetch, activeObserve } from '.';
 import payPanel from '@/components/pay-panel';
 import alertMsg from '@/components/alert';
-import { SKT_NOTIFY_PAY_ORDER_MSG, SKT_TASK_CHANGE_MSG, SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
+import { SKT_NOTIFY_PAY_ORDER_MSG, SKT_TASK_CHANGE_MSG, SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
 import RuleTip from './components/RuleTip.vue';
 import TaskItem from './components/TaskItem.vue';
-import { API_GET_TASK_AWARD_NEW } from '@/api';
+import { API_GET_TASK_AWARD_NEW } from '@/vendors/api';
 
 export default defineComponent({
   components: {

@@ -6,11 +6,11 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { SANYUANLIBAO } from '@/shopping';
-import { API_QUERY_GIFT_BAG_STATUS } from '@/api';
+import { SANYUANLIBAO } from '@/vendors/shopping';
+import { API_QUERY_GIFT_BAG_STATUS } from '@/vendors/api';
 import payPanel from '@/components/pay-panel';
 import { activeMenu } from '@/views/multi-nav/composables/current-menuitem';
-import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
 export default defineComponent({
   setup() {

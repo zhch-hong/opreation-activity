@@ -2,8 +2,8 @@ import _ from 'lodash';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
-import { YIBENWANLI, T_YIBENWANLI_ITEM } from '@/shopping';
-import { API_QUERY_ONE_TASK_DATA, API_TASK_AWARD_STATUS, RES_QUERY_ONE_TASK_DATA, T_TASK_DATA } from '@/api';
+import { YIBENWANLI, T_YIBENWANLI_ITEM } from '@/vendors/shopping';
+import { API_QUERY_ONE_TASK_DATA, API_TASK_AWARD_STATUS, RES_QUERY_ONE_TASK_DATA, T_TASK_DATA } from '@/vendors/api';
 import { onBeforeMount, onUnmounted, ref, watch } from 'vue';
 
 dayjs.extend(relativeTime);

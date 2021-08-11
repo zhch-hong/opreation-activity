@@ -11,7 +11,7 @@
   </ul>
 </template>
 <script lang="ts">
-import { QUANFANLIBAO } from '@/shopping';
+import { QUANFANLIBAO } from '@/vendors/shopping';
 import { defineComponent } from 'vue';
 import { activeObserver } from '../composition';
 

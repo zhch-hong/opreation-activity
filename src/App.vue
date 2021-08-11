@@ -7,16 +7,16 @@
 </template>
 <script lang="ts">
 import { defineAsyncComponent, defineComponent, onMounted } from 'vue';
-import { isBrowser, isWebview } from '@/runtime-env';
-import { login, loopFetch } from '@/network';
-import { API_APP_SCALE } from '@/api';
+import { isBrowser, isWebview } from '@/vendors/runtime-env';
+import { login, loopFetch } from '@/vendors/network';
+import { API_APP_SCALE } from '@/vendors/api';
 import parseHref from '@/utils/parse-href';
 import store from './store';
 
 export default defineComponent({
   components: {
-    Refresh: defineAsyncComponent(() => import('@/Refresh.vue')),
-    Route: defineAsyncComponent(() => import('@/components/route/index.vue')),
+    Refresh: defineAsyncComponent(() => import('@/components/Refresh.vue')),
+    Route: defineAsyncComponent(() => import('@/components/MenuNav.vue')),
   },
 
   setup() {

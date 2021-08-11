@@ -17,11 +17,11 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { isWebview } from '@/runtime-env';
+import { isWebview } from '@/vendors/runtime-env';
 import alertMessage from '@/components/alert';
 
 import OverlayDialog from '../overlay-dialog/index.vue';
-import { API_CREATE_PAY_ORDER, API_GET_PAY_TYPES, API_OPEN_BROWSER } from '@/api';
+import { API_CREATE_PAY_ORDER, API_GET_PAY_TYPES, API_OPEN_BROWSER } from '@/vendors/api';
 
 export default defineComponent({
   name: 'PayPanel',

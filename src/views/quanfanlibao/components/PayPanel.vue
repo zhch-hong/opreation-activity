@@ -27,7 +27,7 @@
   </div>
 </template>
 <script lang="ts">
-import { T_AWARD_ITEM } from '@/shopping';
+import { T_AWARD_ITEM } from '@/vendors/shopping';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { activeObserver } from '../composition';
 import payPanel from '@/components/pay-panel';

@@ -1,5 +1,10 @@
-import { API_QUERY_ALL_RETURN_LB_INFO, API_QUERY_ONE_TASK_DATA, RES_QUERY_ONE_TASK_DATA, T_TASK_DATA } from '@/api';
-import { QUANFANLIBAO, T_QFLB_GIFT } from '@/shopping';
+import {
+  API_QUERY_ALL_RETURN_LB_INFO,
+  API_QUERY_ONE_TASK_DATA,
+  RES_QUERY_ONE_TASK_DATA,
+  T_TASK_DATA,
+} from '@/vendors/api';
+import { QUANFANLIBAO, T_QFLB_GIFT } from '@/vendors/shopping';
 import _ from 'lodash';
 import { once } from 'lodash';
 import { nextTick, reactive, ref, watch, WatchStopHandle } from 'vue';

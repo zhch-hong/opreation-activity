@@ -22,7 +22,7 @@
   </div>
 </template>
 <script lang="ts">
-import { T_AWARD_ITEM } from '@/shopping';
+import { T_AWARD_ITEM } from '@/vendors/shopping';
 import { tranNumber } from '@/utils/transform-unit';
 import { defineComponent, PropType } from 'vue';
 import payPanel from '@/components/pay-panel';

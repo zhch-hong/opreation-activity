@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store, { key } from './store';
 
-import { installListener } from '@/window-listener';
+import { installListener } from '@/vendors/window-listener';
 
 // 在webview中要添加全局方法供uniwebview调用，这些仅在客户端环境被使用
 installListener();

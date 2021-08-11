@@ -12,12 +12,12 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 
-import { API_QUERY_NEW_YUEKA_BASE_INFO, API_QUERY_JIKA_BASE_INFO } from '@/api';
+import { API_QUERY_NEW_YUEKA_BASE_INFO, API_QUERY_JIKA_BASE_INFO } from '@/vendors/api';
 
 import HaohuaYueka from './components/haohuayueka/index.vue';
 import ZunxiangYueka from './components/zunxiangyueka/index.vue';
 import ZhizunJika from './components/zhizunjika/index.vue';
-import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/api-socket';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
 function fetchInfo() {
   return Promise.all([API_QUERY_NEW_YUEKA_BASE_INFO(), API_QUERY_JIKA_BASE_INFO()]);

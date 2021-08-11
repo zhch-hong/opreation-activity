@@ -23,9 +23,9 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
 import _ from 'lodash';
-import { HHYUEKA } from '@/shopping';
+import { HHYUEKA } from '@/vendors/shopping';
 import payPanel from '@/components/pay-panel';
-import { RES_QUERY_NEW_YUEKA_BASE_INFO } from '@/api';
+import { RES_QUERY_NEW_YUEKA_BASE_INFO } from '@/vendors/api';
 
 export default defineComponent({
   name: '豪华月卡',

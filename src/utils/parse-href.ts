@@ -1,4 +1,4 @@
-import { isBrowser } from '@/runtime-env';
+import { isBrowser } from '@/vendors/runtime-env';
 import store from '@/store';
 
 export default function () {

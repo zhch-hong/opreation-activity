@@ -27,14 +27,14 @@ import { defineComponent, onBeforeMount, reactive, ref } from 'vue';
 
 import { activeObserver } from './composition';
 
-import { SKT_NOTIFY_ASSET_CHANGE_MSG, SKT_NOTIFY_PAY_ORDER_MSG, SKT_TASK_CHANGE_MSG } from '@/api-socket';
-import { API_QUERY_ALL_RETURN_LB_INFO } from '@/api';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG, SKT_NOTIFY_PAY_ORDER_MSG, SKT_TASK_CHANGE_MSG } from '@/vendors/api-socket';
+import { API_QUERY_ALL_RETURN_LB_INFO } from '@/vendors/api';
 
 import ActMenu from './components/ActMenu.vue';
 import PayPanel from './components/PayPanel.vue';
 import RulePanel from './components/RulePanel.vue';
 import TaskPanel from './components/TaskPanel.vue';
-import { QUANFANLIBAO } from '@/shopping';
+import { QUANFANLIBAO } from '@/vendors/shopping';
 import _ from 'lodash';
 
 export default defineComponent({
