@@ -15,8 +15,9 @@ let mountDiv: HTMLDivElement, notifyApp: App;
 emitter.on('webviewWillAppear', () => {
   notifyIndex = 0;
   notifyStack.splice(0);
-  notifyApp.unmount();
-  mountDiv.remove();
+
+  if (notifyApp) notifyApp.unmount();
+  if (mountDiv) mountDiv.remove();
 });
 
 function mountNotify() {

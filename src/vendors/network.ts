@@ -71,19 +71,15 @@ const fetchMessage = (function webview2client() {
     if (url) {
       messageRun = true;
 
-      // const rIndex = url.indexOf('readuuid');
-      // const uIndex = url.indexOf('&uuid');
-      // if (uIndex !== -1) {
-      //   console.group(`发送消息【${url.slice(uIndex + 7, uIndex + 43)}】`);
-      //   console.log(url);
-      //   console.groupEnd();
-      // } else if (rIndex !== -1) {
-      //   console.group(`发送消息【${url.slice(rIndex + 10, rIndex + 46)}】`);
-      //   console.log(url);
-      //   console.groupEnd();
-      // } else {
-      //   console.error(`发送消息未添加uuid或readuuid【${url}】`);
-      // }
+      const rIndex = url.indexOf('readuuid');
+      const uIndex = url.indexOf('&uuid');
+      if (uIndex !== -1) {
+        console.log(`发送消息【${url.slice(uIndex + 7, uIndex + 43)}】`, url);
+      } else if (rIndex !== -1) {
+        console.log(`发送消息【${url.slice(rIndex + 10, rIndex + 46)}】`, url);
+      } else {
+        console.error(`发送消息未添加uuid或readuuid【${url}】`);
+      }
 
       location.href = url;
     }
@@ -96,6 +92,8 @@ const fetchMessage = (function webview2client() {
   watch(
     () => [...messageStack],
     (cur, pre) => {
+      console.log('watch', cur.length, pre.length);
+
       // cur.length > pre.length
       // 说明是有消息被添加到消息队列，如果当前没有消息正处于通讯状态，则触发消息发送机制
       // 如果当前正有消息处于通讯状态，则消息触发交由 emitter.on(readuuid) 回调函数处理
@@ -130,9 +128,6 @@ const fetchMessage = (function webview2client() {
     messageStack.push(url);
 
     emitter.on<number>(readuuid, () => {
-      // console.group(`消息已读【${readuuid}】`);
-      // console.groupEnd();
-
       emitter.off(readuuid);
 
       messageRun = false;
@@ -147,9 +142,7 @@ const fetchMessage = (function webview2client() {
     if (response) {
       return new Promise<T>((resolve, reject) => {
         emitter.on<T>(uuid, (data) => {
-          // console.group(`消息响应【${uuid}】`);
-          // console.log(data);
-          // console.groupEnd();
+          console.log(`消息响应【${uuid}】`, data);
 
           emitter.off(uuid);
 
