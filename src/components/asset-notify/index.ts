@@ -1,4 +1,6 @@
-import { createApp, h, nextTick } from 'vue';
+import { App, createApp, h, nextTick } from 'vue';
+import { emitter } from '@/vendors/window-listener';
+
 import AssetNotify from './index.vue';
 
 type Asset = {
@@ -8,6 +10,14 @@ type Asset = {
 
 const notifyStack: Asset[] = [];
 let notifyIndex = 0;
+let mountDiv: HTMLDivElement, notifyApp: App;
+
+emitter.on('webviewWillAppear', () => {
+  notifyIndex = 0;
+  notifyStack.splice(0);
+  notifyApp.unmount();
+  mountDiv.remove();
+});
 
 function mountNotify() {
   const el = notifyStack[notifyIndex];
@@ -17,18 +27,18 @@ function mountNotify() {
     return;
   }
 
-  const div = document.createElement('div');
-  document.body.append(div);
+  mountDiv = document.createElement('div');
+  document.body.append(mountDiv);
 
-  const app = createApp({
+  notifyApp = createApp({
     render() {
       return h(AssetNotify, {
         name: el.name,
         count: el.count,
         onConfirm: async () => {
           notifyIndex++;
-          app.unmount();
-          div.remove();
+          notifyApp.unmount();
+          mountDiv.remove();
           await nextTick();
           mountNotify();
         },
@@ -36,7 +46,7 @@ function mountNotify() {
     },
   });
 
-  app.mount(div);
+  notifyApp.mount(mountDiv);
 }
 
 export default (assets: Asset[]): void => {
