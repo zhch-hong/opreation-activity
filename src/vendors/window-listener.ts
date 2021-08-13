@@ -27,8 +27,10 @@ function webviewWillAppear() {
 }
 
 function installListener(): void {
-  // 添加全局方法，供uniwebview调用
-  Object.assign(window, { PositiveMessage, PassiveMessage, webviewWillAppear });
+  document.addEventListener('DOMContentLoaded', function () {
+    // 添加全局方法，供uniwebview调用
+    Object.assign(window, { PositiveMessage, PassiveMessage, webviewWillAppear });
+  });
 }
 
 export { emitter, installListener };
