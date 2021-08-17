@@ -130,6 +130,7 @@ div.middle {
 
   span {
     color: #0a68a3;
+    white-space: nowrap;
 
     b {
       color: #ffebe6;

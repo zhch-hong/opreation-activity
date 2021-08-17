@@ -19,7 +19,7 @@
     <footer class="footer">
       <button class="pay-btn" @click="submit">
         <img class="tag" src="../image/tag.png" alt="超值" />
-        <span>{{ price }}元购买</span>
+        <span class="price">{{ price }}元购买</span>
       </button>
       <p v-if="showOnce" class="text1">限购一次</p>
       <p class="text2">温馨提示：本礼包不参与渠道活动</p>
@@ -173,6 +173,10 @@ export default defineComponent({
         height: 114px;
         top: -12px;
         left: -10px;
+      }
+
+      .price {
+        white-space: nowrap;
       }
     }
 

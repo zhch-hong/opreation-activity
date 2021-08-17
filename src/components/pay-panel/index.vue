@@ -84,7 +84,7 @@ export default defineComponent({
           url = url.replace('@child_channel@', type.child_channel);
         }
 
-        if (isWebview) {
+        if (isWebview && process.env.NODE_ENV === 'production') {
           API_OPEN_BROWSER(url);
         }
       });
