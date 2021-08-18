@@ -92,8 +92,6 @@ const fetchMessage = (function webview2client() {
   watch(
     () => [...messageStack],
     (cur, pre) => {
-      console.log('watch', cur.length, pre.length);
-
       // cur.length > pre.length
       // 说明是有消息被添加到消息队列，如果当前没有消息正处于通讯状态，则触发消息发送机制
       // 如果当前正有消息处于通讯状态，则消息触发交由 emitter.on(readuuid) 回调函数处理
