@@ -24,7 +24,7 @@ function mountNotify() {
   const el = notifyStack[notifyIndex];
   if (typeof el === 'undefined') {
     notifyIndex = 0;
-    notifyStack.splice(0);
+    notifyStack.splice(0, notifyStack.length);
     return;
   }
 
@@ -37,6 +37,7 @@ function mountNotify() {
         name: el.name,
         count: el.count,
         onConfirm: async () => {
+          alert('onConfirm');
           notifyIndex++;
           notifyApp.unmount();
           mountDiv.remove();
