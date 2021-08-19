@@ -3,7 +3,7 @@ import _ from 'lodash';
 import store from '@/store';
 import { v4 } from 'uuid';
 import { reactive, ref, watch } from 'vue';
-import { isBrowser, isWebview } from '@/vendors/runtime-env';
+import { isWebview } from '@/vendors/runtime-env';
 import { emitter } from '@/vendors/window-listener';
 
 /**

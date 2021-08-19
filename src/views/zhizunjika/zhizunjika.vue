@@ -135,7 +135,7 @@ export default defineComponent({
     },
 
     lotteryResolve(event: unknown) {
-      console.log('抽奖结束', event);
+      //
     },
   },
 });

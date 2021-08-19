@@ -35,7 +35,7 @@ export default defineComponent({
       composition();
 
     // SKT_QUERY_CHANG_WAN_KA_BASE_INFO((response) => {
-    //   console.log('畅玩卡数据改变', response);
+    //
     // });
 
     SKT_TASK_CHANGE_MSG(({ task_item }) => {

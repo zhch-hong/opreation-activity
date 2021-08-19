@@ -10,11 +10,11 @@ const routes: Array<RouteRecordRaw> = [
     name: '活动',
     component: () => import('@/views/multi-nav/multi-nav.vue'),
   },
-  {
-    path: '/act_004_jika_web',
-    name: '至尊季卡',
-    component: () => import('@/views/zhizunjika/zhizunjika.vue'),
-  },
+  // {
+  //   path: '/act_004_jika_web',
+  //   name: '至尊季卡',
+  //   component: () => import('@/views/zhizunjika/zhizunjika.vue'),
+  // },
   {
     path: '/gift_10087_web',
     name: '每日特惠',

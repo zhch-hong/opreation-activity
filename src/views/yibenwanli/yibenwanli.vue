@@ -115,14 +115,11 @@ export default defineComponent({
       { immediate: true, deep: true }
     );
 
-    SKT_NOTIFY_ASSET_CHANGE_MSG((data) => {
-      console.log('资产改变', data);
-    });
+    SKT_NOTIFY_ASSET_CHANGE_MSG();
 
     SKT_TASK_CHANGE_MSG(({ task_item }) => {
       const { id } = task_item;
       if (taskidList.includes(id)) {
-        console.log('任务改变', task_item);
         const { award_status } = task_item;
         if (award_status === 1) {
           const index = noreceive.value.findIndex((s) => s === id);

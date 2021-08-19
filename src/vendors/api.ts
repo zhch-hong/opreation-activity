@@ -175,7 +175,7 @@ export function API_BREAK_ACTIVITY(key: string, panel: string) {
   if (isWebview) {
     fetchMessage<void>(`unityfun://gotoui?1_string=${key}&2_string=${panel}`, false);
   } else {
-    console.log('跳转到原生活动，浏览器环境不支持', `unityfun://gotoui?1_string=${key}&2_string=${panel}`);
+    console.warn('跳转到原生活动，浏览器环境不支持', `unityfun://gotoui?1_string=${key}&2_string=${panel}`);
   }
 }
 
@@ -232,7 +232,7 @@ export function API_TASK_AWARD_STATUS(id: number, count: number) {
       true
     )!;
   else
-    console.log(
+    console.warn(
       '浏览器环境不支持获取某个任务各阶段的奖励领取状态',
       `unityfun://decode_all_task_award_status?1_int=${id}`
     );

@@ -87,7 +87,6 @@ export function activeObserve() {
 
     // 请求任务数据
     const { task_data } = await API_QUERY_ONE_TASK_DATA(res.taskid);
-    console.log(`礼包ID【${value}】，任务ID【${res.taskid}】，任务数据：`, task_data);
 
     fetchActiveAwards(res.taskid);
 

@@ -4,8 +4,8 @@
       <router-link class="route-link" :to="{ path: '/sys_act_base_normal_web', query: { token } }"
         >活动导航</router-link
       >
-      <Divider />
-      <router-link class="route-link" :to="{ path: '/act_004_jika_web', query: { token } }">至尊季卡</router-link>
+      <!-- <Divider />
+      <router-link class="route-link" :to="{ path: '/act_004_jika_web', query: { token } }">至尊季卡</router-link> -->
       <Divider />
       <router-link class="route-link" :to="{ path: '/gift_10087_web', query: { token } }">每日特惠</router-link>
       <Divider />
