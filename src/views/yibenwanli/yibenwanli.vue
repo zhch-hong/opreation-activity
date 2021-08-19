@@ -146,8 +146,10 @@ export default defineComponent({
     SKT_NOTIFY_PAY_ORDER_MSG(({ goods_id }) => {
       const list = YIBENWANLI.map((e) => e.id);
       if (list.includes(goods_id)) {
-        getFullStatus();
-        fetchActiveAwards(activeConfig['value']['taskid']);
+        _.delay(() => {
+          getFullStatus();
+          fetchActiveAwards(activeConfig['value']['taskid']);
+        }, 500);
       }
     });
 
