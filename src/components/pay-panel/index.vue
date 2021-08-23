@@ -1,11 +1,11 @@
 <template>
-  <OverlayDialog :visible="true" @close="$emit('unmount')">
+  <OverlayDialog :visible="visible" @close="visible = false">
     <template #title>
       <span>支付方式</span>
     </template>
     <div class="main">
       <div class="select">
-        <div class="price">￥{{ price }}</div>
+        <div class="price">￥{{ giftPrice }}</div>
         <div class="types">
           <div v-if="weixin" class="pay wx" @click="createOrder('weixin')"></div>
           <div v-if="alipay" class="pay zfb" @click="createOrder('alipay')"></div>
@@ -21,7 +21,8 @@ import { isWebview } from '@/vendors/runtime-env';
 import alertMessage from '@/components/alert';
 
 import OverlayDialog from '../overlay-dialog/index.vue';
-import { API_CREATE_PAY_ORDER, API_GET_PAY_TYPES, API_OPEN_BROWSER } from '@/vendors/api';
+import { API_CREATE_PAY_ORDER, API_OPEN_BROWSER } from '@/vendors/api';
+import { GIFT_ID, GIFT_PRICE, VISIBILITY, WEIXIN, ALIPAY, UNIONPAY } from '.';
 
 export default defineComponent({
   name: 'PayPanel',
@@ -30,63 +31,33 @@ export default defineComponent({
     OverlayDialog,
   },
 
-  props: {
-    giftid: Number,
-    price: Number,
-  },
-
-  emits: ['unmount'],
-
-  data() {
+  setup() {
     return {
-      weixin: false,
-      alipay: false,
-      unionpay: false,
-      paytypes: [] as Record<string, string>[],
+      giftId: GIFT_ID,
+      giftPrice: GIFT_PRICE,
+      visible: VISIBILITY,
+      weixin: WEIXIN,
+      alipay: ALIPAY,
+      unionpay: UNIONPAY,
     };
   },
 
-  watch: {
-    paytypes(types: Record<string, string>[]) {
-      this.weixin = types.find((el) => el.channel === 'weixin') ? true : false;
-      this.alipay = types.find((el) => el.channel === 'alipay') ? true : false;
-      this.unionpay = types.find((el) => el.channel === 'UnionPay') ? true : false;
-    },
-  },
-
-  created() {
-    this.fetchPayType();
-  },
-
   methods: {
-    fetchPayType() {
-      if (!this.giftid) return;
-      API_GET_PAY_TYPES(this.giftid).then(({ types }) => {
-        if (!types) return;
-        this.paytypes = types.filter((o) => ['wxgzh', 'alipay', 'UnionPay'].includes(o.channel));
-      });
-    },
-
     createOrder(value: string) {
-      if (!this.giftid) return;
+      if (!this.giftId) return;
 
-      API_CREATE_PAY_ORDER(this.giftid, value).then(({ order_id, result, url }) => {
+      API_CREATE_PAY_ORDER(this.giftId, value).then(({ order_id, result, url }) => {
         if (result !== 0) {
           alertMessage(`[${result}]创建订单失败`);
           return;
         }
 
-        this.$emit('unmount');
-
-        url = url.replace('@order_id@', order_id);
-        const type = this.paytypes.find((item) => item.channel === value);
-        if (type) {
-          url = url.replace('@child_channel@', type.child_channel);
-        }
-
+        url = url.replace('@order_id@', order_id).replace('@child_channel@', 'Native');
         if (isWebview && process.env.NODE_ENV === 'production') {
           API_OPEN_BROWSER(url);
         }
+
+        this.visible = false;
       });
     },
   },
