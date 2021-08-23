@@ -50,43 +50,10 @@ div.main {
   }
 
   div.asset {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1.6);
-    text-align: center;
-
-    div.content {
-      background-image: url('../../assets/image/jhs_bg_6.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      width: 144px;
-      height: 140px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .icon-warp {
-        height: 89px;
-        padding-top: 2px;
-        overflow: hidden;
-
-        img.icon {
-          display: block;
-          max-height: 90%;
-          max-width: 90%;
-          margin: 10% auto;
-        }
-      }
-
-      span.count {
-        color: white;
-        font-size: 24px;
-        font-weight: 600;
-        transform: translateY(5px);
-        font-family: 'FZY3JW';
-      }
-    }
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     span.text {
       position: absolute;
