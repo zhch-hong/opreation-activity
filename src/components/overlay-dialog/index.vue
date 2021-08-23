@@ -4,7 +4,9 @@
       <div class="wrapper">
         <img v-if="showClose" class="close" src="@/assets/image/close_1.png" alt="关闭" @click="close" />
         <div class="header">
-          <slot name="title" />
+          <div class="title">
+            <slot name="title" />
+          </div>
         </div>
         <div class="content">
           <slot />
