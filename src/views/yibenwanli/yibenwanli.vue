@@ -30,7 +30,7 @@
         <div class="content">
           <!-- 时间区域 -->
           <header>
-            <img class="tip" src="@/assets/image/tip.png" alt="说明" @click="visibleRuleTip = true" />
+            <img class="tip" src="@/assets/image/tip.png" alt="说明" @click="ruleHandler" />
             <div
               v-if="bought.includes(activeConfig['id']) && activeConfig['id'] !== 10390 && activeConfig['id'] !== 10391"
               class="time"
@@ -75,7 +75,6 @@
       </section>
     </main>
   </div>
-  <RuleTip :visible="visibleRuleTip" @close="visibleRuleTip = false" />
 </template>
 <script lang="ts">
 import _ from 'lodash';
@@ -87,13 +86,12 @@ import payPanel from '@/components/pay-panel';
 import alertMsg from '@/components/alert';
 import { SKT_NOTIFY_PAY_ORDER_MSG, SKT_TASK_CHANGE_MSG, SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
-import RuleTip from './components/RuleTip.vue';
 import TaskItem from './components/TaskItem.vue';
 import { API_GET_TASK_AWARD_NEW } from '@/vendors/api';
+import rulePanel from '@/components/rule-panel';
 
 export default defineComponent({
   components: {
-    RuleTip,
     TaskItem,
   },
 
@@ -155,7 +153,6 @@ export default defineComponent({
 
     return {
       dataList: YIBENWANLI,
-      visibleRuleTip: ref(false),
       activeID,
       bought,
       noreceive,
@@ -192,6 +189,16 @@ export default defineComponent({
       } else {
         alertMsg('购买礼包后任务解锁');
       }
+    },
+    ruleHandler() {
+      const list = [
+        '购买一本万利后，即激活礼包任务',
+        '每期共有8个礼包可购买，其中王者与荣耀礼包可多次购买，其余礼包每个周期（十天）限购一次',
+        '可同时购买激活所有礼包，获得最大收益',
+        '每个礼包在购买激活后才会累计任务进度',
+        '苹果大战不计入数据统计',
+      ];
+      rulePanel(list);
     },
   },
 });
