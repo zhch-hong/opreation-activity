@@ -88,7 +88,7 @@ export default (assets: Asset[]): void => {
       } else {
         show.value = true;
       }
-    }, 800);
+    }, 1500);
   }
 };
 
