@@ -21,13 +21,13 @@
   </div>
 </template>
 <script lang="ts">
+import _ from 'lodash';
 import { defineComponent, ref } from 'vue';
 import { MEIRITEHUI, T_MEIRITEHUI } from '@/vendors/shopping';
 import { API_CHECK_PERMISS } from '@/vendors/api';
-import _ from 'lodash';
+import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
 import PayItem from './components/PayItem.vue';
-import { SKT_NOTIFY_ASSET_CHANGE_MSG } from '@/vendors/api-socket';
 
 function getLevelData() {
   const data = ref<T_MEIRITEHUI[]>([]);
@@ -57,8 +57,8 @@ export default defineComponent({
     });
 
     return {
+      updateStatus,
       list: getLevelData(),
-      updateStatus: ref(true),
     };
   },
 });
