@@ -69,14 +69,14 @@ export default defineComponent({
 
 @font-face {
   font-family: 'FZY3JW';
-  // src: url('./assets/font/FZY3JW.TTF');
-  src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/zt.ttf');
+  src: url('./assets/font/FZY3JW.TTF');
+  // src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/zt.ttf');
 }
 
 @font-face {
   font-family: 'FZY4JW';
-  // src: url('./assets/font/FZY4JW.TTF');
-  src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/ct.ttf');
+  src: url('./assets/font/FZY4JW.TTF');
+  // src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/ct.ttf');
 }
 
 html {

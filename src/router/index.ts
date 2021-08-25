@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/yibenwanli/yibenwanli.vue'),
   },
   {
-    path: '/sys_sclb_web',
+    path: '/sys_sclb1_web',
     name: '首充礼包',
     component: () => import('@/views/shouchonglibao/shouchonglibao.vue'),
   },

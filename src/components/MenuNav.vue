@@ -11,7 +11,7 @@
       <Divider />
       <router-link class="route-link" :to="{ path: '/act_035_ybwl_web', query: { token } }">一本万利</router-link>
       <Divider />
-      <router-link class="route-link" :to="{ path: '/sys_sclb_web', query: { token } }">首充礼包</router-link>
+      <router-link class="route-link" :to="{ path: '/sys_sclb1_web', query: { token } }">首充礼包</router-link>
       <Divider />
       <router-link class="route-link" :to="{ path: '/act_022_qflb_web', query: { token } }">全返礼包</router-link>
       <Divider />
