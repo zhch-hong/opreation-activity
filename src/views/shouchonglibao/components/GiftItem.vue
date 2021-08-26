@@ -169,9 +169,10 @@ export default defineComponent({
     transform: translateX(-50%);
     width: 333px;
     height: 150px;
-    line-height: 144px;
-    text-align: center;
-    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 46px;
     background: url('../../../assets/image/btn_back_enable.png') center/cover no-repeat;
     color: #fffcf0;
     text-shadow: 0 1px #fec169, 1px 0 #fec169, -1px 0 #fec169, 0 -1px #fec169;

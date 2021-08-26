@@ -185,6 +185,7 @@ main.main {
           color: #cc7817;
           font-size: 44px;
           padding: 0 20px;
+          white-space: nowrap;
         }
 
         div.count {
@@ -200,7 +201,6 @@ main.main {
           cursor: pointer;
           width: 333px;
           height: 150px;
-          line-height: 150px;
           text-align: center;
           transform: scale(0.8);
           background-size: cover;
@@ -208,6 +208,9 @@ main.main {
           background-repeat: no-repeat;
           color: #fff;
           font-size: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         div.enable {
@@ -237,13 +240,15 @@ main.main {
       transform: translateX(-50%);
       width: 263px;
       height: 102px;
-      line-height: 102px;
       font-size: 50px;
       color: #fff;
       text-align: center;
       text-shadow: 0 1px #d26529, 1px 0 #d26529, -1px 0 #d26529, 0 -1px #d26529;
       -webkit-text-stroke: 0.3px #d26529;
       background: url('../../assets/image/price.png') center/cover no-repeat;
+      span {
+        vertical-align: -16px;
+      }
     }
   }
 }

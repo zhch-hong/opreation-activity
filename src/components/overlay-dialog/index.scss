@@ -25,14 +25,15 @@
   left: 50%;
   transform: translateX(-50%);
   height: 105px;
-  line-height: 105px;
-  text-align: center;
   width: auto;
   min-width: 554px;
   background-image: url('../../assets/image/title_back.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100%;
     font-size: 54px;
     letter-spacing: 6px;

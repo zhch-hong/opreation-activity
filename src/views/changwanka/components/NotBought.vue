@@ -7,7 +7,7 @@
 
     <img class="ques" src="../image/com_btn_rule2.png" alt="问号" @click="ruleHandler" />
 
-    <div class="submit" @click="submit">99元领取</div>
+    <div class="submit" @click="submit"><span>99元领取</span></div>
   </div>
 </template>
 <script lang="ts">
@@ -79,8 +79,9 @@ export default defineComponent({
     left: 800px;
     width: 316px;
     height: 122px;
-    line-height: 122px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
     font-size: 60px;
     white-space: nowrap;

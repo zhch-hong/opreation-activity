@@ -130,8 +130,9 @@ div.pay-button {
   bottom: -100px;
   width: 333px;
   height: 150px;
-  line-height: 150px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   left: 50%;
   transform: translateX(-50%);
   background-size: contain;

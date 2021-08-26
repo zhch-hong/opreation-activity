@@ -126,7 +126,8 @@ export default defineComponent({
   .title {
     margin: 30px 0 18px;
     color: #276199;
-    font-size: 34px;
+    font-size: 32px;
+    white-space: nowrap;
   }
 
   .bottom {

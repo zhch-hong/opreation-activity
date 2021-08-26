@@ -70,7 +70,9 @@
 
         <!-- 价格 -->
         <div class="price" @click="payHandler">
-          {{ bought.includes(activeConfig['id']) ? '本期已购' : activeConfig['price'] + '元' }}
+          <span>
+            {{ bought.includes(activeConfig['id']) ? '本期已购' : activeConfig['price'] + '元' }}
+          </span>
         </div>
       </section>
     </main>
