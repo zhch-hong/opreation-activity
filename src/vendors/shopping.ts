@@ -189,93 +189,6 @@ export type T_MEIRITEHUI = {
 export const MEIRITEHUI: Array<Array<T_MEIRITEHUI>> = [
   [
     {
-      id: 10093,
-      price: 18,
-      desc: [
-        { text: '90万', icon: 'ty_icon_jb_498y' },
-        { text: '100万', icon: 'ty_icon_jb_30y' },
-        { text: '10万', icon: 'ty_icon_yxb_2' },
-      ],
-    },
-    {
-      id: 10094,
-      price: 48,
-      desc: [
-        { text: '240万', icon: 'ty_icon_jb_998y' },
-        { text: '260万', icon: 'ty_icon_jb_50y' },
-        { text: '10万', icon: 'ty_icon_yxb_4' },
-      ],
-    },
-    {
-      id: 10095,
-      price: 98,
-      desc: [
-        { text: '490万', icon: 'ty_icon_jb_2498y' },
-        { text: '520万', icon: 'ty_icon_jb_198y' },
-        { text: '20万', icon: 'ty_icon_yxb_5' },
-      ],
-    },
-  ],
-  [
-    {
-      id: 10096,
-      price: 48,
-      desc: [
-        { text: '240万', icon: 'ty_icon_jb_498y' },
-        { text: '260万', icon: 'ty_icon_jb_30y' },
-        { text: '10万', icon: 'ty_icon_yxb_2' },
-      ],
-    },
-    {
-      id: 10097,
-      price: 88,
-      desc: [
-        { text: '490万', icon: 'ty_icon_jb_998y' },
-        { text: '520万', icon: 'ty_icon_jb_50y' },
-        { text: '20万', icon: 'ty_icon_yxb_4' },
-      ],
-    },
-    {
-      id: 10098,
-      price: 198,
-      desc: [
-        { text: '990万', icon: 'ty_icon_jb_2498y' },
-        { text: '1070万', icon: 'ty_icon_jb_198y' },
-        { text: '30万', icon: 'ty_icon_yxb_5' },
-      ],
-    },
-  ],
-  [
-    {
-      id: 10099,
-      price: 98,
-      desc: [
-        { text: '490万', icon: 'ty_icon_jb_498y' },
-        { text: '520万', icon: 'ty_icon_jb_30y' },
-        { text: '20万', icon: 'ty_icon_yxb_2' },
-      ],
-    },
-    {
-      id: 10100,
-      price: 198,
-      desc: [
-        { text: '990万', icon: 'ty_icon_jb_998y' },
-        { text: '1070万', icon: 'ty_icon_jb_50y' },
-        { text: '30万', icon: 'ty_icon_yxb_4' },
-      ],
-    },
-    {
-      id: 10101,
-      price: 498,
-      desc: [
-        { text: '2490万', icon: 'ty_icon_jb_2498y' },
-        { text: '2640万', icon: 'ty_icon_jb_198y' },
-        { text: '50万', icon: 'ty_icon_yxb_5' },
-      ],
-    },
-  ],
-  [
-    {
       id: 10239,
       price: 6,
       desc: [
@@ -358,6 +271,93 @@ export const MEIRITEHUI: Array<Array<T_MEIRITEHUI>> = [
         { text: '90万', icon: 'ty_icon_jb_2498y' },
         { text: '110万', icon: 'ty_icon_jb_198y' },
         { text: '20万', icon: 'ty_icon_yxb_4' },
+      ],
+    },
+  ],
+  [
+    {
+      id: 10093,
+      price: 18,
+      desc: [
+        { text: '90万', icon: 'ty_icon_jb_498y' },
+        { text: '100万', icon: 'ty_icon_jb_30y' },
+        { text: '10万', icon: 'ty_icon_yxb_2' },
+      ],
+    },
+    {
+      id: 10094,
+      price: 48,
+      desc: [
+        { text: '240万', icon: 'ty_icon_jb_998y' },
+        { text: '260万', icon: 'ty_icon_jb_50y' },
+        { text: '10万', icon: 'ty_icon_yxb_4' },
+      ],
+    },
+    {
+      id: 10095,
+      price: 98,
+      desc: [
+        { text: '490万', icon: 'ty_icon_jb_2498y' },
+        { text: '520万', icon: 'ty_icon_jb_198y' },
+        { text: '20万', icon: 'ty_icon_yxb_5' },
+      ],
+    },
+  ],
+  [
+    {
+      id: 10096,
+      price: 48,
+      desc: [
+        { text: '240万', icon: 'ty_icon_jb_498y' },
+        { text: '260万', icon: 'ty_icon_jb_30y' },
+        { text: '10万', icon: 'ty_icon_yxb_2' },
+      ],
+    },
+    {
+      id: 10097,
+      price: 88,
+      desc: [
+        { text: '490万', icon: 'ty_icon_jb_998y' },
+        { text: '520万', icon: 'ty_icon_jb_50y' },
+        { text: '20万', icon: 'ty_icon_yxb_4' },
+      ],
+    },
+    {
+      id: 10098,
+      price: 198,
+      desc: [
+        { text: '990万', icon: 'ty_icon_jb_2498y' },
+        { text: '1070万', icon: 'ty_icon_jb_198y' },
+        { text: '30万', icon: 'ty_icon_yxb_5' },
+      ],
+    },
+  ],
+  [
+    {
+      id: 10099,
+      price: 98,
+      desc: [
+        { text: '490万', icon: 'ty_icon_jb_498y' },
+        { text: '520万', icon: 'ty_icon_jb_30y' },
+        { text: '20万', icon: 'ty_icon_yxb_2' },
+      ],
+    },
+    {
+      id: 10100,
+      price: 198,
+      desc: [
+        { text: '990万', icon: 'ty_icon_jb_998y' },
+        { text: '1070万', icon: 'ty_icon_jb_50y' },
+        { text: '30万', icon: 'ty_icon_yxb_4' },
+      ],
+    },
+    {
+      id: 10101,
+      price: 498,
+      desc: [
+        { text: '2490万', icon: 'ty_icon_jb_2498y' },
+        { text: '2640万', icon: 'ty_icon_jb_198y' },
+        { text: '50万', icon: 'ty_icon_yxb_5' },
       ],
     },
   ],

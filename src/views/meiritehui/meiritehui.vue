@@ -32,16 +32,19 @@ import PayItem from './components/PayItem.vue';
 function getLevelData() {
   const data = ref<T_MEIRITEHUI[]>([]);
   const clone = _.cloneDeep(MEIRITEHUI);
-  const fun = function (array: Array<Array<T_MEIRITEHUI>>) {
-    const el = array.shift();
-    if (el) {
-      API_CHECK_PERMISS('actp_buy_gift_bag_' + el[0]['id']).then((value) => {
-        if (value.result) data.value = el;
-        else fun(array);
-      });
+  const promiseList: Array<Promise<Record<'result', boolean>>> = [];
+  MEIRITEHUI.forEach((item) => promiseList.push(API_CHECK_PERMISS(`actp_buy_gift_bag_${item[0].id}`)));
+  Promise.all(promiseList).then((value) => {
+    value.forEach((v, i) => {
+      console.log(clone[i][0].id, v, clone[i]);
+    });
+
+    const index = value.reverse().findIndex((item) => item.result);
+    if (index !== -1) {
+      const element = clone.reverse()[index];
+      data.value = element;
     }
-  };
-  fun(clone);
+  });
 
   return data;
 }
