@@ -223,7 +223,7 @@ export const MEIRITEHUI: Array<Array<T_MEIRITEHUI>> = [
       desc: [
         { text: '5万', icon: 'ty_icon_jb_498y' },
         { text: '15万', icon: 'ty_icon_jb_30y' },
-        { text: '1', icon: '3dby_btn_sd' },
+        { text: '1', icon: 'prop_3d_fish_lock' },
       ],
     },
     {
@@ -232,7 +232,7 @@ export const MEIRITEHUI: Array<Array<T_MEIRITEHUI>> = [
       desc: [
         { text: '15万', icon: 'ty_icon_jb_998y' },
         { text: '35万', icon: 'ty_icon_jb_50y' },
-        { text: '2', icon: '3dby_btn_sd' },
+        { text: '2', icon: 'prop_3d_fish_lock' },
       ],
     },
     {
@@ -241,7 +241,7 @@ export const MEIRITEHUI: Array<Array<T_MEIRITEHUI>> = [
       desc: [
         { text: '30万', icon: 'ty_icon_jb_2498y' },
         { text: '60万', icon: 'ty_icon_jb_198y' },
-        { text: '3', icon: '3dby_btn_sd' },
+        { text: '3', icon: 'prop_3d_fish_lock' },
       ],
     },
   ],
@@ -252,7 +252,7 @@ export const MEIRITEHUI: Array<Array<T_MEIRITEHUI>> = [
       desc: [
         { text: '30万', icon: 'ty_icon_jb_498y' },
         { text: '50万', icon: 'ty_icon_jb_30y' },
-        { text: '3', icon: '3dby_btn_sd' },
+        { text: '3', icon: 'prop_3d_fish_lock' },
       ],
     },
     {
