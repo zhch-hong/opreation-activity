@@ -30,6 +30,7 @@ export default defineComponent({
 
     if (scale) {
       appElement.style.transform = scale;
+      appElement.style.opacity = '1';
     } else {
       onMounted(() => {
         setTimeout(() => {
@@ -38,13 +39,14 @@ export default defineComponent({
           if (s > 1) s = 1;
           const v = `scale(${s})`;
           appElement.style.transform = v;
+          appElement.style.opacity = '1';
 
           if (isWebview) {
             API_APP_SCALE(v);
           } else {
             localStorage.setItem('scale', v);
           }
-        }, 1000);
+        }, 200);
       });
     }
 
@@ -69,14 +71,14 @@ export default defineComponent({
 
 @font-face {
   font-family: 'FZY3JW';
-  src: url('./assets/font/FZY3JW.TTF');
-  // src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/zt.ttf');
+  // src: url('./assets/font/FZY3JW.TTF');
+  src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/zt.ttf');
 }
 
 @font-face {
   font-family: 'FZY4JW';
-  src: url('./assets/font/FZY4JW.TTF');
-  // src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/ct.ttf');
+  // src: url('./assets/font/FZY4JW.TTF');
+  src: url('https://cdnjydown.jyhd919.cn/jydown/Version2020/Web/ct.ttf');
 }
 
 html {
@@ -94,6 +96,11 @@ body {
   overflow: hidden;
   font-size: 32px;
   font-family: 'FZY4JW' !important;
+}
+
+#app {
+  opacity: 0;
+  transition: transform 300ms, opacity 600ms;
 }
 
 .center {
